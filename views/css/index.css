@@ -1,0 +1,1335 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.input-error:focus {
+    outline: none;
+    border: 3px solid rgb(207, 54, 54);
+    background-color: rgba(207, 54, 54, 0.1);
+}
+
+.input-valid:focus {
+    outline: none;
+    border: 2px solid #00bfff;
+    /* azul cielo */
+}
+
+header {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    background-color: whitesmoke;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    .logo {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        margin-left: 20px;
+        gap: 20px;
+
+        .logo_text {
+            h5 {
+                color: #83b4ff;
+                font-family: fantasy;
+            }
+        }
+
+        .img_logo {
+            img {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    }
+
+    .hidenMenu {
+        width: 189px;
+        display: none;
+
+        .list {
+            div {
+                a {
+                    text-decoration: none;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .nav {
+        display: flex;
+        align-items: center;
+        margin-right: 25px;
+        gap: 15px;
+        width: 80%;
+        justify-content: end;
+
+        .burgerButton {
+            display: none;
+        }
+
+        .nav_navegar {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+
+
+            div {
+                display: flex;
+                width: 90px;
+                height: 36.50px;
+                border-radius: 5.50px;
+                justify-content: center;
+
+
+                a {
+                    text-decoration: none;
+                    color: black;
+                    transition: 0.5s;
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 5.50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                a:hover {
+                    background-color: cornflowerblue;
+                    transition: 1s;
+                    color: white;
+                }
+            }
+
+        }
+
+        .idioma {
+            img {
+                width: 35px;
+                height: 25px;
+            }
+        }
+
+        .vehiculo {
+            width: 190px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .menu_opcion {
+                display: flex;
+                width: 100%;
+                justify-content: center;
+                align-items: center;
+                transition: all 1s;
+                text-align: center;
+                height: 100%;
+
+                .opcion {
+                    margin-top: 30px;
+                    display: none;
+                    text-align: center;
+                    width: 100%;
+                    height: 100%;
+
+                    .cars {
+                        text-decoration: none;
+                        display: flex;
+                        width: 100%;
+                        gap: 20px;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;
+                        position: relative;
+                        bottom: 15px;
+
+                        div {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            text-align: center;
+
+                            a {
+                                text-decoration: none;
+                                color: black;
+                                width: 100%;
+                                height: 100%;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                transition: 0.5s;
+
+                            }
+
+                            a:hover {
+                                background-color: white;
+                                transition: 0.5s;
+                                color: burlywood;
+                                border-radius: 5px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .menu_opcion:hover {
+                background-color: burlywood;
+                transition: 1s;
+                border-radius: 5px;
+            }
+        }
+    }
+}
+
+body {
+    background-color: rgba(230, 230, 230, 0.5);
+
+    .slider {
+        width: 100%;
+        height: 380px;
+        background-image: url('../../img/index/guinea_equatorial-20250506-0005.jpg');
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .formDIreccion {
+            width: 90%;
+            height: 100px;
+            background-color: rgb(228, 242, 255. 0.50);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            /* Difumina el fondo */
+            opacity: 1;
+
+
+            h4 {
+                color: rgb(255, 255, 255);
+                margin-left: 15px;
+                margin-top: 5px;
+            }
+
+            form {
+                display: flex;
+                margin-left: 8.5px;
+                margin-right: 8.5px;
+                gap: 5px;
+
+                .sugerencias {
+                    position: absolute;
+                    background-color: #ffffff;
+                    border-top: none;
+                    width: 18%;
+                    max-height: 150px;
+                    overflow-y: auto;
+                    z-index: 999;
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+                    top: 90px;
+                }
+
+                .sugerencias div {
+                    padding: 10px;
+                    cursor: pointer;
+                    transition: background-color 0.2s ease;
+                    font-size: 14px;
+                    color: #333;
+                }
+
+                .sugerencias div:hover {
+                    background-color: #f0f0f0;
+                }
+
+
+                .btn_submit {
+                    button {
+                        font-weight: bold;
+                        transition: 0.5;
+                    }
+
+                    button:hover {
+                        background-color: cornflowerblue;
+                        color: white;
+                        transition: 1s;
+                    }
+                }
+            }
+
+
+        }
+    }
+
+    main {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        .info {
+            display: flex;
+            gap: 15px;
+            height: 225px;
+
+            .tab {
+                width: 250px;
+                height: 100%;
+
+                h5 {
+                    color: rgb(0, 0, 0);
+
+                    i {
+                        color: rgb(255, 43, 43);
+                    }
+                }
+
+                p {
+                    small {
+                        font-size: 11px;
+                        color: grey;
+                    }
+                }
+            }
+        }
+
+        .personal {
+            width: 90%;
+            height: 300px;
+            display: flex;
+            align-items: center;
+
+            .cart {
+                background-color: white;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                border-radius: 20px;
+
+                .img {
+                    width: 70%;
+                    height: 100%;
+                    border-radius: 20px;
+                    background-image: url('../../img/index/Torre.png');
+                    background-size: 100%;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    transition: 3.5s;
+
+                    .text-img {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-direction: column;
+
+                        h1 {
+                            color: transparent;
+                            font-family: fantasy;
+                            transition: 2s;
+                        }
+
+                        h3 {
+                            color: transparent;
+                            font-family: fantasy;
+                            transition: 2s;
+                        }
+
+                        h5 {
+                            color: rgb(255, 0, 0);
+                            font-family: fantasy;
+                            transition: 2s;
+                        }
+                    }
+
+                }
+
+                .img:hover {
+                    background-color: burlywood;
+                    transition: 1.5s;
+                    border-radius: 20px;
+                    background-image: url('../../img/index/Torre.png');
+                    background-size: 900px;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    filter: hue-rotate(0deg);
+
+                    .text-img {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-direction: column;
+
+                        h1 {
+                            color: cornflowerblue;
+                            font-family: fantasy;
+                            transition: 2.5s;
+                        }
+
+                        h3 {
+                            color: cadetblue;
+                            font-family: fantasy;
+                            transition: 10.5s;
+                        }
+
+                        h5 {
+                            color: transparent;
+                            font-family: fantasy;
+                            transition: 1.5s;
+                        }
+                    }
+                }
+
+                .text {
+                    width: 30%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+
+                    h4 {
+                        color: #83b4ff;
+                        font-size: 20px;
+                        font-weight: bold;
+                    }
+
+                    p {
+                        color: grey;
+                        font-size: 12px;
+                        text-align: center;
+                        width: 80%;
+
+                        small {
+                            font-size: 11px;
+                            color: grey;
+                        }
+                    }
+
+                    a {
+                        text-decoration: none;
+                        color: #83b4ff;
+                        font-weight: bold;
+                        font-size: 15px;
+                        transition: 0.5s;
+                        border: solid 1.5px #83b4ff;
+                        width: 80%;
+                        border-radius: 5px;
+                        text-align: center;
+                    }
+
+                    a:hover {
+                        background-color: white;
+                        transition: 0.5s;
+                        color: burlywood;
+                        border-radius: 5px;
+                        border: solid 1.5px burlywood;
+                    }
+                }
+            }
+        }
+
+        .sobreNosotros {
+            width: 98%;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+
+            .text {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                gap: 10px;
+
+                h1 {
+                    color: #83b4ff;
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+
+                p {
+                    color: grey;
+                    font-size: 12px;
+                    text-align: center;
+                    width: 80%;
+
+                    small {
+                        font-size: 11px;
+                        color: grey;
+                    }
+                }
+
+            }
+
+            .img {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+
+                img {
+                    width: 50%;
+                    height: 58%;
+                    border-radius: 20px;
+                    background-color: white;
+                    transition: 1s;
+                }
+
+                img:hover {
+                    background-color: rgb(100, 149, 237, 0.50);
+                    transition: 1s;
+                    border-radius: 20px;
+                    filter: hue-rotate(10deg);
+                }
+            }
+
+            .btnMasInfo {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                gap: 10px;
+
+                a {
+                    text-decoration: none;
+                    color: #83b4ff;
+                    font-weight: bold;
+                    font-size: 15px;
+                    transition: 0.5s;
+                    border: solid 1.5px #83b4ff;
+                    width: 80%;
+                    border-radius: 5px;
+                    text-align: center;
+                }
+
+                a:hover {
+                    background-color: white;
+                    transition: 0.5s;
+                    color: burlywood;
+                    border-radius: 5px;
+                    border: solid 1.5px burlywood;
+                }
+
+                p {
+                    color: grey;
+                    font-size: 12px;
+                    text-align: center;
+                    width: 80%;
+
+                    small {
+                        font-size: 11px;
+                        color: grey;
+                    }
+                }
+
+                .subLogo {
+                    width: 30%;
+                    height: 38%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 20px;
+                        background-color: white;
+                        transition: 1s;
+                    }
+
+                    img:hover {
+                        background-color: rgb(100, 149, 237, 0.50);
+                        transition: 1s;
+                        border-radius: 20px;
+                        filter: hue-rotate(10deg);
+                    }
+                }
+            }
+
+        }
+
+        .rutasFrecuentes {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+
+            h1 {
+                color: #83b4ff;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .rutas {
+                width: 100%;
+                height: 150px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+                transition: 0.5s;
+
+                .ruta {
+                    width: 20%;
+                    height: 100px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    border-radius: 5px;
+                    background-color: white;
+                    transition: 0.5s;
+                    cursor: pointer;
+
+                    .direcciones {
+                        display: flex;
+                        width: 100%;
+                        height: 100%;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 20px;
+
+                        div {
+                            h5 {
+                                color: #83b4ff;
+                                font-size: 15px;
+                                font-weight: bold;
+                            }
+                        }
+                    }
+
+                    p {
+                        color: grey;
+                        font-size: 12px;
+                        text-align: center;
+                        width: 80%;
+
+                        small {
+                            font-size: 11px;
+                            color: grey;
+                        }
+                    }
+                }
+
+                .ruta:hover {
+                    width: 20%;
+                    height: 110px;
+                    transition: 1s;
+                    border-radius: 5px;
+                    filter: hue-rotate(10deg);
+                }
+            }
+        }
+
+        .rutasPopulares {
+            width: 100%;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            h1 {
+                color: #83b4ff;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .carts {
+                width: 85%;
+                height: 100%;
+                border-radius: 10px;
+                display: flex;
+
+                gap: 10px;
+
+
+                .cart {
+                    width: 100%;
+                    height: 100%;
+
+                    .img_ciudadDestino {
+                        width: 100%;
+                        height: 37%;
+                        background-image: url('../../img/index/ciudadOyala.png');
+                        background-size: 100%;
+                        background-repeat: no-repeat;
+                        border-radius: 10px;
+                    }
+
+                    .direcciones {
+                        width: 100%;
+                        height: 35px;
+                        display: flex;
+                        align-items: center;
+                        gap: 20px;
+
+                        a {
+                            height: 35px;
+                            transition: 2.5s;
+                            text-decoration: none;
+                            color: #83b4ff;
+                            transition: 0.5s;
+                            width: 100%;
+                            text-align: center;
+                            justify-content: center;
+                            border-radius: 12px;
+                            display: flex;
+
+                            .dir {
+                                width: 50%;
+                                height: 100%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                gap: 10px;
+
+                                h5 {
+                                    color: #83b4ff;
+                                    font-size: 14px;
+                                    font-weight: bold;
+                                }
+                            }
+
+                            .ticket {
+                                width: 50%;
+                                height: 100%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                gap: 10px;
+
+                                .precio {
+                                    h5 {
+                                        color: #83b4ff;
+                                        font-size: 17px;
+                                        font-weight: bold;
+                                    }
+                                }
+
+                            }
+                        }
+
+                        a:hover {
+                            transition: 2.5s;
+                            border: solid 1.5px #83b4ff;
+                            background-color: rgb(95, 158, 160, 0.50);
+                            border-radius: 12px;
+                        }
+                    }
+
+                    .puntos {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-direction: column;
+                        gap: 7px;
+                        background-color: white;
+                        height: 300px;
+                        border-radius: 10px;
+
+                        div {
+                            small {
+                                color: #83b4ff;
+                                font-size: 12px;
+                            }
+                        }
+
+                        .py {
+                            width: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+
+
+                            a {
+                                width: 100%;
+                                text-decoration: none;
+                                color: #83b4ff;
+                                border: solid 1.5px #83b4ff;
+                                width: 80%;
+                                border-radius: 5px;
+                                display: flex;
+                                justify-content: center;
+                                gap: 20px;
+                                transition: 1s;
+                            }
+
+                            a:hover {
+                                background-color: #83b4ff;
+                                color: aliceblue;
+                                transition: 0.5s;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        .smsSeguridad {
+            width: 80%;
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 70px;
+
+            .sms {
+                width: 50%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+
+                h1 {
+                    color: #83b4ff;
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+            }
+
+            .img_sms {
+                width: 50%;
+                height: 100%;
+                display: flex;
+                text-align: center;
+                justify-content: center;
+
+                .img {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    gap: 40px;
+                    transition: 5s;
+
+                    h5 {
+                        font: 1em sans-serif;
+                        color: aliceblue;
+                    }
+
+                    .iconos {
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 10px;
+                        transition: 5s;
+
+                        i {
+                            color: #83b4ff;
+                            font-size: 76px;
+                            transition: 5s;
+                        }
+                    }
+                }
+
+                .img:hover {
+                    background-color: #83b4ff;
+                    transition: 1s;
+                    border-radius: 20px;
+                    filter: hue-rotate(10deg);
+                    transition: 5s;
+
+                    .iconos {
+                        gap: 40px;
+                        transition: 3s;
+
+                        i {
+                            transition: 8s;
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+footer {
+    background-color: #000;
+    color: #fff;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+}
+
+.footer-column h3 {
+    color: #83b4ff;
+    margin-bottom: 15px;
+    font-size: 18px;
+
+
+}
+
+.footer-column p,
+.footer-column li,
+.footer-column a,
+.footer-bottom {
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.6;
+    text-decoration: none;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column {
+    img {
+        width: 50%;
+        height: 50%;
+    }
+}
+
+.footer-column a:hover {
+    color: #ffd700;
+}
+
+.language-select {
+    background-color: #222;
+    color: #fff;
+    border: 1px solid #555;
+    padding: 8px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    border-top: 1px solid #333;
+    padding-top: 20px;
+    font-size: 12px;
+}
+
+
+
+@media (max-width: 600px) {
+    .footer-column {
+        text-align: center;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 840px) {
+    header {
+        transition: all 0.5s;
+
+        .hidenMenu.mostrar {
+            display: block;
+        }
+
+        .nav {
+            .nav_navegar {
+                display: none;
+            }
+
+            .vehiculo {
+                display: none;
+            }
+
+            .burgerButton {
+                display: block;
+                cursor: pointer;
+            }
+        }
+    }
+
+    header.openMenu {
+        height: 280px;
+        background-color: rgba(0, 0, 0, 0.662);
+        transition: all 1s;
+
+
+        .logo {
+            display: block;
+        }
+    }
+
+    body {
+        .slider {
+
+            .formDIreccion {
+                width: 90%;
+                height: 300px;
+
+                form {
+                    width: 95%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+
+                    .sugerencias {
+                        width: 95%;
+                    }
+
+                    .btn_submit {
+                        button {
+                            width: 100%;
+                            height: 40px;
+                            border-radius: 5px;
+                            font-weight: bold;
+                            transition: 0.5;
+                        }
+                    }
+                }
+            }
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+
+            .info {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                height: 100%;
+                width: 90%;
+
+                .tab {
+                    width: 100%;
+                    height: 100%;
+                    border: solid grey 1.5px;
+                    border-top: none;
+                    border-left: none;
+                    border-right: none;
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+
+                    h5 {
+                        color: rgb(0, 0, 0);
+
+                        i {
+                            color: rgb(255, 43, 43);
+                        }
+                    }
+
+                    p {
+                        small {
+                            font-size: 11px;
+                            color: grey;
+                        }
+                    }
+                }
+            }
+
+            .personal {
+                height: 500px;
+
+                .cart {
+                    display: block;
+
+                    .img {
+                        width: 100%;
+                        height: 60%;
+                    }
+
+                    .text {
+                        width: 100%;
+                        height: 40%;
+                    }
+                }
+            }
+
+            .sobreNosotros {
+                width: 90%;
+                height: 700px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                border-radius: 20px;
+
+                .img {
+                    width: 100%;
+                    height: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+
+                    img {
+                        width: 130px;
+                        height: 75%;
+                        border-radius: 20px;
+                        background-color: white;
+                        transition: 1s;
+                    }
+
+                    img:hover {
+                        background-color: rgb(100, 149, 237, 0.50);
+                        transition: 1s;
+                        border-radius: 20px;
+                        filter: hue-rotate(10deg);
+                    }
+                }
+
+                .text {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    h1 {
+                        color: cadetblue;
+                        font-size: 20px;
+                        font-weight: bold;
+                    }
+
+                    p {
+                        color: grey;
+                        font-size: 12px;
+                        text-align: center;
+                        width: 80%;
+
+                        small {
+                            font-size: 11px;
+                            color: grey;
+                        }
+                    }
+
+                }
+            }
+
+            .rutasFrecuentes {
+                width: 100%;
+                height: 400px;
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+                flex-direction: column;
+
+                .rutas {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    height: 100%;
+
+                    .ruta {
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .direcciones {
+                            width: 100%;
+                        }
+                    }
+
+                    .ruta:hover {
+                        width: 100%;
+                        height: 100px;
+                        background-color: cadetblue;
+
+                        .direcciones {
+                            div {
+                                h5 {
+                                    color: white;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .rutasPopulares {
+                width: 100%;
+                height: 1500px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+
+                .carts {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    background-color: white;
+
+                    .cart {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+
+            .smsSeguridad {
+                width: 100%;
+                height: 500px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+
+                .sms {
+                    width: 100%;
+                    height: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    text-align: center;
+                    gap: 15px;
+
+                    h1 {
+                        color: cadetblue;
+                        font-size: 20px;
+                        font-weight: bold;
+                    }
+                }
+
+                .img_sms {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+
+                    .img {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
+                        gap: 40px;
+                        transition: 5s;
+
+                        h5 {
+                            font: 1em sans-serif;
+                            color: aliceblue;
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+
+}
+
+@media screen and (max-width: 500px) {
+    header {
+        .logo {
+            margin-left: 10px;
+        }
+    }
+
+    body {
+        .slider {
+            .formDIreccion {
+                width: 95%;
+            }
+        }
+
+        main {
+            .personal {
+                height: 700px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    header {
+        .logo {
+            margin-left: 5px;
+        }
+    }
+
+    body {
+        .slider {
+            .formDIreccion {
+                width: 98%;
+            }
+        }
+
+        main {
+            .personal {
+                height: 400px;
+
+                .cart {
+                    display: block;
+
+                    .img {
+                        width: 100%;
+                        height: 50%;
+                    }
+
+                    .text {
+                        width: 100%;
+                        height: 40%;
+                    }
+                }
+            }
+        }
+    }
+}
