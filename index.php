@@ -38,7 +38,7 @@
     </div>
     <div class="nav">
         <div class="nav_navegar">
-            <div><a href="#">Inicio</a></div>
+            <div><a href="#" class="active">Inicio</a></div>
             <div title="viaja en todas partes"><a href="views/turismo.eg/index.php">Turismo</a></div>
             <div> <a href="views/nosotros.eg/index.php">Nosotros</a></div>
             <div> <a href="views/agencias.eg/index.php">Agencias</a></div>

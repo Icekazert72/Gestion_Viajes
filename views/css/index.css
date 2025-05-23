@@ -100,8 +100,7 @@ header {
                     justify-content: center;
                     align-items: center;
                 }
-
-                a:hover {
+                a:hover, a.active {
                     background-color: cornflowerblue;
                     transition: 1s;
                     color: white;
@@ -525,7 +524,7 @@ body {
                     text-align: center;
                 }
 
-                a:hover {
+                a:hover, a.active {
                     background-color: white;
                     transition: 0.5s;
                     color: burlywood;

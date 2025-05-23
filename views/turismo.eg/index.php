@@ -39,8 +39,10 @@
         <div class="nav">
             <div class="nav_navegar">
                 <div><a href="../../index.php">Inicio</a></div>
-                <div> <a href="#">Nosotros</a></div>
-                <div> <a href="#">Agencias</a></div>
+                <div> <a href="#" class="active" style="background-color: cornflowerblue;color: white;">
+                    Turismo</a></div>
+                <div> <a href="../nosotros.eg/index.php">Nosotros</a></div>
+                <div> <a href="../agencias.eg/index.php">Agencias</a></div>
             </div>
             <div class="burgerButton" id="btn_mn"><i class="fa-solid fa-bars"></i></div>
             <div title="Registrate aqui" class="btn"><a href="#"><i class="fa-solid fa-user"></i></a></div>
@@ -53,9 +55,11 @@
             <img src="../../img/index/equatorial_guinea_water_large_490de08bde.webp" alt="">
         </div>
     </div>
-
+    <br><br><br><br>
     <div class="title_turismos">
         <h2><i class="fas fa-globe-americas"></i> Vive experiencias inolvidables</h2>
+        
+        <br>
 
     </div>
 
@@ -137,6 +141,71 @@
         </div>
 
     </main>
+<footer>
+        <div class="footer-container">
+
+
+            <div class="footer-column">
+                <h3>Ndong Viajes</h3>
+                <p>Tu mejor elección para viajar por carretera con comodidad, seguridad y puntualidad.</p>
+                <img src="../../img/index/Logo_viages.png" alt="">
+            </div>
+
+            <div class="footer-column">
+                <h3>Enlaces útiles</h3>
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Destinos</a></li>
+                    <li><a href="#">Reservas</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                </ul>
+            </div>
+
+
+            <div class="footer-column">
+                <h3>Contacto</h3>
+                <ul>
+                    <li><i class="fa-regular fa-map"></i>
+                        <p>Calle Principal 45, Malabo</p>
+                    </li>
+                    <li><i class="fa-solid fa-square-phone"></i>
+                        <p>+240 555 123456</p>
+                    </li>
+                    <li><i class="fa-regular fa-envelope"></i>
+                        <p>info@ndongviajes.com</p>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="footer-column">
+                <h3>Síguenos</h3>
+                <ul>
+                    <li><a href="#"><i class="fa-brands fa-facebook"></i>
+                            <p>Facebook</p>
+                        </a></li>
+                    <li><a href="#"><i class="fa-brands fa-instagram"></i>
+                            <p>Instagram</p>
+                        </a></li>
+                    <li><a href="#"><i class="fa-brands fa-twitch"></i>
+                            <p>Twitter</p>
+                        </a></li>
+                </ul>
+
+                <h3 style="margin-top: 20px;">Idioma</h3>
+                <select title="Seleccionar idioma de la web" class="language-select" id="idiomas">
+                    <option value="es" id="es">Español (Guinea Ecuatorial)</option>
+                    <option value="fr" id="fr">Français</option>
+                    <option value="en" id="en">English</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2025 Ndong Viajes. Todos los derechos reservados.
+        </div>
+    </footer>
 
     <script src="../../controllers/js/bootstrap.min.js"></script>
     <script src="../../controllers/js/botones.js"></script>
