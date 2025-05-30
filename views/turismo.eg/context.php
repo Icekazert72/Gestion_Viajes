@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="views/css/bootstrap.min.css">
     <link rel="stylesheet" href="views/css/fontawesome.min.css">
     <link rel="stylesheet" href="views/css/sweetalert2.css">
-    <link rel="stylesheet" href="../css/windows4.css">
+    <link rel="stylesheet" href="./s.css">
 </head>
 <header id="header">
     <div class="logo">
-        <div title="Logo" class="img_logo"><img src="../../img/index/Logo_viages.png" alt=""></div>
+        <div title="Logo" class="img_logo"><img src="img/index/Logo_viages.png" alt=""></div>
         <div class="logo_text">
             <h5 title="Texto del logo">Ndong Viajes</h5>
             <div class="hidenMenu" id="hidenmenu">
@@ -43,7 +43,7 @@
         </div>
         <div class="burgerButton" id="btn_mn"><i class="fa-solid fa-bars"></i></div>
         <div title="Registrate aqui" class="btn"><a href="views/login/index.php"><i class="fa-solid fa-user"></i></a></div>
-        <div title="Cambiar el idioma aqui" class="idioma"><img src="../../img/index/bandera.png" alt=""></div>
+        <div title="Cambiar el idioma aqui" class="idioma"><img src="img/index/bandera.png" alt=""></div>
     </div>
 </header>
 <body>
@@ -118,8 +118,8 @@
 <div class="fondo">
     <section class="destinos-header2">
   <h2> 🗺️ Destinos y experiencias</h2>
-  <p class="medio_p">¿A dónde puedo ir?</p>
-  <p class="ultimo_p">
+  <p>¿A dónde puedo ir?</p>
+  <p>
     Te ofrecemos los mejores lugares de destinos bien organizados, experiencias destacadas que no vas a olvidar porque no solo son destinos si no una conexion directa con la naturaleza.
   </p>
 </section>
@@ -174,7 +174,7 @@
             <div class="footer-column">
                 <h3>Ndong Viajes</h3>
                 <p>Tu mejor elección para viajar por carretera con comodidad, seguridad y puntualidad.</p>
-                <img src="../../img/index/Logo_viages.png" alt="">
+                <img src="img/index/Logo_viages.png" alt="">
             </div>
 
             <div class="footer-column">
