@@ -1,0 +1,879 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.input-error:focus {
+    outline: none;
+    border: 3px solid rgb(207, 54, 54);
+    background-color: rgba(207, 54, 54, 0.1);
+}
+
+.input-valid:focus {
+    outline: none;
+    border: 2px solid #00bfff;
+    /* azul cielo */
+}
+
+header {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    background-color: whitesmoke;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    .logo {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        margin-left: 20px;
+        gap: 20px;
+
+        .logo_text {
+            h5 {
+                color: #83b4ff;
+                font-family: fantasy;
+            }
+        }
+
+        .img_logo {
+            img {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    }
+
+    .hidenMenu {
+        width: 189px;
+        display: none;
+
+        .list {
+            div {
+                a {
+                    text-decoration: none;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .nav {
+        display: flex;
+        align-items: center;
+        margin-right: 25px;
+        gap: 15px;
+        width: 80%;
+        justify-content: end;
+
+        .burgerButton {
+            display: none;
+        }
+
+        .nav_navegar {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+
+
+            div {
+                display: flex;
+                width: 90px;
+                height: 36.50px;
+                border-radius: 5.50px;
+                justify-content: center;
+
+
+                a {
+                    text-decoration: none;
+                    color: black;
+                    transition: 0.5s;
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 5.50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                a:hover, a.active {
+                    background-color: cornflowerblue;
+                    transition: 1s;
+                    color: white;
+                }
+            }
+
+        }
+
+        .idioma {
+            img {
+                width: 35px;
+                height: 25px;
+            }
+        }
+
+        .vehiculo {
+            width: 190px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .menu_opcion {
+                display: flex;
+                width: 100%;
+                justify-content: center;
+                align-items: center;
+                transition: all 1s;
+                text-align: center;
+                height: 100%;
+
+                .opcion {
+                    margin-top: 30px;
+                    display: none;
+                    text-align: center;
+                    width: 100%;
+                    height: 100%;
+
+                    .cars {
+                        text-decoration: none;
+                        display: flex;
+                        width: 100%;
+                        gap: 20px;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;
+                        position: relative;
+                        bottom: 15px;
+
+                        div {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            text-align: center;
+
+                            a {
+                                text-decoration: none;
+                                color: black;
+                                width: 100%;
+                                height: 100%;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                transition: 0.5s;
+
+                            }
+
+                            a:hover, a.active {
+                                background-color: white;
+                                transition: 0.5s;
+                                color: burlywood;
+                                border-radius: 5px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .menu_opcion:hover {
+                background-color: burlywood;
+                transition: 1s;
+                border-radius: 5px;
+            }
+        }
+    }
+}
+
+
+/* estilos_agencias.css */
+
+/* Reset básico y box-sizing */
+body {
+  background: #f8f9fa;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.agencia-card {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.agencia-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.logo-text h2 {
+  margin: 0;
+  color: #00bcd4;
+}
+
+.flag-img {
+  width: 40px;
+  height: 25px;
+}
+
+.agencia-body {
+  margin-top: 1rem;
+}
+
+.descripcion {
+  margin-bottom: 1rem;
+}
+
+.descripcion h4 {
+  color: #4caf50;
+  margin-bottom: 0.5rem;
+}
+
+.descripcion p {
+  line-height: 1.6;
+  color: #444;
+}
+
+.info-contacto {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.info-contacto i {
+  margin-right: 8px;
+  color: #00bcd4;
+}
+
+.social-icons a {
+  margin-right: 10px;
+  font-size: 1.2rem;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #00bcd4;
+}
+
+.agencia-mapa iframe {
+  width: 100%;
+  height: 250px;
+  border: none;
+  margin: 1rem 0;
+  border-radius: 12px;
+}
+
+.agencia-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-ticket {
+  background-color: #ffc107;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-ticket:hover {
+  background-color: #ffb300;
+}
+
+
+
+
+footer {
+    background-color: #000;
+    color: #fff;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+}
+
+.footer-column h3 {
+    color: #83b4ff;
+    margin-bottom: 15px;
+    font-size: 18px;
+
+
+}
+
+.footer-column p,
+.footer-column li,
+.footer-column a,
+.footer-bottom {
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.6;
+    text-decoration: none;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column {
+    img {
+        width: 50%;
+        height: 50%;
+    }
+}
+
+.footer-column a:hover {
+    color: #ffd700;
+}
+
+.language-select {
+    background-color: #222;
+    color: #fff;
+    border: 1px solid #555;
+    padding: 8px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    border-top: 1px solid #333;
+    padding-top: 20px;
+    font-size: 12px;
+}
+
+
+
+@media (max-width: 600px) {
+    .footer-column {
+        text-align: center;
+    }
+}
+/* ========================
+   RESPONSIVE DESIGN
+=========================== */
+
+
+
+
+
+@media screen and (max-width: 840px) {
+    header {
+        transition: all 0.5s;
+
+        .hidenMenu.mostrar {
+            display: block;
+        }
+
+        .nav {
+            .nav_navegar {
+                display: none;
+            }
+
+            .vehiculo {
+                display: none;
+            }
+
+            .burgerButton {
+                display: block;
+                cursor: pointer;
+            }
+        }
+    }
+
+    header.openMenu {
+        height: 280px;
+        background-color: rgba(0, 0, 0, 0.662);
+        transition: all 1s;
+
+
+        .logo {
+            display: block;
+        }
+    }
+
+    body {
+        .slider {
+
+            .formDIreccion {
+                width: 90%;
+                height: 300px;
+
+                form {
+                    width: 95%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+
+                    .sugerencias {
+                        width: 95%;
+                    }
+
+                    .btn_submit {
+                        button {
+                            width: 100%;
+                            height: 40px;
+                            border-radius: 5px;
+                            font-weight: bold;
+                            transition: 0.5;
+                        }
+                    }
+                }
+            }
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+
+            .info {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                height: 100%;
+                width: 90%;
+
+                .tab {
+                    width: 100%;
+                    height: 100%;
+                    border: solid grey 1.5px;
+                    border-top: none;
+                    border-left: none;
+                    border-right: none;
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+
+                    h5 {
+                        color: rgb(0, 0, 0);
+
+                        i {
+                            color: rgb(255, 43, 43);
+                        }
+                    }
+
+                    p {
+                        small {
+                            font-size: 11px;
+                            color: grey;
+                        }
+                    }
+                }
+            }
+
+            .personal {
+                height: 500px;
+
+                .cart {
+                    display: block;
+
+                    .img {
+                        width: 100%;
+                        height: 60%;
+                    }
+
+                    .text {
+                        width: 100%;
+                        height: 40%;
+                    }
+                }
+            }
+
+            .sobreNosotros {
+                width: 90%;
+                height: 700px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                border-radius: 20px;
+
+                .img {
+                    width: 100%;
+                    height: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+
+                    img {
+                        width: 130px;
+                        height: 75%;
+                        border-radius: 20px;
+                        background-color: white;
+                        transition: 1s;
+                    }
+
+                    img:hover {
+                        background-color: rgb(100, 149, 237, 0.50);
+                        transition: 1s;
+                        border-radius: 20px;
+                        filter: hue-rotate(10deg);
+                    }
+                }
+
+                .text {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    h1 {
+                        color: cadetblue;
+                        font-size: 20px;
+                        font-weight: bold;
+                    }
+
+                    p {
+                        color: grey;
+                        font-size: 12px;
+                        text-align: center;
+                        width: 80%;
+
+                        small {
+                            font-size: 11px;
+                            color: grey;
+                        }
+                    }
+
+                }
+            }
+
+            .rutasFrecuentes {
+                width: 100%;
+                height: 400px;
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+                flex-direction: column;
+
+                .rutas {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    height: 100%;
+
+                    .ruta {
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .direcciones {
+                            width: 100%;
+                        }
+                    }
+
+                    .ruta:hover {
+                        width: 100%;
+                        height: 100px;
+                        background-color: cadetblue;
+
+                        .direcciones {
+                            div {
+                                h5 {
+                                    color: white;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .rutasPopulares {
+                width: 100%;
+                height: 1500px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+
+                .carts {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    background-color: white;
+
+                    .cart {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+
+            .smsSeguridad {
+                width: 100%;
+                height: 500px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+
+                .sms {
+                    width: 100%;
+                    height: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    text-align: center;
+                    gap: 15px;
+
+                    h1 {
+                        color: cadetblue;
+                        font-size: 20px;
+                        font-weight: bold;
+                    }
+                }
+
+                .img_sms {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+
+                    .img {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
+                        gap: 40px;
+                        transition: 5s;
+
+                        h5 {
+                            font: 1em sans-serif;
+                            color: aliceblue;
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+
+}
+
+@media screen and (max-width: 500px) {
+    header {
+        .logo {
+            margin-left: 10px;
+        }
+    }
+
+    body {
+        .slider {
+            .formDIreccion {
+                width: 95%;
+            }
+        }
+
+        main {
+            .personal {
+                height: 700px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    header {
+        .logo {
+            margin-left: 5px;
+        }
+    }
+
+    body {
+        .slider {
+            .formDIreccion {
+                width: 98%;
+            }
+        }
+
+        main {
+            .personal {
+                height: 400px;
+
+                .cart {
+                    display: block;
+
+                    .img {
+                        width: 100%;
+                        height: 50%;
+                    }
+
+                    .text {
+                        width: 100%;
+                        height: 40%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Pantallas hasta 1200px */
+@media (max-width: 1200px) {
+    .contenedor-agencia {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+}
+
+/* Pantallas hasta 992px (tablets) */
+@media (max-width: 992px) {
+    .contenedor-agencia {
+        grid-template-columns: 1fr;
+    }
+
+    .content_logo,
+    .content_descripcion,
+    .content_localizacion,
+    .content_ubicacionMapa,
+    .content_ticket {
+        padding: 1rem;
+    }
+
+    .content_logo {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .logo_text h5 {
+        font-size: 1.2rem;
+    }
+
+    .img_logo img,
+    .logo_Bandera img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .descripcion h5,
+    .ubicacion_texto h5 {
+        font-size: 1rem;
+    }
+}
+
+/* Pantallas hasta 768px (móviles grandes) */
+@media (max-width: 768px) {
+    .slider-content h1 {
+        font-size: 2rem;
+    }
+
+    .slider-content h5 {
+        font-size: 1rem;
+    }
+
+    .content_logo,
+    .content_descripcion,
+    .content_localizacion,
+    .content_ubicacionMapa,
+    .content_ticket {
+        width: 100%;
+        padding: 0.5rem;
+    }
+
+    .texto-scroll-vertical {
+        max-height: 150px;
+    }
+
+    .ubicacion_icono {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .btn_ticket {
+        width: 100%;
+        font-size: 1rem;
+    }
+}
+
+/* Pantallas hasta 480px (móviles pequeños) */
+@media (max-width: 480px) {
+    .slider-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .slider-content h5 {
+        font-size: 0.9rem;
+    }
+
+    .logo_text h5 {
+        font-size: 1rem;
+    }
+
+    .img_logo img,
+    .logo_Bandera img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .descripcion h5,
+    .ubicacion_texto h5 {
+        font-size: 0.9rem;
+    }
+
+    .btn_ticket {
+        font-size: 0.9rem;
+    }
+
+    .social a i {
+        font-size: 1.2rem;
+    }
+
+    .contacto p,
+    .email p,
+    .ubicacion_icono div {
+        font-size: 0.85rem;
+    }
+}

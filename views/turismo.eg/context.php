@@ -1,15 +1,3 @@
-<?php
-
-session_start();
-
-if (!isset($_SESSION['usuario'])) {
-    header('Location:views/login/index.php');
-    exit;
-}
-
-$username = $_SESSION['usuario'];
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,11 +8,11 @@ $username = $_SESSION['usuario'];
     <link rel="stylesheet" href="views/css/bootstrap.min.css">
     <link rel="stylesheet" href="views/css/fontawesome.min.css">
     <link rel="stylesheet" href="views/css/sweetalert2.css">
-    <link rel="stylesheet" href="../css/windows4.css">
+    <link rel="stylesheet" href="./s.css">
 </head>
 <header id="header">
     <div class="logo">
-        <div title="Logo" class="img_logo"><img src="../../img/index/Logo_viages.png" alt=""></div>
+        <div title="Logo" class="img_logo"><img src="img/index/Logo_viages.png" alt=""></div>
         <div class="logo_text">
             <h5 title="Texto del logo">Ndong Viajes</h5>
             <div class="hidenMenu" id="hidenmenu">
@@ -55,28 +43,10 @@ $username = $_SESSION['usuario'];
         </div>
         <div class="burgerButton" id="btn_mn"><i class="fa-solid fa-bars"></i></div>
         <div title="Registrate aqui" class="btn"><a href="views/login/index.php"><i class="fa-solid fa-user"></i></a></div>
-        <div title="Cambiar el idioma aqui" class="idioma"><img src="../../img/index/bandera.png" alt=""></div>
+        <div title="Cambiar el idioma aqui" class="idioma"><img src="img/index/bandera.png" alt=""></div>
     </div>
 </header>
 <body>
-<<<<<<< HEAD
-    <header id="header">
-        <div class="logo">
-            <div title="Logo" class="img_logo"><img src="../../img/index/Logo_viages.png" alt=""></div>
-            <div class="logo_text">
-                <h5 title="Texto del logo">Ndong Viajes</h5>
-                <div class="hidenMenu" id="hidenmenu">
-                    <div class="list">
-                        <div>
-                            <h5>Gestion</h5>
-                        </div>
-                        <div title="inicio del sitio"><a href="../../index.php">Inicio</a></div>
-                        <div><a href="#" title="Acerca de nosotros">Nosotros</a></div>
-                        <div><a href="../agencias.eg/index.php" title="Sobre otras agencias">Agencias</a></div>
-                    </div>
-                </div>
-            </div>
-=======
 <section class="banner">
   <h1>Turismo en Guinea Ecuatorial</h1>
   <p>Descubre los tesoros naturales y culturales de Guinea Ecuatorial. Explora paisajes exuberantes, vibrante historia y tradiciones únicas con experiencias diseñadas para viajeros curiosos y amantes de la autenticidad.</p>
@@ -96,7 +66,6 @@ $username = $_SESSION['usuario'];
   </div>
 </div>
 </section>
->>>>>>> 7554a4895467921e3d0057e07a73d307b1f135ba
 
 <!--carusel destinos destacados-->
 
@@ -149,8 +118,8 @@ $username = $_SESSION['usuario'];
 <div class="fondo">
     <section class="destinos-header2">
   <h2> 🗺️ Destinos y experiencias</h2>
-  <p class="medio_p">¿A dónde puedo ir?</p>
-  <p class="ultimo_p">
+  <p>¿A dónde puedo ir?</p>
+  <p>
     Te ofrecemos los mejores lugares de destinos bien organizados, experiencias destacadas que no vas a olvidar porque no solo son destinos si no una conexion directa con la naturaleza.
   </p>
 </section>
@@ -205,7 +174,7 @@ $username = $_SESSION['usuario'];
             <div class="footer-column">
                 <h3>Ndong Viajes</h3>
                 <p>Tu mejor elección para viajar por carretera con comodidad, seguridad y puntualidad.</p>
-                <img src="../../img/index/Logo_viages.png" alt="">
+                <img src="img/index/Logo_viages.png" alt="">
             </div>
 
             <div class="footer-column">
