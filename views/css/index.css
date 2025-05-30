@@ -5,17 +5,12 @@
     text-decoration: none;
 }
 
-.input-error:focus {
-    outline: none;
-    border: 3px solid rgb(207, 54, 54);
-    background-color: rgba(207, 54, 54, 0.1);
+
+
+.input-group i {
+    transition: color 0.3s ease;
 }
 
-.input-valid:focus {
-    outline: none;
-    border: 2px solid #00bfff;
-    /* azul cielo */
-}
 
 header {
     width: 100%;
@@ -36,7 +31,7 @@ header {
 
         .logo_text {
             h5 {
-                color: #83b4ff;
+                color: #002f75;
                 font-family: fantasy;
             }
         }
@@ -287,10 +282,10 @@ body {
                 height: 100%;
 
                 h5 {
-                    color: rgb(0, 0, 0);
+                    color: #3082fc;
 
                     i {
-                        color: rgb(255, 43, 43);
+                        color: #00398e;
                     }
                 }
 
@@ -959,15 +954,26 @@ footer {
 
 
 
-
-
-
-
-
-
-
-@media screen and (max-width: 840px) {
+@media screen and (max-width: 740px) {
     header {
+
+        .logo {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            margin-left: 20px;
+            gap: 10px;
+
+            .logo_text {
+                h5 {
+                    color: #002f75;
+                    font-family: fantasy;
+                    font-size: 13px;
+                }
+            }
+        }
+
+
         transition: all 0.5s;
 
         .hidenMenu.mostrar {
@@ -975,6 +981,10 @@ footer {
         }
 
         .nav {
+            position: relative;
+            align-self: flex-start;
+            top: 12.5px;
+
             .nav_navegar {
                 display: none;
             }
@@ -991,14 +1001,29 @@ footer {
     }
 
     header.openMenu {
-        height: 280px;
-        background-color: rgba(0, 0, 0, 0.662);
+        height: 250px;
+        background-color: rgba(255, 255, 255, 0.662);
         transition: all 1s;
-
-
         .logo {
             display: block;
         }
+
+        .list {
+            div {
+                h5 {
+                    color: #002f75;
+                    font-family: fantasy;
+                    font-size: 13px;
+                }
+
+                a {
+                    text-decoration: none;
+                    color: #002f75;
+                    font-size: 13px;
+                }
+            }
+        }
+
     }
 
     body {
@@ -1074,21 +1099,34 @@ footer {
             }
 
             .personal {
-                height: 500px;
+                padding: 10px;
 
                 .cart {
                     display: block;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    gap: 30px;
 
                     .img {
                         width: 100%;
-                        height: 60%;
+                        height: 300px;
                     }
 
                     .text {
                         width: 100%;
-                        height: 40%;
+                        height: 70%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        h4 {
+                            display: none;
+                        }
                     }
                 }
+
+
             }
 
             .sobreNosotros {
@@ -1211,6 +1249,7 @@ footer {
                     justify-content: center;
                     flex-direction: column;
                     background-color: white;
+                    gap: 100px;
 
                     .cart {
                         width: 100%;

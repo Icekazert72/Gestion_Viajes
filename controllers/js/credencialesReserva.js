@@ -181,10 +181,22 @@ document.addEventListener("DOMContentLoaded", () => {
         doc.save("ticket_reserva.pdf");
 
         // Esperar brevemente para asegurar descarga antes de limpiar y redirigir
-        setTimeout(() => {
-            localStorage.clear(); // Limpiar toda la información del localStorage
-            window.location.href = "../../index.php"; // Redirigir después de limpiar
-        }, 1000); // 1 segundo de espera (puedes ajustar este tiempo si es necesario)
+        // setTimeout(() => {
+        //     // Comprobar si se marcó la descarga como exitosa
+        //     if (localStorage.getItem("pdf_descargado") === "true") {
+        //         localStorage.clear(); // Limpiar datos
+        //         window.location.href = "../../index.php"; // Redirigir
+        //     } else {
+        //         // Si no se marcó, volver a intentar guardar el PDF
+        //         doc.save("ticket_reserva.pdf");
+
+        //         // Esperar otro segundo y forzar salida
+        //         setTimeout(() => {
+        //             localStorage.clear();
+        //             window.location.href = "../../index.php";
+        //         }, 10000);
+        //     }
+        // }, 1000); // 1 segundo de espera (puedes ajustar este tiempo si es necesario)
     });
 
 });

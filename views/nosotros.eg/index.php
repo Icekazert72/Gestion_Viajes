@@ -1,3 +1,15 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION['usuario'])) {
+    header('Location:views/login/index.php');
+    exit;
+}
+
+$username = $_SESSION['usuario'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,11 +37,7 @@
                         <div title="inicio del sitio"><a href="../../index.php">Inicio</a></div>
                         <div><a href="#" title="Acerca de nosotros">Nosotros</a></div>
                         <div><a href="../agencias.eg/index.php" title="Sobre otras agencias">Agencias</a></div>
-                        <div>
-                            <h5>Tipo de Servicio</h5>
-                        </div>
-                        <div><a href="#">Viajes</a></div>
-                        <div title="Servicio de transporte de larga distancia"><a href="#">STLD</a></div>
+                       
                     </div>
                 </div>
             </div>
@@ -40,19 +48,6 @@
                 <div><a href="../../index.php">Inicio</a></div>
                 <div> <a href="#">Nosotros</a></div>
                 <div> <a href="#">Agencias</a></div>
-            </div>
-            <div class="vehiculo">
-
-                <div title="Seliona el tipo de vehiculo" class="menu_opcion">
-                    <button class="btn drop-down" id="drop-down">Tipo de Servicio <i class="fa-solid fa-angle-down"></i></button>
-                    <div class="opcion" id="opciones">
-                        <div class="cars">
-                            <div title="Viaje por bus a larga distancia"><a href="#">VBD</a></div>
-                            <div title="Servicio de transporte de larga distancia"><a href="#">STLD</a></div>
-                            <div><button class="btn" id="drop-up"><i class="fa-solid fa-angle-up"></i></button></div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="burgerButton" id="btn_mn"><i class="fa-solid fa-bars"></i></div>
             <div title="Registrate aqui" class="btn"><a href="#"><i class="fa-solid fa-user"></i></a></div>

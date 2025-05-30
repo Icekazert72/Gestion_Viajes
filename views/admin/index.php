@@ -15,12 +15,12 @@
 
 <body>
 
-    <div id="pantalla-bienvenida" class="pantalla-bienvenida">
+    <!-- <div id="pantalla-bienvenida" class="pantalla-bienvenida">
         <div class="contenido-bienvenida">
             <img src="../../img/index/Logo_viages.png" alt="Logo" class="logo-animado">
             <h2 class="titulo-bienvenida">Sistema administrativo</h2>
         </div>
-    </div>
+    </div> -->
 
     <main id="contenido" style="display: none;">
 
@@ -70,7 +70,7 @@
                         </table>
                     </div>
 
-                    <form id="formNuevaAgencia" class="d-none" novalidate>
+                    <form id="formNuevaAgencia" method="POST" enctype="multipart/form-data" class="d-none" novalidate >
                         <div class="row g-3">
 
                             <!-- Nombre -->
@@ -78,7 +78,7 @@
                                 <label class="form-label">Nombre de Agencia</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-building"></i></span>
-                                    <input type="text" class="form-control campo-validacion" required>
+                                    <input type="text" name="nombre" class="form-control campo-validacion" required>
                                     <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@
                                 <label class="form-label">Dirección</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                    <input type="text" class="form-control campo-validacion" required>
+                                    <input type="text" name="direccion" class="form-control campo-validacion" required>
                                     <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                                 <label class="form-label">Teléfono</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                    <input type="tel" class="form-control campo-validacion" required pattern="[0-9\-]+">
+                                    <input type="tel" name="telefono" class="form-control campo-validacion" required pattern="[0-9\-]+">
                                     <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@
                                 <label class="form-label">Email</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                    <input type="email" class="form-control campo-validacion" required>
+                                    <input type="email" name="email" class="form-control campo-validacion" required>
                                     <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
                                 <label class="form-label">Usuario</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    <input type="text" class="form-control campo-validacion" required>
+                                    <input type="text" name="usuario" class="form-control campo-validacion" required>
                                     <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                                 <label class="form-label">Contraseña</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                    <input type="password" class="form-control campo-validacion" required minlength="6">
+                                    <input type="password" name="password" class="form-control campo-validacion" required minlength="6">
                                     <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@
                                 <label class="form-label">Imagen</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-image"></i></span>
-                                    <input type="file" class="form-control campo-validacion" required>
+                                    <input type="file" name="imagen" class="form-control campo-validacion" required>
                                     <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
                                 </div>
                             </div>
@@ -161,6 +161,7 @@
             </div>
 
         </div>
+
         <div class="window window_rutas" style="display: none;">
             <div class="window-header">
                 <span>Gestion Rutas</span>
@@ -1176,19 +1177,20 @@
     </footer>
 
 
-    <script>
+    <!-- <script>
         setTimeout(() => {
             const bienvenida = document.getElementById("pantalla-bienvenida");
             const contenido = document.getElementById("contenido");
             bienvenida.style.display = "none";
             contenido.style.display = "block";
         }, 6000); // un segundo extra para terminar la animación
-    </script>
+    </script> -->
 
 
     <script src="../../controllers/js/bootstrap.min.js"></script>
     <script src="../../controllers/js/sweetalert2.js"></script>
     <script src="../../controllers/js/admin_controlers.js"></script>
+    <script src="../../controllers/js/insercionesAdmin.js"></script>
     <script async
         src="https://maps.googleapis.com/maps/api/js?key=TU_CLAVE_API&callback=initMap">
     </script>

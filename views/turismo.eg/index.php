@@ -1,3 +1,15 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION['usuario'])) {
+    header('Location:views/login/index.php');
+    exit;
+}
+
+$username = $_SESSION['usuario'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,11 +38,6 @@
                         <div title="inicio del sitio"><a href="../../index.php">Inicio</a></div>
                         <div><a href="#" title="Acerca de nosotros">Nosotros</a></div>
                         <div><a href="../agencias.eg/index.php" title="Sobre otras agencias">Agencias</a></div>
-                        <div>
-                            <h5>Tipo de Servicio</h5>
-                        </div>
-                        <div><a href="#">Viajes</a></div>
-                        <div title="Servicio de transporte de larga distancia"><a href="#">STLD</a></div>
                     </div>
                 </div>
             </div>

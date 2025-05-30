@@ -1,3 +1,16 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION['usuario'])) {
+    header('Location:views/login/index.php');
+    exit;
+}
+
+$username = $_SESSION['usuario'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,12 +38,7 @@
                     <div title="inicio del sitio"><a href="#">Inicio</a></div>
                     <div title="viaja en todas partes"><a href="#">Turismo</a></div>
                     <div><a href="views/nosotros.eg/index.php" title="Acerca de nosotros">Nosotros</a></div>
-                    <div><a href="views/agencias.eg/index.php" title="Sobre otras agencias">Agencias</a></div>
-                    <div>
-                        <h5>Tipo de Servicio</h5>
-                    </div>
-                    <div><a href="#">Viajes</a></div>
-                    <div title="Servicio de transporte de larga distancia"><a href="#">STLD</a></div>
+                    <div><a href="views/agencias.eg/index.php" title="Sobre otras agencias">Agencias</a></div>                  
                 </div>
             </div>
         </div>
@@ -50,6 +58,39 @@
 </header>
 
 <body>
+
+    <div id="welcomeSpinner" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #002f75; display: flex; flex-direction: column; justify-content: center;
+    align-items: center; z-index: 9999; color: white;">
+
+        <!-- Logo animado -->
+        <img src="img/index/Logo_viages.png" alt="Logo"
+            class="animate__animated animate__zoomIn"
+            style="width: 120px; height: auto; margin-bottom: 20px;">
+
+        <!-- Texto de bienvenida -->
+        <h2 class="animate__animated animate__fadeInDown" style="font-weight: bold;">
+            Bienvenido a Ndong Viajes, <span id="nombreUsuario" style="color: #00f;"></span>
+        </h2>
+    </div>
+
+    <!-- Script de bienvenida -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const spinner = document.getElementById('welcomeSpinner');
+            const nombreUsuario = document.getElementById('nombreUsuario');
+
+            // Asignar nombre del usuario desde PHP
+            nombreUsuario.textContent = <?php echo json_encode($username); ?>;
+
+            // Ocultar el spinner después de 5 segundos
+            setTimeout(() => {
+                spinner.style.transition = 'opacity 0.5s ease';
+                spinner.style.opacity = '0';
+                setTimeout(() => spinner.style.display = 'none', 500);
+            }, 5000);
+        });
+    </script>
 
     <div class="slider">
 

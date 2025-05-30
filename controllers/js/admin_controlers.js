@@ -133,10 +133,12 @@ document.querySelectorAll('.window').forEach(win => {
     });
 });
 
-
+// ....agencias
 document.addEventListener('DOMContentLoaded', () => {
     const campos = document.querySelectorAll('.campo-validacion');
+    const form = document.getElementById('formNuevaAgencia');
 
+    // Validación en tiempo real
     campos.forEach(campo => {
         campo.addEventListener('input', () => validarCampo(campo));
     });
@@ -150,82 +152,71 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const form = document.getElementById('formNuevaAgencia');
+    // Envío del formulario con XMLHttpRequest
     form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
         let valido = true;
         campos.forEach(campo => {
             validarCampo(campo);
             if (!campo.checkValidity()) valido = false;
         });
 
-        if (!valido) {
-            e.preventDefault();
-            e.stopPropagation();
-        } else {
-            e.preventDefault(); // En vez de enviar, puedes procesar aquí
-            alert("Agencia registrada con éxito");
-        }
-
         form.classList.add('was-validated');
+        if (!valido) return;
+
+        const formData = new FormData(form);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '../models/general_agencias.php', true);
+
+        xhr.onload = function () {
+            console.log(xhr.responseText);
+            try {
+                const respuesta = JSON.parse(xhr.responseText);
+                if (respuesta.success) {
+                    alert(respuesta.message);
+                    form.reset();
+                    form.classList.remove('was-validated');
+                    document.querySelectorAll('.icono-validacion i').forEach(icono => {
+                        icono.className = 'fas fa-circle';
+                        console.log(xhr.responseText);
+                    });
+                    document.getElementById('formNuevaAgencia').classList.add('d-none');
+                    document.getElementById('tablaAgencias').classList.remove('d-none');
+                    console.log(xhr.responseText);
+                } else {
+                    alert("Error: " + respuesta.message);
+                    console.log(xhr.responseText);
+                }
+            } catch (e) {
+                alert("Error inesperado en el servidor.");
+                console.error(e, xhr.responseText);
+                console.log(xhr.responseText);
+            }
+        };
+
+        xhr.onerror = function () {
+            alert("Error de red al enviar el formulario.");
+            console.log(xhr.responseText);
+        };
+
+        xhr.send(formData);
     });
 
+    // Mostrar formulario
     document.getElementById('btnNuevaAgencia').addEventListener('click', () => {
         document.getElementById('tablaAgencias').classList.add('d-none');
         document.getElementById('formNuevaAgencia').classList.remove('d-none');
     });
 
-    // Cancelar botón: ocultar formulario, mostrar tabla
+    // Cancelar botón
     document.getElementById('cancelar-agencia').addEventListener('click', () => {
         document.getElementById('tablaAgencias').classList.remove('d-none');
         document.getElementById('formNuevaAgencia').classList.add('d-none');
     });
 });
 
-
-document.addEventListener('DOMContentLoaded', () => {
-    const campos = document.querySelectorAll('#formRegistroUsuario .campo-validacion');
-
-    campos.forEach(campo => {
-        campo.addEventListener('input', () => {
-            validarCampo(campo);
-        });
-
-        campo.addEventListener('blur', () => {
-            validarCampo(campo);
-        });
-    });
-
-    function validarCampo(campo) {
-        const icono = campo.parentElement.querySelector('.icono-validacion i');
-
-        if (campo.checkValidity()) {
-            // Campo válido
-            icono.classList.remove('fa-circle', 'text-danger');
-            icono.classList.add('fa-check-circle', 'text-success');
-        } else {
-            // Campo inválido
-            icono.classList.remove('fa-circle', 'fa-check-circle', 'text-success');
-            icono.classList.add('fa-times-circle', 'text-danger');
-        }
-    }
-
-    // Validar al enviar el formulario
-    const formulario = document.getElementById('formRegistroUsuario');
-    formulario.addEventListener('submit', (e) => {
-        let valido = true;
-
-        campos.forEach(campo => {
-            if (!campo.checkValidity()) {
-                validarCampo(campo);
-                valido = false;
-            }
-        });
-
-        if (!valido) {
-            e.preventDefault(); // No enviar si algún campo no es válido
-        }
-    });
-});
 
 document.getElementById('btnNuevoUsuarios').addEventListener('click', () => {
     document.getElementById('formRegistroUsuario').classList.remove('d-none');
