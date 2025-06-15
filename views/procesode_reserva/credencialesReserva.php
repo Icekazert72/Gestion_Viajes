@@ -2,8 +2,8 @@
 
 session_start();
 
-if (!isset($_SESSION['usuario'])) {
-    header('Location:views/login/index.php');
+if (isset($_SESSION['usuario'])) {
+    header('Location: ReservarViaje.php');
     exit;
 }
 

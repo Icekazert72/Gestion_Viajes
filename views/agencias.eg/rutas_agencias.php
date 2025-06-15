@@ -1,16 +1,3 @@
-<?php
-
-session_start();
-
-if (!isset($_SESSION['usuario'])) {
-    header('Location:views/login/index.php');
-    exit;
-}
-
-$username = $_SESSION['usuario'];
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 

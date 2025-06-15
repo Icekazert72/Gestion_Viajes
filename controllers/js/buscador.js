@@ -1,5 +1,4 @@
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const origen = document.getElementById("input_de");
   const destino = document.getElementById("input_a");
@@ -11,16 +10,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const direccionRegex = /^[a-zA-Z0-9\s,.\-ºª]+$/;
 
+  // Función para marcar el input con un estado de validación
   function marcarInput(input, icon, valido) {
     input.classList.toggle("input-valid", valido);
     input.classList.toggle("input-error", !valido);
     icon.style.color = valido ? "green" : "red";
   }
 
+  // Obtener el icono relacionado con el input
   function getIconFromInput(input) {
     return input.closest(".input-group").querySelector("i");
   }
 
+  // Validar todos los campos del formulario
   function validateAll() {
     const valOrigen = origen.value.trim();
     const valDestino = destino.value.trim();
@@ -83,32 +85,59 @@ document.addEventListener("DOMContentLoaded", () => {
     return valid;
   }
 
+  // Enviar la solicitud AJAX cuando se presiona el botón de enviar
   submit.addEventListener("click", (e) => {
     e.preventDefault();
 
     const todoValido = validateAll();
+    if (!todoValido) return;
 
-    if (todoValido) {
-      const origenVal = origen.value.trim();
-      const destinoVal = destino.value.trim();
-      const viajerosVal = viajeros.value.trim();
-      const fechaHora = new Date(fecha.value);
-      const fechaVal = fechaHora.toISOString().split("T")[0];
-      const horaVal = fechaHora.toTimeString().split(":").slice(0, 2).join(":");
+    const origenVal = origen.value.trim();
+    const destinoVal = destino.value.trim();
+    const viajerosVal = viajeros.value.trim();
+    const fechaHora = new Date(fecha.value);
+    const fechaVal = fechaHora.toISOString().split("T")[0];  // Obtener solo la fecha en formato Y-m-d
+    const horaVal = fechaHora.toTimeString().split(":").slice(0, 2).join(":");  // Obtener solo la hora en formato H:i
 
-      // Guardar en localStorage
-      localStorage.setItem("origen", origenVal);
-      localStorage.setItem("destino", destinoVal);
-      localStorage.setItem("viajeros", viajerosVal);
+    // Crear una nueva instancia de XMLHttpRequest para enviar datos
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "../../../Proyecto_0.1/models/publicControler/validarRuta.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-      // Redirigir
-      window.location.href = `././views/rutas.eg/index.php?origen=${encodeURIComponent(
-        origenVal
-      )}&destino=${encodeURIComponent(
-        destinoVal
-      )}&viajeros=${encodeURIComponent(
-        viajerosVal
-      )}&fecha=${fechaVal}&hora=${horaVal}`;
-    }
+    // Manejar la respuesta del servidor
+    xhr.onload = function () {
+      const titulo = document.getElementById("tituloRuta");
+      try {
+        // Intentar parsear la respuesta JSON
+        const response = JSON.parse(xhr.responseText);
+        
+        if (xhr.status === 200) {
+          if (response.existe) {
+            // Si la ruta es válida, guardar los datos en localStorage y redirigir
+            localStorage.setItem("origen", origenVal);
+            localStorage.setItem("destino", destinoVal);
+            localStorage.setItem("viajeros", viajerosVal);
+
+            // Redirigir al usuario a la página de rutas disponibles
+            window.location.href = `././views/rutas.eg/index.php?origen=${encodeURIComponent(origenVal)}&destino=${encodeURIComponent(destinoVal)}&viajeros=${encodeURIComponent(viajerosVal)}&fecha=${fechaVal}&hora=${horaVal}`;
+          } else {
+            // Si no hay rutas disponibles, mostrar el mensaje de error
+            titulo.innerHTML = response.mensaje || "Ruta no encontrada o no disponible para el horario indicado.";
+          }
+        } else {
+          // Si hay un error en el servidor, mostrar un mensaje de error
+          titulo.innerHTML = "Error al verificar la ruta.";
+        }
+      } catch (e) {
+        // Si no se puede parsear la respuesta como JSON, mostrar el error
+        titulo.innerHTML = "Error al procesar la respuesta del servidor.";
+        console.log(xhr.responseText );
+        
+      }
+    };
+
+    // Enviar los datos del formulario al servidor
+    xhr.send(`origen=${encodeURIComponent(origenVal)}&destino=${encodeURIComponent(destinoVal)}&fecha=${fechaVal}&hora=${horaVal}`);
   });
+
 });

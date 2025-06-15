@@ -1,0 +1,1136 @@
+#tablaUsuarios {
+    background: linear-gradient(145deg, #0f2027, #203a43, #2c5364);
+    padding: 1rem;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+.table {
+    color: #ffffff;
+    margin: 0;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+    border: none;
+    padding: 12px;
+}
+
+.table thead th {
+    background: rgba(0, 255, 255, 0.1);
+    color: #00279e;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #00ffff55;
+}
+
+.table tbody tr {
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background: rgba(0, 255, 255, 0.05);
+    transform: scale(1.005);
+}
+
+.table tbody td {
+    color: #00123a;
+}
+
+.table img {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border: 2px solid #00ffff55;
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+    transition: transform 0.2s ease;
+}
+
+.table img:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+
+    .table th,
+    .table td {
+        font-size: 0.8rem;
+        padding: 8px;
+    }
+
+    .table img {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+
+.botonera .btn-realista {
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #f0f0f0, #dcdcdc);
+    box-shadow: 5px 5px 10px #bfbfbf,
+        -5px -5px 10px #ffffff;
+    font-size: 18px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.botonera .btn-realista:hover {
+    box-shadow: inset 2px 2px 5px #bfbfbf,
+        inset -2px -2px 5px #ffffff;
+    transform: scale(1.05);
+}
+
+.botonera .btn-realista:active {
+    box-shadow: inset 4px 4px 8px #bfbfbf,
+        inset -4px -4px 8px #ffffff;
+    transform: scale(0.95);
+}
+
+.botonera .editar {
+    background: linear-gradient(145deg, #ff9800, #e65100);
+    color: #ffffff;
+}
+
+.botonera .eliminar {
+    background: linear-gradient(145deg, #c20000, #6e0000);
+    color: #ffffff;
+}
+
+.botonera .btn-realista i {
+    pointer-events: none;
+}
+
+/* Card base */
+.futuristic-card {
+    background: linear-gradient(145deg, #1e1e2f, #2e2e3f);
+    border: 1px solid #3a3a5a;
+    border-radius: 16px;
+    padding: 20px;
+    color: #e0e0ff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.futuristic-card:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+}
+
+/* Header */
+.bus-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+}
+
+.bus-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* Botones futuristas */
+.action-btn {
+    background: transparent;
+    border: 1px solid #000000;
+    color: #000000;
+    padding: 8px 10px;
+    margin-left: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: #006eff;
+    color: #ffffff;
+}
+
+.action-btn.delete {
+    border-color: #000000;
+    color: #000000;
+}
+
+.action-btn.delete:hover {
+    background: #ff0000;
+    color: #ffffff;
+}
+
+/* Cuerpo */
+.bus-card-body .bus-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.bus-card-body .bus-info>div {
+    flex: 1 1 45%;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+}
+
+/* Estado */
+.status {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+    margin-left: 6px;
+}
+
+.status.active {
+    background-color: #00ff99;
+    color: #111;
+}
+
+.status.inactive {
+    background-color: #ff4b5c;
+    color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .bus-card-body .bus-info>div {
+        flex: 1 1 100%;
+    }
+
+    .bus-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .bus-actions {
+        display: flex;
+        gap: 10px;
+    }
+}
+
+.dni-card-modern {
+    background: #0f0f0f;
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 25px;
+    width: 100%;
+    max-width: 400px;
+    height: 600px;
+    /* altura fija */
+    color: #e0e0e0;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow-y: auto;
+    transition: all 0.3s ease-in-out;
+    cursor: grab;
+}
+
+.dni-card-modern::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dni-card-modern::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.dni-card-modern::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00ffff, #0088ff);
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00ffffaa;
+}
+
+.dni-card-modern::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #00ffff, #00ccff);
+}
+
+#targeta {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+.dni-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.user-avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #00e0ff, #007bff);
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    color: white;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+.user-name {
+    font-size: 1.0rem;
+    font-weight: bold;
+    color: #00e0ff;
+}
+
+.user-status {
+    font-size: 0.9rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 5px;
+    background-color: #00ff99;
+    color: #111;
+    font-weight: 600;
+}
+
+.user-status.inactive {
+    background-color: #ff4b5c;
+    color: #fff;
+}
+
+.dni-body {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.dni-section {
+    background-color: rgba(255, 255, 255, 0.02);
+    border-left: 3px solid #00e0ff;
+    padding: 15px;
+    border-radius: 12px;
+    transition: 0.3s ease-in-out;
+}
+
+.dni-section:hover {
+    background-color: rgba(0, 224, 255, 0.05);
+}
+
+.section-title {
+    font-size: 0.9rem;
+    color: #00e0ff;
+    font-weight: 600;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 224, 255, 0.2);
+    padding-bottom: 5px;
+}
+
+.dni-info {
+    font-size: 0.7rem;
+    margin: 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #d1d1d1;
+}
+
+.dni-info i {
+    color: #00e0ff;
+    min-width: 18px;
+}
+
+
+.dni-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.btn-dni {
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+
+.btn-dni.whatsapp {
+    background-color: #25D366;
+    color: #fff;
+}
+
+.btn-dni.email {
+    background-color: #ff9900;
+    color: #fff;
+}
+
+.btn-dni:hover {
+    filter: brightness(1.1);
+    transform: scale(1.02);
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .dni-card-modern {
+        padding: 20px 15px;
+    }
+
+    .dni-footer {
+        flex-direction: column;
+    }
+}
+
+
+.futuristic-table-container {
+    overflow-x: auto;
+    background: #0a0a0a;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #00f2ff44;
+}
+
+.futuristic-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #e0f7ff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95rem;
+}
+
+.futuristic-table thead {
+    background: #00e0ff22;
+}
+
+.futuristic-table th,
+.futuristic-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #00e0ff33;
+}
+
+.futuristic-table th {
+    color: #00f2ff;
+    font-weight: 700;
+}
+
+.btn-open-card {
+    background: #00f2ff;
+    border: none;
+    padding: 6px 14px;
+    color: #000;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.btn-open-card:hover {
+    background: #00b2cc;
+    color: #fff;
+}
+
+.form-futurista {
+    background: #111;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+    color: #e0e0e0;
+    font-family: 'Segoe UI', sans-serif;
+    max-width: 500px;
+    margin: auto;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input-icon {
+    position: relative;
+}
+
+.input-icon input {
+    width: 100%;
+    padding: 10px 35px 10px 10px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    background-color: #1a1a1a;
+    color: #fff;
+    transition: border-color 0.3s;
+}
+
+.input-icon input:focus {
+    border-color: cyan;
+    outline: none;
+}
+
+.status-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+    color: gray;
+}
+
+.status-icon.valid {
+    color: #00ff88;
+}
+
+.status-icon.invalid {
+    color: #ff5555;
+}
+
+.btn-enviar {
+    background: linear-gradient(135deg, #00ffff, #007777);
+    color: #000;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.btn-enviar:hover {
+    background: linear-gradient(135deg, #00dddd, #005555);
+}
+
+
+.assignment-container {
+    background: #1a1a1a;
+    border: 1px solid #00ffff;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 500px;
+    margin: auto;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.assignment-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    background: #0f0f0f;
+    border: 1px solid #00ffff;
+    border-radius: 5px;
+    color: #e0e0e0;
+}
+
+.status-icon {
+    position: absolute;
+    right: 10px;
+    top: 35px;
+    font-size: 18px;
+}
+
+.status-icon.valid {
+    color: #00ff00;
+}
+
+.status-icon.invalid {
+    color: #ff0000;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background: #00ffff;
+    border: none;
+    border-radius: 5px;
+    color: #0f0f0f;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button[type="submit"]:hover {
+    background: #00cccc;
+}
+
+
+/* Formulario futurista */
+#formRegistroUsuario {
+    background: linear-gradient(145deg, #1b1f29, #212736);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Etiquetas */
+#formRegistroUsuario label.form-label {
+    color: #90e0ef;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+/* Input Group */
+#formRegistroUsuario .input-group {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+#formRegistroUsuario .input-group:hover {
+    border-color: #00f2fe;
+}
+
+/* Iconos y entradas */
+#formRegistroUsuario .input-group-text {
+    background-color: transparent;
+    border: none;
+    color: #00f2fe;
+}
+
+#formRegistroUsuario .form-control {
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+}
+
+#formRegistroUsuario .form-control:focus {
+    background-color: transparent;
+    color: #ffffff;
+    box-shadow: none;
+}
+
+/* Iconos de validación */
+#formRegistroUsuario .icono-validacion i {
+    color: #7cfc00;
+    transition: color 0.3s ease;
+}
+
+/* Botones */
+#formRegistroUsuario .btn-success {
+    background: linear-gradient(145deg, #00f2fe, #4facfe);
+    border: none;
+    color: #000;
+    font-weight: bold;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+    transition: all 0.3s ease;
+}
+
+#formRegistroUsuario .btn-success:hover {
+    background: linear-gradient(145deg, #4facfe, #00f2fe);
+    box-shadow: 0 6px 25px rgba(0, 242, 254, 0.5);
+}
+
+#formRegistroUsuario .btn-secondary {
+    background-color: #2a2f4a;
+    color: #ccc;
+    border-radius: 12px;
+    border: none;
+    transition: background 0.3s ease;
+}
+
+#formRegistroUsuario .btn-secondary:hover {
+    background-color: #3a3f5a;
+    color: #fff;
+}
+
+.window_usuarios {
+
+    /* Contenedor responsivo */
+    .table-responsive {
+        background: linear-gradient(145deg, #1c1f2b, #2a2f3d);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.08);
+        overflow-x: auto;
+    }
+
+    /* Tablas */
+    .table {
+        color: #ffffff;
+        background-color: transparent;
+        border-collapse: collapse;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Encabezado de tabla */
+    .table thead th {
+        background: rgba(0, 242, 254, 0.15);
+        color: #00f2fe;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Celdas */
+    .table td,
+    .table th {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        vertical-align: middle;
+    }
+
+    /* Hover */
+    .table-hover tbody tr:hover {
+        background: rgba(0, 255, 255, 0.05);
+        box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    /* Imagen dentro de la tabla */
+    #tablaUsuarios img,
+    #tablaCliendo img {
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 0 5px rgba(0, 242, 254, 0.4);
+    }
+
+    /* Números de fila (#) */
+    .table tbody th {
+        color: #00f2fe;
+    }
+
+    .table tbody td {
+        color: #ffffff;
+    }
+
+    /* Adaptación a modo oscuro general */
+    body {
+        background-color: #13161f;
+    }
+
+}
+
+.formEmpleados {
+    background: linear-gradient(145deg, #1b1f29, #212736);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.formEmpleados .futuristic-form .input-group {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+.formEmpleados .futuristic-form .form-control,
+.formEmpleados .futuristic-form .form-select {
+    background-color: transparent;
+    border: none;
+    color: #00ffff;
+    font-weight: bold;
+    box-shadow: none !important;
+    /* Eliminar brillos */
+}
+
+.formEmpleados .futuristic-form .form-label {
+    color: #00ffff;
+    font-weight: 600;
+}
+
+.formEmpleados .futuristic-form .input-group-text {
+    border: none;
+    background: none;
+    box-shadow: none;
+    font-weight: bold;
+    padding: 0.5rem 0.75rem;
+}
+
+/* Primer span: ícono principal azul tecnológico */
+.formEmpleados .futuristic-form .input-group-text:first-child {
+    color: #00ffff;
+}
+
+/* Segundo span: validación, verde por defecto */
+.formEmpleados .futuristic-form .input-group-text.icono-validacion {
+    color: #00ff00;
+    background: none;
+    box-shadow: none;
+}
+
+/* Input focus limpio */
+.formEmpleados .futuristic-form .campo-validacion:focus {
+    border-color: #00ffff;
+    background-color: rgba(0, 255, 255, 0.05);
+    color: #fff;
+    box-shadow: none !important;
+}
+
+/* Botones */
+.formEmpleados .futuristic-form .btn-success,
+.formEmpleados .futuristic-form .btn-secondary {
+    background: linear-gradient(145deg, #00f2fe, #4facfe);
+    border: none;
+    color: #000;
+    font-weight: bold;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+    transition: all 0.3s ease;
+}
+
+.formEmpleados .futuristic-form .btn-success:hover,
+.formEmpleados .futuristic-form .btn-secondary:hover {
+    background: linear-gradient(145deg, #4facfe, #00f2fe);
+    box-shadow: 0 6px 25px rgba(0, 242, 254, 0.5);
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.close-btn:hover {
+    color: #f00;
+}
+
+
+.asignacion-box {
+    background: linear-gradient(145deg, #0e0e0e, #1c1c1c);
+    color: white;
+    border: 2px solid #4479ff;
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 400px;
+    margin: 20px auto;
+    box-shadow: 0 0 20px #4479ff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: transform 0.3s ease;
+}
+
+.asignacion-box:hover {
+    transform: scale(1.02);
+}
+
+.asignacion-header h3 {
+    color: #4479ff;
+    text-align: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #4479ff;
+    padding-bottom: 5px;
+}
+
+.asignacion-body .info-bloque {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.label {
+    color: #4479ff;
+    font-weight: bold;
+}
+
+.valor {
+    color: #ffffff;
+}
+
+.btn-desasignar {
+    background-color: #4479ff;
+    color: #000000;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    width: 100%;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-desasignar:hover {
+    background-color: #00bfff;
+}
+
+@media (max-width: 500px) {
+    .asignacion-box {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .info-bloque {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .valor {
+        margin-top: 4px;
+    }
+}
+
+.asignacion-header {
+
+    .btn-cerrar {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+        background: transparent;
+        color: #00bfff;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    .btn-cerrar:hover {
+        color: red;
+    }
+
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    .button {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-verde {
+        background: linear-gradient(135deg, #007f5f, #00e09f);
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+        box-shadow: 0 0 10px #00e09f66;
+    }
+
+    .btn-verde:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 15px #00e09fcc;
+    }
+
+}
+
+#asignaciones-contenedor {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#asignaciones-contenedor.visible {
+    opacity: 1;
+}
+
+.reservaRapida {
+    .form-futurista {
+        background-color: #0f0f1a;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px #00f2ff55;
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            background-color: #1a1a2e;
+            border: 1px solid #00f2ff;
+            color: #ffffff;
+            padding-left: 2.5rem;
+            padding-right: 2.5rem;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 10px #00f2ff88;
+            border-color: #00f2ff;
+        }
+
+        .position-relative {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            color: #00f2ff;
+            font-size: 1rem;
+            pointer-events: none;
+        }
+
+        .validation-icon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            pointer-events: none;
+            display: none;
+        }
+
+        .is-valid~.fa-circle-check {
+            display: inline;
+            color: #0f0;
+        }
+
+        .is-valid~.fa-circle-xmark,
+        .is-invalid~.fa-circle-check {
+            display: none;
+        }
+
+        .is-invalid~.fa-circle-xmark {
+            display: inline;
+            color: #f00;
+        }
+
+        .input-icon,
+        .validation-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 15px;
+            display: none;
+            z-index: 2;
+        }
+
+        .is-valid~.fa-circle-check,
+        .is-invalid~.fa-circle-xmark {
+            display: inline;
+        }
+
+        .is-valid~.fa-circle-xmark,
+        .is-invalid~.fa-circle-check {
+            display: none;
+        }
+
+    }
+}
+
+
+    .viaje-form {
+        background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
+        color: #00f0ff;
+        border: 1px solid #00f0ff;
+        box-shadow: 0 0 15px #00f0ff;
+        max-width: 1180px;
+        margin: 40px auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .viaje-form label {
+        color: #00e5ff;
+        font-weight: 600;
+    }
+
+    .form-control {
+        background-color: #121212;
+        border: 1px solid #00f0ff;
+        color: #00f0ff;
+        transition: 0.3s ease;
+        font-size: 1rem;
+    }
+
+    .form-control:focus {
+        background-color: #1a1a1a;
+        border-color: #00e5ff;
+        box-shadow: 0 0 8px #00e5ff;
+        color: #00f0ff;
+    }
+
+    .btn-primary {
+        background-color: #00f0ff;
+        border: none;
+        color: #000;
+        font-weight: 700;
+        padding: 10px 0;
+        transition: 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0099cc;
+        color: #fff;
+        box-shadow: 0 0 15px #0099cc;
+    }
+
+    .text-danger {
+        font-size: 0.85rem;
+        margin-top: 5px;
+    }
+
+    h2.text-primary {
+        color: #ffffff;
+    }

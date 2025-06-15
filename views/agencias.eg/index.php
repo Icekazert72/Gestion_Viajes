@@ -1,16 +1,3 @@
-<?php
-
-session_start();
-
-if (!isset($_SESSION['usuario'])) {
-    header('Location:views/login/index.php');
-    exit;
-}
-
-$username = $_SESSION['usuario'];
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,6 +23,11 @@ $username = $_SESSION['usuario'];
                     <div title="inicio del sitio"><a href="../../index.php">Inicio</a></div>
                     <div><a href="../nosotros.eg/" title="Acerca de nosotros">Nosotros</a></div>
                     <div><a href="#" title="Sobre otras agencias">Agencias</a></div>
+                    <div>
+                        <h5>Tipo de Servicio</h5>
+                    </div>
+                    <div><a href="#">Viajes</a></div>
+                    <div title="Servicio de transporte de larga distancia"><a href="#">STLD</a></div>
                 </div>
             </div>
         </div>
@@ -47,7 +39,7 @@ $username = $_SESSION['usuario'];
             <div> <a href="../nosotros.eg/">Nosotros</a></div>
             <div> <a href="#">Agencias</a></div>
         </div>
-        <!-- <div class="vehiculo">
+        <div class="vehiculo">
 
             <div title="Seliona el tipo de vehiculo" class="menu_opcion">
                 <button class="btn drop-down" id="drop-down">Tipo de Servicio <i class="fa-solid fa-angle-down"></i></button>
@@ -59,7 +51,7 @@ $username = $_SESSION['usuario'];
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
         <div class="burgerButton" id="btn_mn"><i class="fa-solid fa-bars"></i></div>
         <div title="Registrate aqui" class="btn"><a href="#"><i class="fa-solid fa-user"></i></a></div>
         <div title="Cambiar el idioma aqui" class="idioma"><img src="../../img/index/bandera.png" alt=""></div>
@@ -68,316 +60,96 @@ $username = $_SESSION['usuario'];
 
 <body>
 
-    <div class="slider" id="agencias_slider">
-        <div class="slider-background"></div>
-        <div class="slider-content">
-            <div class="flexx">
-                <div class="texto-transparente">
-                    <h1 class="texto-transparente">Agencias</h1>
-                </div>
-                <div class="agencias_texto">
-                    <h5 class="texto-transparente">
-                        <small>
-                            "Conoce las agencias que tenemos para ti y descubre todo lo que pueden ofrecerte para hacer de tu viaje una experiencia inolvidable."
-                        </small>
-                    </h5>
-                </div>
-            </div>
-            <div class="decoracion_transparente">
-            </div>
+    <div class="bus-slider">
+        <div class="bus-track">
+            <!-- Repetimos íconos para efecto de amontonamiento y continuidad -->
+            <i class="fas fa-bus bus-icon"></i>
+            <i class="fas fa-bus bus-icon"></i>
+            <i class="fas fa-bus bus-icon"></i>
+            <i class="fas fa-bus bus-icon"></i>
+            <i class="fas fa-bus bus-icon"></i>
+            <i class="fas fa-bus bus-icon"></i>
+            <i class="fas fa-bus bus-icon"></i>
+            <i class="fas fa-bus bus-icon"></i>
+            <i class="fas fa-bus bus-icon"></i>
+            <i class="fas fa-bus bus-icon"></i>
+            <!-- Clonamos para bucle visual -->
+            <i class="fas fa-bus bus-icon"></i>
+            <i class="fas fa-bus bus-icon"></i>
         </div>
     </div>
 
-    <div class="contenedor-agencia mt-4 mb-4">
+    <div id="containerCard">
+        <!-- <div class="contenedor-agencia mt-4 mb-4">
 
-        <div class="content_logo">
 
-            <div class="logo_text">
-                <h5 title="Texto del logo">Forama</h5>
+            <div class="content_logo">
+
+                <div class="logo_text">
+                    <h5 title="Texto del logo">Forama</h5>
+                </div>
+                <div class="logo">
+                    <div title="Logo" class="img_logo"><img src="../../img/index/images.png" alt=""></div>
+                </div>
+                <div class="logo_Bandera">
+                    <img src="../../img/index/bandera.png" alt="">
+                </div>
+
             </div>
-            <div class="logo">
-                <div title="Logo" class="img_logo"><img src="../../img/index/images.png" alt=""></div>
-            </div>
-            <div class="logo_Bandera">
-                <img src="../../img/index/bandera.png" alt="">
-            </div>
 
-        </div>
-
-        <div class="content_descripcion">
-            <div class="descripcion">
-                <h5>Descripción</h5>
-                <div class="texto-scroll-vertical">
-                    <p>
-                        Forama es una agencia de viajes que se especializa en ofrecer experiencias únicas y personalizadas a sus clientes. Con un equipo de expertos en turismo, Forama se dedica a crear itinerarios a medida que se adaptan a las necesidades y preferencias de cada viajero. Desde escapadas románticas hasta aventuras familiares, Forama se esfuerza por brindar un servicio excepcional y garantizar que cada viaje sea inolvidable.
-                    </p>
+            <div class="content_descripcion">
+                <div class="descripcion">
+                    <h5>Descripción</h5>
+                    <div class="texto-scroll-vertical">
+                        <p>
+                            Forama es una agencia de viajes que se especializa en ofrecer experiencias únicas y personalizadas a sus clientes. Con un equipo de expertos en turismo, Forama se dedica a crear itinerarios a medida que se adaptan a las necesidades y preferencias de cada viajero. Desde escapadas románticas hasta aventuras familiares, Forama se esfuerza por brindar un servicio excepcional y garantizar que cada viaje sea inolvidable.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="content_localizacion">
-            <div class="social">
-                <a href=""><i class="fa-brands fa-facebook"></i></a>
-                <a href=""><i class="fa-brands fa-instagram"></i></a>
-                <a href=""><i class="fa-brands fa-twitch"></i></a>
-                <a href=""><i class="fa-brands fa-whatsapp"></i></a>
-            </div>
-            <div class="contacto">
-                <p>+240 222 123 456</p>
-            </div>
-            <div class="email">
-                <p>viajarcon@foramail.com</p>
-            </div>
-            <div class="ubicacion">
-                <div class="ubicacion_texto">
-                    <h5>Ubicacion</h5>
+            <div class="content_localizacion">
+                <div class="social">
+                    <a href=""><i class="fa-brands fa-facebook"></i></a>
+                    <a href=""><i class="fa-brands fa-instagram"></i></a>
+                    <a href=""><i class="fa-brands fa-twitch"></i></a>
+                    <a href=""><i class="fa-brands fa-whatsapp"></i></a>
                 </div>
-                <div class="ubicacion_icono">
-                    <div>Bikuy, Mercado, Rotonda (Region Continental)</div>
-                    <div> <i class="fa-solid fa-location-dot"></i></div>
+                <div class="contacto">
+                    <p>+240 222 123 456</p>
                 </div>
-            </div>
-        </div>
-
-
-        <div class="content_ubicacionMapa">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3978.6277533368196!2d9.451522175876285!3d3.7499482962415354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1060fcf40e78eb0b%3A0x4f24c3ff1cd44970!2sMercado%20Bikuy!5e0!3m2!1ses!2sgq!4v1683913455663!5m2!1ses!2sgq"
-                width="100%"
-                height="100%"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-
-        <div class="content_ticket">
-            <a href="rutas_agencias.php" class="btn_ticket">Obtener Ticket</a>
-        </div>
-
-
-
-
-    </div>
-
-    <div class="contenedor-agencia mt-4 mb-4">
-
-        <div class="content_logo">
-
-            <div class="logo_text">
-                <h5 title="Texto del logo">Kasav</h5>
-            </div>
-            <div class="logo">
-                <div title="Logo" class="img_logo"><img src="../../img/index/images.png" alt=""></div>
-            </div>
-            <div class="logo_Bandera">
-                <img src="../../img/index/bandera.png" alt="">
-            </div>
-
-        </div>
-
-        <div class="content_descripcion">
-            <div class="descripcion">
-                <h5>Descripción</h5>
-                <div class="texto-scroll-vertical">
-                    <p>
-                        Forama es una agencia de viajes que se especializa en ofrecer experiencias únicas y personalizadas a sus clientes. Con un equipo de expertos en turismo, Forama se dedica a crear itinerarios a medida que se adaptan a las necesidades y preferencias de cada viajero. Desde escapadas románticas hasta aventuras familiares, Forama se esfuerza por brindar un servicio excepcional y garantizar que cada viaje sea inolvidable.
-                    </p>
+                <div class="email">
+                    <p>viajarcon@foramail.com</p>
+                </div>
+                <div class="ubicacion">
+                    <div class="ubicacion_texto">
+                        <h5>Ubicacion</h5>
+                    </div>
+                    <div class="ubicacion_icono">
+                        <div>Bikuy, Mercado, Rotonda (Region Continental)</div>
+                        <div> <i class="fa-solid fa-location-dot"></i></div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="content_localizacion">
-            <div class="social">
-                <a href=""><i class="fa-brands fa-facebook"></i></a>
-                <a href=""><i class="fa-brands fa-instagram"></i></a>
-                <a href=""><i class="fa-brands fa-twitch"></i></a>
-                <a href=""><i class="fa-brands fa-whatsapp"></i></a>
-            </div>
-            <div class="contacto">
-                <p>+240 222 123 456</p>
-            </div>
-            <div class="email">
-                <p>viajarcon@foramail.com</p>
-            </div>
-            <div class="ubicacion">
-                <div class="ubicacion_texto">
-                    <h5>Ubicacion</h5>
-                </div>
-                <div class="ubicacion_icono">
-                    <div>Bikuy, Mercado, Rotonda</div>
-                    <div> <i class="fa-solid fa-location-dot"></i></div>
-                </div>
-            </div>
-        </div>
 
 
-        <div class="content_ubicacionMapa">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3978.6277533368196!2d9.451522175876285!3d3.7499482962415354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1060fcf40e78eb0b%3A0x4f24c3ff1cd44970!2sMercado%20Bikuy!5e0!3m2!1ses!2sgq!4v1683913455663!5m2!1ses!2sgq"
-                width="100%"
-                height="100%"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-
-        <div class="content_ticket">
-            <a href="rutas_agencias.php" class="btn_ticket">Obtener Ticket</a>
-        </div>
-
-
-
-
-    </div>
-
-    <div class="contenedor-agencia mt-4 mb-4">
-
-        <div class="content_logo">
-
-            <div class="logo_text">
-                <h5 title="Texto del logo">Fast tour</h5>
-            </div>
-            <div class="logo">
-                <div title="Logo" class="img_logo"><img src="../../img/index/images.png" alt=""></div>
-            </div>
-            <div class="logo_Bandera">
-                <img src="../../img/index/bandera.png" alt="">
+            <div class="content_ubicacionMapa">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3978.6277533368196!2d9.451522175876285!3d3.7499482962415354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1060fcf40e78eb0b%3A0x4f24c3ff1cd44970!2sMercado%20Bikuy!5e0!3m2!1ses!2sgq!4v1683913455663!5m2!1ses!2sgq"
+                    width="100%"
+                    height="100%"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
 
-        </div>
-
-        <div class="content_descripcion">
-            <div class="descripcion">
-                <h5>Descripción</h5>
-                <div class="texto-scroll-vertical">
-                    <p>
-                        Forama es una agencia de viajes que se especializa en ofrecer experiencias únicas y personalizadas a sus clientes. Con un equipo de expertos en turismo, Forama se dedica a crear itinerarios a medida que se adaptan a las necesidades y preferencias de cada viajero. Desde escapadas románticas hasta aventuras familiares, Forama se esfuerza por brindar un servicio excepcional y garantizar que cada viaje sea inolvidable.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="content_localizacion">
-            <div class="social">
-                <a href=""><i class="fa-brands fa-facebook"></i></a>
-                <a href=""><i class="fa-brands fa-instagram"></i></a>
-                <a href=""><i class="fa-brands fa-twitch"></i></a>
-                <a href=""><i class="fa-brands fa-whatsapp"></i></a>
-            </div>
-            <div class="contacto">
-                <p>+240 222 123 456</p>
-            </div>
-            <div class="email">
-                <p>viajarcon@foramail.com</p>
-            </div>
-            <div class="ubicacion">
-                <div class="ubicacion_texto">
-                    <h5>Ubicacion</h5>
-                </div>
-                <div class="ubicacion_icono">
-                    <div>Bikuy, Mercado, Rotonda</div>
-                    <div> <i class="fa-solid fa-location-dot"></i></div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="content_ubicacionMapa">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3978.6277533368196!2d9.451522175876285!3d3.7499482962415354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1060fcf40e78eb0b%3A0x4f24c3ff1cd44970!2sMercado%20Bikuy!5e0!3m2!1ses!2sgq!4v1683913455663!5m2!1ses!2sgq"
-                width="100%"
-                height="100%"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-
-        <div class="content_ticket">
-            <a href="rutas_agencias.php" class="btn_ticket">Obtener Ticket</a>
-        </div>
-
-
-
-
-    </div>
-
-    <div class="contenedor-agencia mt-4 mb-4">
-
-        <div class="content_logo">
-
-            <div class="logo_text">
-                <h5 title="Texto del logo">Obiang</h5>
-            </div>
-            <div class="logo">
-                <div title="Logo" class="img_logo"><img src="../../img/index/images.png" alt=""></div>
-            </div>
-            <div class="logo_Bandera">
-                <img src="../../img/index/bandera.png" alt="">
+            <div class="content_ticket">
+                <a href="rutas_agencias.php" class="btn_ticket">Obtener Ticket</a>
             </div>
 
-        </div>
-
-        <div class="content_descripcion">
-            <div class="descripcion">
-                <h5>Descripción</h5>
-                <div class="texto-scroll-vertical">
-                    <p>
-                        Forama es una agencia de viajes que se especializa en ofrecer experiencias únicas y personalizadas a sus clientes. Con un equipo de expertos en turismo, Forama se dedica a crear itinerarios a medida que se adaptan a las necesidades y preferencias de cada viajero. Desde escapadas románticas hasta aventuras familiares, Forama se esfuerza por brindar un servicio excepcional y garantizar que cada viaje sea inolvidable.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="content_localizacion">
-            <div class="social">
-                <a href=""><i class="fa-brands fa-facebook"></i></a>
-                <a href=""><i class="fa-brands fa-instagram"></i></a>
-                <a href=""><i class="fa-brands fa-twitch"></i></a>
-                <a href=""><i class="fa-brands fa-whatsapp"></i></a>
-            </div>
-            <div class="contacto">
-                <p>+240 222 123 456</p>
-            </div>
-            <div class="email">
-                <p>viajarcon@foramail.com</p>
-            </div>
-            <div class="ubicacion">
-                <div class="ubicacion_texto">
-                    <h5>Ubicacion</h5>
-                </div>
-                <div class="ubicacion_icono">
-                    <div>Bikuy, Mercado, Rotonda</div>
-                    <div> <i class="fa-solid fa-location-dot"></i></div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="content_ubicacionMapa">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3978.6277533368196!2d9.451522175876285!3d3.7499482962415354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1060fcf40e78eb0b%3A0x4f24c3ff1cd44970!2sMercado%20Bikuy!5e0!3m2!1ses!2sgq!4v1683913455663!5m2!1ses!2sgq"
-                width="100%"
-                height="100%"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-
-        <div class="content_ticket">
-            <a href="rutas_agencias.php" class="btn_ticket">Obtener Ticket</a>
-        </div>
-
-
-
-
+        </div> -->
     </div>
 
     <div class="sobreNosotros mt-4 mb-2">
@@ -478,6 +250,7 @@ $username = $_SESSION['usuario'];
     <script src="../../controllers/js/bootstrap.min.js"></script>
     <script src="../../controllers/js/botones.js"></script>
     <script src="../../controllers/js/sweetalert2.js"></script>
+    <script src="../../controllers/js/contraladorPublic.js"></script>
 </body>
 
 </html>

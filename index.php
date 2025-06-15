@@ -95,7 +95,7 @@ $username = $_SESSION['usuario'];
     <div class="slider">
 
         <div class="formDIreccion">
-            <h4>¿Cuál es tu ruta?</h4>
+            <h4 id="tituloRuta">¿Cuál es tu ruta?</h4>
             <form action="" method="post">
 
                 <!-- Lugar de origen -->

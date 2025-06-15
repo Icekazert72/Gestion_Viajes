@@ -43,7 +43,7 @@ if ($resultado1->num_rows === 1) {
     $usuario = $resultado1->fetch_assoc();
 
     if (password_verify($password, $usuario['PASSWORD_HASH'])) {
-        $_SESSION['user_id'] = $usuario['id'];
+        $_SESSION['usuario_id'] = $usuario['id']; 
         $_SESSION['usuario'] = $usuario['nombre_usuario'];
         $_SESSION['tipo'] = 'usuario';
 

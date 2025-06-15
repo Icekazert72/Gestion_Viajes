@@ -133,151 +133,35 @@ document.querySelectorAll('.window').forEach(win => {
     });
 });
 
-// ....agencias
-document.addEventListener('DOMContentLoaded', () => {
-    const campos = document.querySelectorAll('.campo-validacion');
-    const form = document.getElementById('formNuevaAgencia');
 
-    // Validación en tiempo real
-    campos.forEach(campo => {
-        campo.addEventListener('input', () => validarCampo(campo));
-    });
-
-    function validarCampo(campo) {
-        const icono = campo.parentElement.querySelector('.icono-validacion i');
-        if (campo.checkValidity()) {
-            icono.className = 'fas fa-check text-success';
-        } else {
-            icono.className = 'fas fa-times text-danger';
-        }
-    }
-    
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        let valido = true;
-        campos.forEach(campo => {
-            validarCampo(campo);
-            if (!campo.checkValidity()) valido = false;
-        });
-
-        form.classList.add('was-validated');
-        if (!valido) return;
-
-        const formData = new FormData(form);
-
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', '../models/general_agencias.php', true);
-
-        xhr.onload = function () {
-            console.log(xhr.responseText);
-            try {
-                const respuesta = JSON.parse(xhr.responseText);
-                if (respuesta.success) {
-                    alert(respuesta.message);
-                    form.reset();
-                    form.classList.remove('was-validated');
-                    document.querySelectorAll('.icono-validacion i').forEach(icono => {
-                        icono.className = 'fas fa-circle';
-                        console.log(xhr.responseText);
-                    });
-                    document.getElementById('formNuevaAgencia').classList.add('d-none');
-                    document.getElementById('tablaAgencias').classList.remove('d-none');
-                    console.log(xhr.responseText);
-                } else {
-                    alert("Error: " + respuesta.message);
-                    console.log(xhr.responseText);
-                }
-            } catch (e) {
-                alert("Error inesperado en el servidor.");
-                console.error(e, xhr.responseText);
-                console.log(xhr.responseText);
-            }
-        };
-
-        xhr.onerror = function () {
-            alert("Error de red al enviar el formulario.");
-            console.log(xhr.responseText);
-        };
-
-        xhr.send(formData);
-    });
-
-    // Mostrar formulario
-    document.getElementById('btnNuevaAgencia').addEventListener('click', () => {
-        document.getElementById('tablaAgencias').classList.add('d-none');
-        document.getElementById('formNuevaAgencia').classList.remove('d-none');
-    });
-
-    // Cancelar botón
-    document.getElementById('cancelar-agencia').addEventListener('click', () => {
-        document.getElementById('tablaAgencias').classList.remove('d-none');
-        document.getElementById('formNuevaAgencia').classList.add('d-none');
-    });
-});
 
 
 document.getElementById('btnNuevoUsuarios').addEventListener('click', () => {
     document.getElementById('formRegistroUsuario').classList.remove('d-none');
+    document.getElementById('formRegistroEmpleado').classList.add('d-none');
     document.getElementById('tablaUsuarios').classList.add('d-none');
     document.getElementById('tablaCliendo').classList.add('d-none');
 });
 
-document.getElementById('btnUsuarios').addEventListener('click', () => {
-    console.log('Botón Usuarios clickeado');
+document.getElementById('btnusuarios').addEventListener('click', ()=> {
+    document.getElementById('formRegistroUsuario').classList.add('d-none');
+    document.getElementById('tablaUsuarios').classList.remove('d-none');
+    document.getElementById('formRegistroEmpleado').classList.add('d-none');
+    document.getElementById('tablaCliendo').classList.add('d-none');
 });
 
 document.getElementById('cancelar-usuario').addEventListener('click', () => {
     document.getElementById('formRegistroUsuario').classList.add('d-none');
     document.getElementById('tablaUsuarios').classList.remove('d-none');
     document.getElementById('tablaCliendo').classList.add('d-none');
+    document.getElementById('formRegistroEmpleado').classList.add('d-none');
     document.getElementById('formRegistroUsuario').reset();
 });
 document.getElementById('btnClientes').addEventListener('click', () => {
     document.getElementById('formRegistroUsuario').classList.add('d-none');
     document.getElementById('tablaUsuarios').classList.add('d-none');
     document.getElementById('tablaCliendo').classList.remove('d-none');
-});
-
-
-const form = document.getElementById('rutaForm');
-const campos = ['origen', 'destino', 'horario', 'precio', 'region'];
-
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    let valido = true;
-
-    campos.forEach(id => {
-        const input = document.getElementById(id);
-        const validSpan = input.parentElement.querySelector('.valid-span');
-        const invalidSpan = input.parentElement.querySelector('.invalid-span');
-
-        if (input.checkValidity()) {
-            input.classList.remove('is-invalid');
-            input.classList.add('is-valid');
-            validSpan.classList.remove('d-none');
-            invalidSpan.classList.add('d-none');
-        } else {
-            input.classList.remove('is-valid');
-            input.classList.add('is-invalid');
-            validSpan.classList.add('d-none');
-            invalidSpan.classList.remove('d-none');
-            valido = false;
-        }
-    });
-
-    if (valido) {
-        alert('Ruta registrada correctamente');
-        form.reset();
-        campos.forEach(id => {
-            const input = document.getElementById(id);
-            const validSpan = input.parentElement.querySelector('.valid-span');
-            const invalidSpan = input.parentElement.querySelector('.invalid-span');
-            input.classList.remove('is-valid', 'is-invalid');
-            validSpan.classList.add('d-none');
-            invalidSpan.classList.add('d-none');
-        });
-    }
+    document.getElementById('formRegistroEmpleado').classList.add('d-none');
 });
 
 document.getElementById('btnFrecuentes').addEventListener('click', () => {
@@ -287,12 +171,22 @@ document.getElementById('btnFrecuentes').addEventListener('click', () => {
     document.getElementById('regional').classList.add('d-none');
     document.getElementById('populares').classList.add('d-none');
 });
+
+document.getElementById('btnTodasRutas').addEventListener('click', () => {
+    document.getElementById('frecuentes').classList.add('d-none');
+    document.getElementById('formRutas').classList.add('d-none');
+    document.getElementById('rutas').classList.remove('d-none');
+    document.getElementById('regional').classList.add('d-none');
+    document.getElementById('populares').classList.add('d-none');
+});
 document.getElementById('btnMasRutas').addEventListener('click', () => {
     document.getElementById('frecuentes').classList.add('d-none');
     document.getElementById('formRutas').classList.remove('d-none');
     document.getElementById('rutas').classList.add('d-none');
     document.getElementById('regional').classList.add('d-none');
     document.getElementById('populares').classList.add('d-none');
+    console.log('');
+    
 });
 document.getElementById('btnPopulares').addEventListener('click', () => {
     document.getElementById('frecuentes').classList.add('d-none');
@@ -322,26 +216,63 @@ document.getElementById('btnComprados').addEventListener('click', () => {
     document.getElementById('comprados').classList.remove('d-none');
     document.getElementById('reservados').classList.add('d-none');
     document.getElementById('cancelados').classList.add('d-none');
+    document.getElementById('reservar').classList.add('d-none');
+    document.getElementById('pendientes').classList.add('d-none');
 });
 document.getElementById('btnReservados').addEventListener('click', () => {
     document.getElementById('comprados').classList.add('d-none');
     document.getElementById('reservados').classList.remove('d-none');
     document.getElementById('cancelados').classList.add('d-none');
+    document.getElementById('reservar').classList.add('d-none');
+    document.getElementById('pendientes').classList.add('d-none');
 });
 document.getElementById('btnCancelar').addEventListener('click', () => {
     document.getElementById('comprados').classList.add('d-none');
     document.getElementById('reservados').classList.add('d-none');
     document.getElementById('cancelados').classList.remove('d-none');
+    document.getElementById('reservar').classList.add('d-none');
+    document.getElementById('pendientes').classList.add('d-none');
+});
+document.getElementById('btnReservar').addEventListener('click', () => {
+    document.getElementById('comprados').classList.add('d-none');
+    document.getElementById('reservados').classList.add('d-none');
+    document.getElementById('cancelados').classList.add('d-none');
+    document.getElementById('reservar').classList.remove('d-none');
+    document.getElementById('pendientes').classList.add('d-none');
+});
+document.getElementById('btnPendientes').addEventListener('click', () => {
+    document.getElementById('comprados').classList.add('d-none');
+    document.getElementById('reservados').classList.add('d-none');
+    document.getElementById('cancelados').classList.add('d-none');
+    document.getElementById('reservar').classList.add('d-none');
+    document.getElementById('pendientes').classList.remove('d-none');
 });
 
 document.getElementById('btnLista').addEventListener('click', () => {
     document.getElementById('tablaSeguimiento').classList.add('d-none');
     document.getElementById('tablaLista').classList.remove('d-none');
+    document.getElementById('ContainerNuevoViaje').classList.add('d-none');
+    document.getElementById('ContainerBuses').classList.add('d-none');
 });
 document.getElementById('btnSeguimiento').addEventListener('click', () => {
     document.getElementById('tablaSeguimiento').classList.remove('d-none');
     document.getElementById('tablaLista').classList.add('d-none');
+        document.getElementById('ContainerNuevoViaje').classList.add('d-none');
+    document.getElementById('ContainerBuses').classList.add('d-none');
 });
+document.getElementById('btnNuevoViaje').addEventListener('click', () => {
+    document.getElementById('tablaSeguimiento').classList.add('d-none');
+    document.getElementById('tablaLista').classList.add('d-none');
+    document.getElementById('ContainerNuevoViaje').classList.remove('d-none');
+    document.getElementById('ContainerBuses').classList.add('d-none');
+});
+document.getElementById('btnBusesAsientos').addEventListener('click', () => {
+    document.getElementById('tablaSeguimiento').classList.add('d-none');
+    document.getElementById('tablaLista').classList.add('d-none');
+    document.getElementById('ContainerNuevoViaje').classList.add('d-none');
+    document.getElementById('ContainerBuses').classList.remove('d-none');
+}); 
+
 
 
 function initMap() {

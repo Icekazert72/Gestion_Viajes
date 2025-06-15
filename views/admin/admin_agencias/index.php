@@ -15,8 +15,8 @@ $conn = $obj->getConexion();
 $idAgencia = $_SESSION['user_id'];
 
 // Consultar datos de la agencia
-$sql = "SELECT id, nombre, direccion, telefono, email, usuario, imagen FROM agencias WHERE id = ?";
-$stmt = $conn->prepare($sql);
+$sql_agencias = "SELECT id, nombre, direccion, telefono, email, usuario, imagen FROM agencias WHERE id = ?";
+$stmt = $conn->prepare($sql_agencias);
 $stmt->bind_param("i", $idAgencia);
 $stmt->execute();
 $resultado = $stmt->get_result();
@@ -59,143 +59,7 @@ $conn->close();
 
     <main id="contenido" style="display: none;">
 
-        <div class="window window_agencias" style="display: none;">
-            <div class="window-header">
-                <span>Agencias</span>
-                <div class="window-controls">
-                    <button class="btn-minimize"><i class="fa-solid fa-window-minimize"></i></button>
-                    <button class="btn-maximize"><i class="fa-solid fa-window-maximize"></i></button>
-                    <button class="btn-close"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-            </div>
-            <div class="window-content h-100 d-flex">
-                <!-- Sidebar -->
-                <aside class="bg-light border-end p-3" style="width: 220px;">
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-outline-primary mb-3" id="btnNuevaAgencia">
-                            <i class="fas fa-plus-circle me-2"></i>
-                        </button>
-                    </div>
-                </aside>
 
-                <!-- Contenido central -->
-                <main class="flex-grow-1 p-4 overflow-auto">
-                    <h4 class="mb-4">Agencias registradas</h4>
-
-                    <div class="table-responsive" id="tablaAgencias">
-                        <table class="table table-hover align-middle table-bordered">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nombre</th>
-                                    <th>Ubicación</th>
-                                    <th>Teléfono</th>
-                                    <th>Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Agencia Central</td>
-                                    <td>Ciudad Principal</td>
-                                    <td>123-456-789</td>
-                                    <td><span class="badge bg-success">Activa</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <form id="formNuevaAgencia" class="d-none" novalidate>
-                        <div class="row g-3">
-
-                            <!-- Nombre -->
-                            <div class="col-md-6">
-                                <label class="form-label">Nombre de Agencia</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-building"></i></span>
-                                    <input type="text" class="form-control campo-validacion" required>
-                                    <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
-                                </div>
-                            </div>
-
-                            <!-- Dirección -->
-                            <div class="col-md-6">
-                                <label class="form-label">Dirección</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                    <input type="text" class="form-control campo-validacion" required>
-                                    <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
-                                </div>
-                            </div>
-
-                            <!-- Teléfono -->
-                            <div class="col-md-6">
-                                <label class="form-label">Teléfono</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                    <input type="tel" class="form-control campo-validacion" required pattern="[0-9\-]+">
-                                    <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
-                                </div>
-                            </div>
-
-                            <!-- Email -->
-                            <div class="col-md-6">
-                                <label class="form-label">Email</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                    <input type="email" class="form-control campo-validacion" required>
-                                    <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
-                                </div>
-                            </div>
-
-                            <!-- Usuario -->
-                            <div class="col-md-6">
-                                <label class="form-label">Usuario</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    <input type="text" class="form-control campo-validacion" required>
-                                    <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
-                                </div>
-                            </div>
-
-                            <!-- Contraseña -->
-                            <div class="col-md-6">
-                                <label class="form-label">Contraseña</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                    <input type="password" class="form-control campo-validacion" required minlength="6">
-                                    <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
-                                </div>
-                            </div>
-
-                            <!-- Imagen -->
-                            <div class="col-md-12">
-                                <label class="form-label">Imagen</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-image"></i></span>
-                                    <input type="file" class="form-control campo-validacion" required>
-                                    <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <!-- Botones -->
-                        <div class="mt-4 d-flex justify-content-between">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save me-1"></i> Guardar Agencia
-                            </button>
-                            <button type="button" class="btn btn-secondary" id="cancelar-agencia">
-                                <i class="fas fa-times me-1"></i> Cancelar
-                            </button>
-                        </div>
-                    </form>
-
-                </main>
-
-            </div>
-
-        </div>
         <div class="window window_rutas" style="display: none;">
             <div class="window-header">
                 <span>Gestion Rutas</span>
@@ -211,6 +75,9 @@ $conn->close();
                     <div class="d-grid gap-2">
                         <button class="btn btn-outline-primary mb-3" id="btnMasRutas">
                             <i class="fa-solid fa-plus"></i> Rutas
+                        </button>
+                        <button class="btn btn-outline-primary mb-3" id="btnTodasRutas">
+                            Todas
                         </button>
                         <button class="btn btn-outline-primary mb-3" id="btnFrecuentes">
                             <i class="fa-solid fa-road"></i> Frecuentes
@@ -228,33 +95,35 @@ $conn->close();
                     <h4 class="mb-4">Gestion de rutas</h4>
 
                     <div class="container my-4" id="rutas">
-                        <div class="card route-card p-3">
-                            <div class="row align-items-center">
-                                <div class="col-md-2 text-center mb-2 mb-md-0">
-                                    <i class="fas fa-map-marker-alt fa-lg text-primary me-2"></i>
-                                    <strong>Origen:</strong><br> Malabo
-                                </div>
-                                <div class="col-md-2 text-center mb-2 mb-md-0">
-                                    <i class="fas fa-location-arrow fa-lg text-success me-2"></i>
-                                    <strong>Destino:</strong><br> Bata
-                                </div>
-                                <div class="col-md-3 text-center mb-2 mb-md-0">
-                                    <i class="fas fa-clock fa-lg text-warning me-2"></i>
-                                    <strong>Horario:</strong><br> 08:00 - 14:00
-                                </div>
-                                <div class="col-md-2 text-center mb-2 mb-md-0">
-                                    <i class="fas fa-money-bill text-danger me-2"></i>
-                                    <strong>Precio:</strong><br> 20.000 XAF
-                                </div>
-                                <div class="col-md-3 text-center d-flex justify-content-center align-items-center gap-2">
-                                    <button class="btn btn-success btn-icon" title="Agregar a la página" onclick="agregarRuta()">
-                                        <i class="fas fa-plus"></i>
+                        <div class="mt-4" id="contenedorTarjetas">
+                            <!-- <div class=" row align-items-center">
+                            <div class="col-md-2 text-center mb-2 mb-md-0">
+                                <i class="fas fa-map-marker-alt fa-lg text-primary me-2"></i>
+                                <strong>Origen:</strong><br> Malabo
+                            </div>
+                            <div class="col-md-2 text-center mb-2 mb-md-0">
+                                <i class="fas fa-location-arrow fa-lg text-success me-2"></i>
+                                <strong>Destino:</strong><br> Bata
+                            </div>
+                            <div class="col-md-3 text-center mb-2 mb-md-0">
+                                <i class="fas fa-clock fa-lg text-warning me-2"></i>
+                                <strong>Horario:</strong><br> 08:00 - 14:00
+                            </div>
+                            <div class="col-md-2 text-center mb-2 mb-md-0">
+                                <i class="fas fa-money-bill text-danger me-2"></i>
+                                <strong>Precio:</strong><br> 20.000 XAF
+                            </div>
+                            <div class="col-md-3 d-flex justify-content-end">
+                                <div class="botonera d-flex gap-3">
+                                    <button class="btn-realista eliminar btn-danger" title="Agregar a la página" onclick="eliminarRuta()">
+                                        <i class="fas fa-trash-alt"></i>
                                     </button>
-                                    <button class="btn btn-warning btn-icon" title="Editar ruta" onclick="editarRuta()">
+                                    <button class="btn-realista editar" title="Editar ruta" onclick="editarRuta()">
                                         <i class="fas fa-pen"></i>
                                     </button>
                                 </div>
                             </div>
+                        </div> -->
                         </div>
                     </div>
                     <div class="container my-4 d-none" id="populares">
@@ -347,62 +216,79 @@ $conn->close();
                             </div>
                         </div>
                     </div>
+                    <!-- Formulario -->
                     <div class="container my-5 d-none" id="formRutas">
                         <div class="card shadow-lg p-4">
                             <h4 class="mb-4"><i class="fas fa-road text-primary me-2"></i>Registro de Ruta</h4>
                             <form id="rutaForm" novalidate>
+                                <input type="hidden" id="agencia_id" value="<?= htmlspecialchars($agencia['id']) ?>">
+
                                 <div class="row g-3">
                                     <!-- Origen -->
                                     <div class="col-md-6">
-                                        <label for="origen" class="form-label"><i class="fas fa-map-marker-alt me-1 text-primary"></i>Origen</label>
+                                        <label for="origen" class="form-label">
+                                            <i class="fas fa-map-marker-alt me-1 text-primary"></i>Origen
+                                        </label>
                                         <input type="text" class="form-control" id="origen" required>
-                                        <span class="valid-span text-success d-none"><i class="fas fa-check-circle"></i> ¡Correcto!</span>
-                                        <span class="invalid-span text-danger d-none"><i class="fas fa-exclamation-circle"></i> Campo requerido.</span>
+                                        <span class="valid-span text-success d-none">✓ Campo válido</span>
+                                        <span class="invalid-span text-danger d-none">✗ Campo obligatorio</span>
                                     </div>
 
                                     <!-- Destino -->
                                     <div class="col-md-6">
-                                        <label for="destino" class="form-label"><i class="fas fa-location-arrow me-1 text-success"></i>Destino</label>
+                                        <label for="destino" class="form-label">
+                                            <i class="fas fa-location-arrow me-1 text-success"></i>Destino
+                                        </label>
                                         <input type="text" class="form-control" id="destino" required>
-                                        <span class="valid-span text-success d-none"><i class="fas fa-check-circle"></i> ¡Correcto!</span>
-                                        <span class="invalid-span text-danger d-none"><i class="fas fa-exclamation-circle"></i> Campo requerido.</span>
+                                        <span class="valid-span text-success d-none">✓ Campo válido</span>
+                                        <span class="invalid-span text-danger d-none">✗ Campo obligatorio</span>
                                     </div>
 
                                     <!-- Horario -->
                                     <div class="col-md-6">
-                                        <label for="horario" class="form-label"><i class="fas fa-clock me-1 text-warning"></i>Horario</label>
-                                        <input type="text" class="form-control" id="horario" placeholder="Ej: 08:00 - 14:00" required>
-                                        <span class="valid-span text-success d-none"><i class="fas fa-check-circle"></i> ¡Correcto!</span>
-                                        <span class="invalid-span text-danger d-none"><i class="fas fa-exclamation-circle"></i> Campo requerido.</span>
+                                        <label for="horario" class="form-label">
+                                            <i class="fas fa-clock me-1 text-warning"></i>Horario
+                                        </label>
+                                        <input type="time" class="form-control" id="horario" required>
+                                        <span class="valid-span text-success d-none">✓ Campo válido</span>
+                                        <span class="invalid-span text-danger d-none">✗ Campo obligatorio</span>
                                     </div>
 
                                     <!-- Precio -->
                                     <div class="col-md-6">
-                                        <label for="precio" class="form-label"><i class="fas fa-money-bill me-1 text-success"></i>Precio</label>
-                                        <input type="number" class="form-control" id="precio" min="0" step="0.01" required>
-                                        <span class="valid-span text-success d-none"><i class="fas fa-check-circle"></i> ¡Correcto!</span>
-                                        <span class="invalid-span text-danger d-none"><i class="fas fa-exclamation-circle"></i> Ingrese un precio válido.</span>
+                                        <label for="precio" class="form-label">
+                                            <i class="fas fa-money-bill me-1 text-success"></i>Precio
+                                        </label>
+                                        <input type="number" class="form-control" id="precio" step="0.01" required>
+                                        <span class="valid-span text-success d-none">✓ Campo válido</span>
+                                        <span class="invalid-span text-danger d-none">✗ Campo obligatorio</span>
                                     </div>
 
                                     <!-- Región -->
                                     <div class="col-md-6">
-                                        <label for="region" class="form-label"><i class="fas fa-globe-africa me-1 text-info"></i>Región</label>
+                                        <label for="region" class="form-label">
+                                            <i class="fas fa-globe-africa me-1 text-info"></i>Región
+                                        </label>
                                         <select class="form-select" id="region" required>
                                             <option value="">Seleccione una opción</option>
                                             <option value="continental">Continental</option>
-                                            <option value="insular">Insular</option>
+                                            <option value="regional">Regional</option>
                                         </select>
-                                        <span class="valid-span text-success d-none"><i class="fas fa-check-circle"></i> ¡Correcto!</span>
-                                        <span class="invalid-span text-danger d-none"><i class="fas fa-exclamation-circle"></i> Seleccione una región.</span>
+                                        <span class="valid-span text-success d-none">✓ Selección válida</span>
+                                        <span class="invalid-span text-danger d-none">✗ Debe seleccionar una opción</span>
                                     </div>
                                 </div>
 
                                 <div class="mt-4 text-end">
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i>Registrar Ruta</button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save me-1"></i>Registrar Ruta
+                                    </button>
                                 </div>
                             </form>
+                            <div id="respuestaRuta" class="mt-3"></div>
                         </div>
                     </div>
+
 
                 </main>
 
@@ -424,11 +310,17 @@ $conn->close();
 
                 <aside class="bg-light border-end p-3" style="width: 220px;">
                     <div class="d-grid gap-2">
+                        <button class="btn btn-outline-primary mb-3" id="btnNuevoBuses">
+                            <i class="fa-solid fa-bus"></i> Nuevo
+                        </button>
                         <button class="btn btn-outline-primary mb-3" id="btnBuses">
                             <i class="fa-solid fa-bus"></i> Buses
                         </button>
                         <button class="btn btn-outline-primary mb-3" id="btnConductores">
                             <i class="fa-solid fa-user-group"></i> Condutores
+                        </button>
+                        <button class="btn btn-outline-primary mb-3" id="btnAsignar">
+                            <i class="fa-solid fa-bus"></i> Asignar Bus
                         </button>
                     </div>
                 </aside>
@@ -437,86 +329,280 @@ $conn->close();
                     <h4 class="mb-4"> Control de Buses </h4>
 
                     <div class="table-responsive" id="buses">
-                        <div class="container my-5">
-                            <div class="bus-card">
-                                <!-- Cabecera -->
-                                <div class="bus-card-header d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <i class="fas fa-bus text-primary me-2"></i>
-                                        <strong>Bus Nº 25 - Placa: AB123CD</strong>
+                        <div class="container my-5" id="bus-list">
+                            <!-- <div class="bus-card futuristic-card"> -->
+                            <!-- Cabecera -->
+                            <!-- <div class="bus-card-header">
+                                    <div class="bus-title">
+                                        <i class="fas fa-bus me-2"></i>Bus Nº 25 - Placa: AB123CD
                                     </div>
-                                    <div>
-                                        <button class="btn btn-outline-primary rounded-circle me-2" title="Editar">
+                                    <div class="bus-actions">
+                                        <button class="action-btn edit" title="Editar">
                                             <i class="fas fa-pen"></i>
                                         </button>
-                                        <button class="btn btn-outline-danger rounded-circle" title="Eliminar">
+                                        <button class="action-btn delete" title="Eliminar">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
-                                </div>
+                                </div> -->
 
-                                <!-- Cuerpo con líneas -->
-                                <div class="bus-card-body">
-                                    <div class="bus-info-row">
-                                        <div><i class="fas fa-cogs me-2 text-secondary"></i><strong>Modelo:</strong></div>
-                                        <div>Mercedes Sprinter</div>
+                            <!-- Cuerpo -->
+                            <!-- <div class="bus-card-body">
+                                    <div class="bus-info">
+                                        <div><i class="fas fa-cogs me-2"></i><strong>Modelo:</strong> Mercedes Sprinter</div>
+                                        <div><i class="fas fa-users me-2"></i><strong>Capacidad:</strong> 18 pasajeros</div>
+                                        <div><i class="fas fa-building me-2"></i><strong>Agencia:</strong> Ndong Viajes</div>
+                                        <div><i class="fas fa-check-circle me-2"></i><strong>Estado:</strong>
+                                            <span class="status active">Activo</span>
+                                        </div>
                                     </div>
-                                    <div class="bus-info-row">
-                                        <div><i class="fas fa-users me-2 text-secondary"></i><strong>Capacidad:</strong></div>
-                                        <div>18 pasajeros</div>
-                                    </div>
-                                    <div class="bus-info-row">
-                                        <div><i class="fas fa-building me-2 text-secondary"></i><strong>Agencia:</strong></div>
-                                        <div>Ndong Viajes</div>
-                                    </div>
-                                    <div class="bus-info-row">
-                                        <div><i class="fas fa-check-circle me-2 text-secondary"></i><strong>Estado:</strong></div>
-                                        <div><span class="status-pill active-pill">Activo</span></div>
-                                    </div>
-                                </div>
-                            </div>
+                                </div> -->
+                            <!-- </div> -->
                         </div>
                     </div>
 
                     <div class="table-responsive d-none" id="conductos">
-                        <div class="container my-5 d-flex justify-content-center">
-                            <div class="dni-card-wide">
-                                <!-- Foto lateral -->
-                                <div class="dni-photo-side">
-                                    <i class="fas fa-user"></i>
+                        <div class="container mt-5">
+                            <div class="futuristic-table-container">
+                                <table class="futuristic-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>Edad</th>
+                                            <th>Teléfono</th>
+                                            <th>Email</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody">
+                                        <!-- <tr>
+                                            <td>20203040</td>
+                                            <td>Juan Pedro Mba</td>
+                                            <td>35 años</td>
+                                            <td>+240 555 123456</td>
+                                            <td>juan.pedro@email.com</td>
+                                            <td><button class="btn-open-card" onclick="abrirTarjeta()">Ver tarjeta</button></td>
+                                        </tr> -->
+                                        <script>
+                                            function abrirTarjeta() {
+                                                document.getElementById("targeta").classList.remove("d-none");
+                                            }
+
+                                            function cerrarTarjeta() {
+                                                document.getElementById("targeta").className.add("d-none");
+                                            }
+                                        </script>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="targeta d-none" id="targeta">
+                            <div class="dni-card-modern" id="draggable-card">
+                                <div class="dni-header" id="drag-handle">
+                                    <div class="user-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <button class="close-btn" onclick="cerrarTargeta()" title="Cerrar tarjeta">&times;</button>
+                                    <div class="user-name" id="card-nombre">Juan Pedro Mba</div>
+                                    <div class="user-status active">Activo</div>
+
+                                    <script>
+                                        function cerrarTargeta() {
+                                            document.getElementById("targeta").classList.add("d-none");
+                                        }
+                                    </script>
                                 </div>
 
-                                <!-- Información -->
-                                <div class="dni-details">
-                                    <h4>Juan Pedro Mba</h4>
-                                    <p><i class="fas fa-id-card me-1 text-secondary"></i> <strong>ID:</strong> 20203040</p>
-                                    <p><i class="fas fa-birthday-cake me-1 text-secondary"></i> <strong>Edad:</strong> 35 años</p>
-                                    <p><i class="fas fa-phone me-1 text-secondary"></i> <strong>Tel:</strong> +240 555 123456</p>
-                                    <p><i class="fas fa-envelope me-1 text-secondary"></i> <strong>Email:</strong> juan.pedro@email.com</p>
-                                    <p><i class="fas fa-home me-1 text-secondary"></i> <strong>Domicilio:</strong> Barrio Paraíso, Malabo</p>
-                                    <p><i class="fas fa-address-card me-1 text-secondary"></i> <strong>Licencia:</strong> LCN-45210</p>
-                                    <p><i class="fas fa-bus me-1 text-secondary"></i> <strong>Asignación:</strong> Bus Nº 25</p>
-                                    <p><i class="fas fa-bus me-1 text-secondary"></i> <strong>Agencia:</strong> Forama</p>
-
-                                    <!-- Botones -->
-                                    <div class="dni-buttons">
-                                        <a href="https://wa.me/240555123456" target="_blank" class="btn btn-whatsapp">
-                                            <i class="fab fa-whatsapp"></i> WhatsApp
-                                        </a>
-                                        <a href="mailto:juan.pedro@email.com" class="btn btn-email">
-                                            <i class="fas fa-envelope"></i> Email
-                                        </a>
+                                <div class="dni-body">
+                                    <!-- Secciones -->
+                                    <div class="dni-section">
+                                        <h5 class="section-title">Datos Personales</h5>
+                                        <div class="dni-info"><i class="fas fa-id-card"></i> <strong>ID:</strong>
+                                            <div id="card-id"></div>
+                                        </div>
+                                        <div class="dni-info"><i class="fas fa-birthday-cake"></i> <strong>Edad:</strong>
+                                            <div id="card-edad"></div>
+                                        </div>
+                                        <div class="dni-info"><i class="fas fa-home"></i> <strong>Domicilio:</strong>
+                                            <div id="card-direccion"></div>
+                                        </div>
+                                    </div>
+                                    <div class="dni-section">
+                                        <h5 class="section-title">Contacto</h5>
+                                        <div class="dni-info"><i class="fas fa-phone"></i> <strong>Tel:</strong>
+                                            <div id="card-telefono"></div>
+                                        </div>
+                                        <div class="dni-info"><i class="fas fa-envelope"></i> <strong>Email:</strong>
+                                            <div id="card-email"></div>
+                                        </div>
+                                    </div>
+                                    <div class="dni-section">
+                                        <h5 class="section-title">Información Profesional</h5>
+                                        <div class="dni-info"><i class="fas fa-id-badge"></i> <strong>Licencia:</strong>
+                                            <div id="card-licencia"></div>
+                                        </div>
+                                        <div class="dni-info"><i class="fas fa-bus"></i> <strong>Asignación:</strong>
+                                            <div id="card-bus"></div>
+                                        </div>
+                                        <div class="dni-info"><i class="fas fa-building"></i> <strong>Agencia:</strong>
+                                            <div id="card-agencia"></div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <!-- Estado -->
-                                <div class="dni-status">
-                                    <span class="status-pill active-pill">Activo</span>
+                                <div class="dni-footer">
+                                    <a href="https://wa.me/240555123456" target="_blank" id="card-whatsapp" class="btn-dni whatsapp">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+                                    <a href="mailto:juan.pedro@email.com" id="card-email-link" class="btn-dni email">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
+
+                    <div class="table-responsive d-none" id="asignar">
+
+                        <div class="assignment-container" id="asignarCon">
+                            <h2>Asignar Bus a Conductor</h2>
+                            <form id="assignmentForm">
+                                <div class="form-group">
+                                    <label for="conductor">Conductor:</label>
+                                    <select id="conductor" name="conductor" required>
+                                        <option value="">Seleccione un conductor</option>
+                                        <!-- Opciones dinámicas -->
+                                    </select>
+                                    <span class="status-icon" id="conductor-status"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="bus">Bus:</label>
+                                    <select id="bus" name="bus" required>
+                                        <option value="">Seleccione un bus</option>
+                                        <!-- Opciones dinámicas -->
+                                    </select>
+                                    <span class="status-icon" id="bus-status"></span>
+                                </div>
+
+                                <div class="form-buttons">
+                                    <button type="submit" class="btn-azul">Asignar</button>
+                                    <button type="button" class="btn-verde button" id="btn-asignacion">Ver Asignaciones</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- CONTENEDOR PRINCIPAL DE TODAS LAS ASIGNACIONES ACTIVAS -->
+                        <div id="asignaciones-contenedor" class="d-none"></div>
+
+                        <!-- <div class="asignacion-box d-none" id="asignacion-body">
+                            <div class="asignacion-header">
+                                <h3>Asignación Activa</h3>
+                                <button class="btn-cerrar" id="btn_cerra_asignacion">&times;</button>
+                            </div>
+                            <div class="asignacion-body">
+                                <div class="info-bloque">
+                                    <span class="label">Conductor:</span>
+                                    <span class="valor">Juan Pedro Mba</span>
+                                </div>
+                                <div class="info-bloque">
+                                    <span class="label">ID:</span>
+                                    <span class="valor">EMP-00123</span>
+                                </div>
+                                <div class="info-bloque">
+                                    <span class="label">Bus Asignado:</span>
+                                    <span class="valor">BUS-548</span>
+                                </div>
+                                <div class="info-bloque">
+                                    <span class="label">Agencia:</span>
+                                    <span class="valor">Ndong Viajes</span>
+                                </div>
+                                <button class="btn-desasignar" onclick="desasignar(123)">Desasignar</button>
+                            </div>
+                        </div> -->
+
+                    </div>
+
+
+                    <div class="table-responsive d-none" id="nuevoBus">
+                        <form id="formBus" method="POST" class="form-futurista">
+                            <div class="form-group">
+                                <label for="placa">Placa:</label>
+                                <div class="input-icon">
+                                    <input type="text" id="placa" name="placa" pattern="^[A-Z]{2}-\d{3}-[A-Z]{1}$" placeholder="Ej: BN-001-A">
+                                    <span id="placa-status" class="status-icon"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="numero_bus">Número del Bus:</label>
+                                <div class="input-icon">
+                                    <input type="text" id="numero_bus" name="numero_bus" placeholder="Ej: 25">
+                                    <span id="numero_bus-status" class="status-icon"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="modelo">Modelo:</label>
+                                <div class="input-icon">
+                                    <input type="text" id="modelo" name="modelo" placeholder="Ej: Toyota Coaster">
+                                    <span id="modelo-status" class="status-icon"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="capacidad">Capacidad:</label>
+                                <div class="input-icon">
+                                    <input type="number" id="capacidad" name="capacidad" min="1" placeholder="Ej: 30">
+                                    <span id="capacidad-status" class="status-icon"></span>
+                                </div>
+                            </div>
+
+                            <!-- Campo oculto -->
+                            <input type="hidden" id="agencia" name="agencia" value="<?= htmlspecialchars($agencia['id']) ?>">
+
+                            <button type="submit" class="btn-enviar">Registrar Bus</button>
+                            <div id="form-group" class="mt-3">
+                                <div id="respuesta-container" style="margin-top: 10px;">
+                                    <div id="spinner" style="display: none;">
+                                        <i class="fas fa-spinner fa-spin" style="color: #007bff; font-size: 1.2em;"></i> Verificando datos...
+                                    </div>
+                                    <div id="respuesta" style="margin-top: 5px;"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <script>
+                        document.getElementById('btnNuevoBuses').addEventListener('click', function() {
+                            document.getElementById('nuevoBus').classList.remove('d-none');
+                            document.getElementById('buses').classList.add('d-none');
+                            document.getElementById('conductos').classList.add('d-none');
+                            document.getElementById('asignar').classList.add('d-none');
+                        });
+                        document.getElementById('btnBuses').addEventListener('click', function() {
+                            document.getElementById('buses').classList.remove('d-none');
+                            document.getElementById('nuevoBus').classList.add('d-none');
+                            document.getElementById('conductos').classList.add('d-none');
+                            document.getElementById('asignar').classList.add('d-none');
+                        });
+                        document.getElementById('btnConductores').addEventListener('click', function() {
+                            document.getElementById('conductos').classList.remove('d-none');
+                            document.getElementById('buses').classList.add('d-none');
+                            document.getElementById('nuevoBus').classList.add('d-none');
+                            document.getElementById('asignar').classList.add('d-none');
+                        });
+                        document.getElementById('btnAsignar').addEventListener('click', function() {
+                            document.getElementById('asignar').classList.remove('d-none');
+                            document.getElementById('buses').classList.add('d-none');
+                            document.getElementById('conductos').classList.add('d-none');
+                            document.getElementById('nuevoBus').classList.add('d-none');
+                        });
+                    </script>
 
                 </main>
 
@@ -537,6 +623,12 @@ $conn->close();
 
                 <aside class="bg-light border-end p-3" style="width: 220px;">
                     <div class="d-grid gap-2">
+                        <button class="btn btn-outline-primary mb-3" id="btnReservar">
+                            <i class="fa-solid fa-circle-plus"></i> Reservar
+                        </button>
+                        <button class="btn btn-outline-primary mb-3" id="btnPendientes">
+                            <i class="fa-solid fa-ticket"></i> Pendientes
+                        </button>
                         <button class="btn btn-outline-primary mb-3" id="btnComprados">
                             <i class="fa-solid fa-ticket"></i> Comprados
                         </button>
@@ -546,18 +638,30 @@ $conn->close();
                         <button class="btn btn-outline-primary mb-3" id="btnCancelar">
                             <i class="fa-solid fa-ticket"></i> Cancelados
                         </button>
+
                     </div>
                 </aside>
 
                 <!-- Contenido central -->
                 <main class="flex-grow-1 p-4 overflow-auto">
+                    <!-- Contenedor de notificaciones -->
+                    <div id="toast-container" style="
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        z-index: 9999;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                        ">
+                    </div>
+
                     <h4 class="mb-4">Gestion de reservas</h4>
 
-                    <div class="table-responsive" id="comprados">
-                        <div class="container my-5">
+                    <div class="table-responsive" id="pendientes">
+                        <!-- <div class="container my-5">
                             <div class="ticket-card border shadow-lg rounded-4 overflow-hidden mx-auto" style="max-width: 1000px; background-color: #fff;">
-
-                                <!-- Cabecera: Nombre y reserva -->
+                                
                                 <div class="bg-white p-4 border-bottom">
                                     <div class="d-flex justify-content-between flex-column flex-md-row">
                                         <div>
@@ -570,7 +674,7 @@ $conn->close();
                                         </div>
                                     </div>
 
-                                    <!-- Tipo de servicio -->
+                                    
                                     <div class="mt-3">
                                         <span class="badge bg-warning text-dark fs-6 px-3 py-2">
                                             <i class="fa-solid fa-star me-1"></i> Servicio: Oro
@@ -578,7 +682,7 @@ $conn->close();
                                     </div>
                                 </div>
 
-                                <!-- Detalles del viaje -->
+                               
                                 <div class="bg-light-subtle px-4 py-3">
                                     <div class="row text-center text-md-start">
                                         <div class="col-md-4 mb-3 mb-md-0">
@@ -596,7 +700,78 @@ $conn->close();
                                     </div>
                                 </div>
 
-                                <!-- Asiento y precio -->
+                               
+                                <div class="bg-white px-4 py-3 d-flex justify-content-between align-items-center flex-column flex-md-row">
+                                    <div>
+                                        <p class="mb-1"><i class="fa-solid fa-chair me-2 text-secondary"></i><strong>Asiento:</strong> 12B</p>
+                                        <p class="mb-0"><i class="fa-solid fa-circle-check me-2 text-success"></i><strong>Estado:</strong> Confirmado</p>
+                                    </div>
+                                    <div class="text-md-end mt-3 mt-md-0">
+                                        <h6 class="text-uppercase text-muted mb-1">Precio</h6>
+                                        <p class="fs-4 fw-bold text-success mb-0">8.000 XAF</p>
+                                    </div>
+                                </div>
+
+                            
+                                <div class="bg-light px-4 py-3 border-top text-center">
+                                    <p class="mb-3 fw-semibold">¿Deseas confirmar el pago de esta reserva?</p>
+                                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                                        <button class="btn btn-success px-4">
+                                            <i class="fa-solid fa-credit-card me-2"></i> Confirmar Pago
+                                        </button>
+                                        <button class="btn btn-danger px-4">
+                                            <i class="fa-solid fa-xmark me-2"></i> Cancelar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+
+                    <div class="table-responsive" id="comprados">
+                        <!-- <div class="container my-5">
+                            <div class="ticket-card border shadow-lg rounded-4 overflow-hidden mx-auto" style="max-width: 1000px; background-color: #fff;">
+
+                                
+                                <div class="bg-white p-4 border-bottom">
+                                    <div class="d-flex justify-content-between flex-column flex-md-row">
+                                        <div>
+                                            <h5 class="mb-2 fw-bold"><i class="fa-solid fa-user me-2 text-primary"></i>Juan Pedro Mba</h5>
+                                            <p class="mb-1"><i class="fa-solid fa-phone text-muted me-2"></i>+240 555 123456</p>
+                                            <p class="mb-0"><i class="fa-solid fa-envelope text-muted me-2"></i>juan.pedro@email.com</p>
+                                        </div>
+                                        <div class="text-md-end mt-3 mt-md-0">
+                                            <span class="badge bg-primary fs-6 px-3 py-2">Reserva Nº TK123456</span>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="mt-3">
+                                        <span class="badge bg-warning text-dark fs-6 px-3 py-2">
+                                            <i class="fa-solid fa-star me-1"></i> Servicio: Oro
+                                        </span>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="bg-light-subtle px-4 py-3">
+                                    <div class="row text-center text-md-start">
+                                        <div class="col-md-4 mb-3 mb-md-0">
+                                            <h6 class="text-uppercase text-muted mb-1">Agencia</h6>
+                                            <p class="fw-semibold mb-0">Ndong Viajes</p>
+                                        </div>
+                                        <div class="col-md-4 mb-3 mb-md-0">
+                                            <h6 class="text-uppercase text-muted mb-1">Ruta</h6>
+                                            <p class="mb-0"><strong>Malabo</strong> → <strong>Bata</strong></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h6 class="text-uppercase text-muted mb-1">Horario</h6>
+                                            <p class="mb-0">25/05/2025 - 08:30 AM</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                               
                                 <div class="bg-white px-4 py-3 d-flex justify-content-between align-items-center flex-column flex-md-row">
                                     <div>
                                         <p class="mb-1"><i class="fa-solid fa-chair me-2 text-secondary"></i><strong>Asiento:</strong> 12B</p>
@@ -608,8 +783,7 @@ $conn->close();
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
+                        </div> -->
                     </div>
 
                     <div class="table-responsive d-none" id="reservados">
@@ -713,6 +887,137 @@ $conn->close();
                             </div>
                         </div>
                     </div>
+
+                    <div class="table-responsive d-none" id="reservar">
+                        <!-- Alerta futurista fullscreen -->
+                        <div id="alertaReserva" class="position-fixed top-0 start-0 w-100 h-100 d-none bg-dark bg-opacity-90 z-3 d-flex justify-content-center align-items-center" style="backdrop-filter: blur(5px);">
+                            <div class="text-center p-5 rounded-4" style="background-color: #0b0f1a; border: 2px solid #00bcd4;">
+                                <h3 class="text-info mb-4">¿Ya estás registrado?</h3>
+                                <div class="d-flex justify-content-center gap-3">
+                                    <button class="btn btn-outline-info" id="btnYaRegistrado"><i class="fa-solid fa-user-check"></i> Sí, estoy registrado</button>
+                                    <button class="btn btn-outline-warning" id="btnNoRegistrado"><i class="fa-solid fa-user-plus"></i> No, soy nuevo</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulario Reserva Usuario Registrado -->
+                        <div class="reservaUsuario d-none" id="formReservaUsuario">
+                            <div class="container mt-4 p-4 rounded-3" style="background-color: #111827; color: #fff;">
+                                <h4 class="text-info mb-3"><i class="fa-solid fa-id-card"></i> Reserva Usuario Registrado</h4>
+                                <form id="reservaUsuarioForm">
+                                    <div class="mb-3 position-relative">
+                                        <label class="form-label text-light">Nombre</label>
+                                        <input type="text" name="nombre" class="form-control bg-dark text-white border-info" required>
+                                        <i class="fa-solid fa-phone position-absolute top-50 end-0 translate-middle-y me-3 text-info"></i>
+                                    </div>
+                                    <div class="mb-3 position-relative">
+                                        <label class="form-label text-light">Contraseña</label>
+                                        <input type="password" name="password" class="form-control bg-dark text-white border-info" required>
+                                        <i class="fa-solid fa-lock position-absolute top-50 end-0 translate-middle-y me-3 text-info"></i>
+                                    </div>
+                                    <button type="submit" class="btn btn-info mt-3"><i class="fa-solid fa-paper-plane"></i> Comprobar</button>
+                                </form>
+                                <div id="formContainer" class="d-none"></div>
+                                <!-- Contenedor donde se mostrarán los formularios -->
+                                <div id="formContainerTemp" class="p-4 bg-dark rounded d-none"></div>
+
+
+                            </div>
+                        </div>
+
+                        <!-- Formulario Reserva Temporal -->
+                        <div class="reservaRapida d-none" id="formReservaTemp">
+                            <h4 class="text-info mb-3"><i class="fa-solid fa-user-clock"></i> Reserva Rápida</h4>
+                            <form id="reservaTemporalForm" class="form-futurista text-light">
+                                <div class="row mb-3 position-relative">
+                                    <div class="col-md-6 position-relative">
+                                        <label class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" name="nombre" id="nombre" required>
+                                        <i class="fa-solid fa-user input-icon"></i>
+                                        <i class="fa-solid fa-circle-check validation-icon"></i>
+                                        <i class="fa-solid fa-circle-xmark validation-icon"></i>
+                                    </div>
+                                    <div class="col-md-6 position-relative">
+                                        <label class="form-label">Apellidos</label>
+                                        <input type="text" class="form-control" name="apellidos" id="apellidos" required>
+                                        <i class="fa-solid fa-user-group input-icon"></i>
+                                        <i class="fa-solid fa-circle-check validation-icon"></i>
+                                        <i class="fa-solid fa-circle-xmark validation-icon"></i>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 position-relative">
+                                    <div class="col-md-6 position-relative">
+                                        <label class="form-label">Edad</label>
+                                        <input type="number" class="form-control" name="edad" id="edad" required>
+                                        <i class="fa-solid fa-hourglass-half input-icon"></i>
+                                        <i class="fa-solid fa-circle-check validation-icon"></i>
+                                        <i class="fa-solid fa-circle-xmark validation-icon"></i>
+                                    </div>
+                                    <div class="col-md-6 position-relative">
+                                        <label class="form-label">Teléfono</label>
+                                        <input type="tel" class="form-control" name="telefono" id="telefono" required>
+                                        <i class="fa-solid fa-phone input-icon"></i>
+                                        <i class="fa-solid fa-circle-check validation-icon"></i>
+                                        <i class="fa-solid fa-circle-xmark validation-icon"></i>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 position-relative">
+                                    <div class="col-md-6 position-relative">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" name="email" id="email" required>
+                                        <i class="fa-solid fa-envelope input-icon"></i>
+                                        <i class="fa-solid fa-circle-check validation-icon"></i>
+                                        <i class="fa-solid fa-circle-xmark validation-icon"></i>
+                                    </div>
+                                    <div class="col-md-6 position-relative">
+                                        <label class="form-label">DNI</label>
+                                        <input type="text" class="form-control" name="dni" id="dni" required>
+                                        <i class="fa-solid fa-id-card input-icon"></i>
+                                        <i class="fa-solid fa-circle-check validation-icon"></i>
+                                        <i class="fa-solid fa-circle-xmark validation-icon"></i>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-info w-100 mt-3">
+                                    <i class="fa-solid fa-paper-plane"></i> Reservar
+                                </button>
+                            </form>
+                            <div id="formContainer">
+                                <!-- Aquí se cargan dinámicamente los formularios -->
+                                <!-- Inicia con reservaTemporalForm -->
+                            </div>
+
+                            <script>
+                                const btnReservar = document.getElementById("btnReservar");
+                                const alertaReserva = document.getElementById("alertaReserva");
+                                const btnYaRegistrado = document.getElementById("btnYaRegistrado");
+                                const btnNoRegistrado = document.getElementById("btnNoRegistrado");
+
+                                const formUsuario = document.getElementById("formReservaUsuario");
+                                const formTemporal = document.getElementById("formReservaTemp");
+
+                                btnReservar.addEventListener("click", () => {
+                                    alertaReserva.classList.remove("d-none");
+                                });
+
+                                btnYaRegistrado.addEventListener("click", () => {
+                                    alertaReserva.classList.add("d-none");
+                                    formUsuario.classList.remove("d-none");
+                                    formTemporal.classList.add("d-none");
+                                });
+
+                                btnNoRegistrado.addEventListener("click", () => {
+                                    alertaReserva.classList.add("d-none");
+                                    formTemporal.classList.remove("d-none");
+                                    formUsuario.classList.add("d-none");
+                                });
+                            </script>
+
+                        </div>
+
+                    </div>
                 </main>
 
             </div>
@@ -731,8 +1036,14 @@ $conn->close();
                 <!-- Sidebar -->
                 <aside class="bg-light border-end p-3" style="width: 220px;">
                     <div class="d-grid gap-2">
+                        <button class="btn btn-outline-primary mb-3" id="btnNuevoViaje">
+                            <i class="fas fa-map-marked-alt  me-2"></i> Nuevo viaje
+                        </button>
                         <button class="btn btn-outline-primary mb-3" id="btnLista">
                             <i class="fas fa-map-marked-alt  me-2"></i> lista
+                        </button>
+                        <button class="btn btn-outline-primary mb-3" id="btnBusesAsientos">
+                            <i class="fas fa-map-marked-alt  me-2"></i> Buses
                         </button>
                         <button class="btn btn-outline-primary mb-3" id="btnSeguimiento">
                             <i class="fas fa-route  me-2"></i> Seguimiento
@@ -806,8 +1117,8 @@ $conn->close();
                     </div>
 
                     <div class="table-responsive d-none" id="tablaLista">
-                        <div class="container my-3">
-                            <div class="card shadow-sm rounded-3 border-0 p-3" style="max-width: 80%; margin: auto;">
+                        <div class="container my-3" id="contenedor_viajes">
+                            <!-- <div class="card shadow-sm rounded-3 border-0 p-3" style="max-width: 80%; margin: auto;">
 
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <div>
@@ -827,15 +1138,75 @@ $conn->close();
                                     <span class="badge bg-secondary px-3 py-2">Llegado</span>
                                 </div>
 
-                            </div>
+                            </div> -->
                         </div>
+                    </div>
+
+                    <div class="table-responsive d-none" id="ContainerNuevoViaje">
+                        <form id="viajeForm" class="viaje-form p-4 rounded shadow-lg">
+                            <h2 class="text-center mb-4 text-primary">
+                                <i class="fas fa-space-shuttle"></i> Nuevo Viaje
+                            </h2>
+
+                            <!-- Fecha de Llegada -->
+                            <div class="form-group">
+                                <label for="fecha"><i class="fas fa-calendar-alt"></i> Fecha del viaje</label>
+                                <input type="date" name="fecha" class="form-control" id="fecha" required>
+                                <small class="text-danger d-none" id="alert_fecha">
+                                    <i class="fas fa-exclamation-triangle"></i> Este campo es obligatorio
+                                </small>
+                            </div>
+
+                            <!-- Fecha de Llegada -->
+                            <div class="form-group">
+                                <label for="fecha_llegada"><i class="fas fa-calendar-alt"></i> Fecha de Llegada</label>
+                                <input type="time" name="fecha_llegada" class="form-control" id="fecha_llegada" required>
+                                <small class="text-danger d-none" id="alert_fecha_llegada">
+                                    <i class="fas fa-exclamation-triangle"></i> Este campo es obligatorio
+                                </small>
+                            </div>
+                            
+
+                            <!-- Cambia el id a busSelect -->
+                            <div class="form-group">
+                                <label for="busSelect"><i class="fas fa-bus"></i> Bus</label>
+                                <select class="form-control" name="bus" id="busSelect" required>
+                                    <option value="">Seleccione un bus</option>
+                                </select>
+                                <small class="text-danger d-none" id="alert_bus">
+                                    <i class="fas fa-exclamation-triangle"></i> Este campo es obligatorio
+                                </small>
+                            </div>
+
+                            <!-- Ruta -->
+                            <div class="form-group">
+                                <label for="ruta"><i class="fas fa-road"></i> Ruta</label>
+                                <select class="form-control" name="ruta" id="ruta" required>
+                                    <option value="">Seleccione una ruta</option>
+                                </select>
+                                <small class="text-danger d-none" id="alert_ruta">
+                                    <i class="fas fa-exclamation-triangle"></i> Este campo es obligatorio
+                                </small>
+                            </div>
+
+                            <!-- Campo oculto fecha inicial (de tabla rutas.horario) -->
+                            <input type="hidden" name="fecha_inicial" id="fecha_inicial" value="">
+
+                            <!-- Botón de envío -->
+                            <button type="submit" class="btn btn-primary btn-block mt-3">
+                                <i class="fas fa-save"></i> Establecer Viaje
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="table-responsive d-none" id="ContainerBuses">
+
                     </div>
 
                 </main>
             </div>
         </div>
-
-
+        
         <div class="window window_mapas" style="display: none;">
             <div class="window-header">
                 <span>Mapas</span>
@@ -954,7 +1325,10 @@ $conn->close();
                         <button class="btn btn-outline-primary mb-3" id="btnNuevoUsuarios">
                             <i class="fa-solid fa-user-plus"></i> Nuevo
                         </button>
-                        <button class="btn btn-outline-primary mb-3" id="btnUsuarios">
+                        <button class="btn btn-outline-primary mb-3" id="btnNuevoEmpleado">
+                            <i class="fa-solid fa-user-plus"></i> Empleado
+                        </button>
+                        <button class="btn btn-outline-primary mb-3" id="btnusuarios">
                             <i class="fa-solid fa-user"></i> Usuarios
                         </button>
                         <button class="btn btn-outline-primary mb-3" id="btnClientes">
@@ -966,36 +1340,30 @@ $conn->close();
                 <!-- Contenido central -->
                 <main class="flex-grow-1 p-4 overflow-auto">
                     <h4 class="mb-4">Gestion de Usuarios</h4>
+                    <style>
+                        .table img {
+                            object-fit: cover;
+                            border: 2px solid #dee2e6;
+                        }
+                    </style>
 
                     <div class="table-responsive" id="tablaUsuarios">
-                        <table class="table">
+                        <table class="table table-bordered table-hover align-middle text-center">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
+                                    <th scope="col">Imagen</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Apellidos</th>
+                                    <th scope="col">Edad</th>
+                                    <th scope="col">DNI</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Teléfono</th>
+                                    <th scope="col">Fecha Registro</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>John</td>
-                                    <td>Doe</td>
-                                    <td>@social</td>
-                                </tr>
+                            <tbody id="tbodyUsuarios">
+                                <!-- Los datos se cargan dinámicamente aquí -->
                             </tbody>
                         </table>
                     </div>
@@ -1033,7 +1401,7 @@ $conn->close();
                         </table>
                     </div>
 
-                    <form id="formRegistroUsuario" class="d-none" novalidate>
+                    <form id="formRegistroUsuario" method="$_POST" class="d-none" novalidate>
                         <div class="row g-3">
 
                             <!-- Nombre -->
@@ -1119,6 +1487,126 @@ $conn->close();
                         </div>
                     </form>
 
+                    <form id="formRegistroEmpleado" method="$_POST" class="d-none formEmpleados" novalidate>
+                        <div class="row g-3 futuristic-form">
+
+                            <!-- Nombre -->
+                            <div class="col-md-6">
+                                <label class="form-label">Nombre</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input type="text" name="nombre" class="form-control campo-validacion" required>
+                                    <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
+                                </div>
+                            </div>
+
+                            <!-- Apellidos -->
+                            <div class="col-md-6">
+                                <label class="form-label">Apellidos</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                                    <input type="text" name="apellidos" class="form-control campo-validacion" required>
+                                    <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
+                                </div>
+                            </div>
+
+                            <!-- Edad -->
+                            <div class="col-md-4">
+                                <label class="form-label">Edad</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-birthday-cake"></i></span>
+                                    <input type="number" name="edad" class="form-control campo-validacion" required min="1">
+                                    <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
+                                </div>
+                            </div>
+
+                            <!-- Fecha de nacimiento -->
+                            <div class="col-md-4">
+                                <label class="form-label">Fecha de Nacimiento</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                    <input type="date" name="fecha_nacimiento" class="form-control campo-validacion" required>
+                                    <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
+                                </div>
+                            </div>
+
+                            <!-- DNI -->
+                            <div class="col-md-4">
+                                <label class="form-label">DNI</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                                    <input type="text" name="dni" class="form-control campo-validacion" required pattern="[0-9]{8}[A-Za-z]">
+                                    <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
+                                </div>
+                            </div>
+
+                            <!-- Teléfono -->
+                            <div class="col-md-4">
+                                <label class="form-label">Teléfono</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                    <input type="tel" name="telefono" class="form-control campo-validacion" required pattern="[0-9\-]+">
+                                    <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-md-4">
+                                <label class="form-label">Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    <input type="email" name="email" class="form-control campo-validacion" required>
+                                    <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
+                                </div>
+                            </div>
+
+                            <!-- Rol -->
+                            <div class="col-md-4">
+                                <label class="form-label">Rol</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user-cog"></i></span>
+                                    <select name="rol" class="form-select campo-validacion" required>
+                                        <option value="">Seleccione un rol</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="empleado">Empleado</option>
+                                        <option value="conductor">Conductor</option>
+                                    </select>
+                                    <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
+                                </div>
+                            </div>
+
+                            <!-- Imagen -->
+                            <div class="col-md-12">
+                                <label class="form-label">Imagen</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-image"></i></span>
+                                    <input type="file" name="imagen" class="form-control campo-validacion" required>
+                                    <input type="text" name="agencia" value="<?= htmlspecialchars($agencia['id']) ?>" class="d-none">
+                                    <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="mt-4 d-flex justify-content-between">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-user-plus me-1"></i> Registrar Empleado
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="cancelar-empleado">
+                                <i class="fas fa-times me-1"></i> Cancelar
+                            </button>
+                        </div>
+
+                    </form>
+
+                    <script>
+                        document.getElementById('btnNuevoEmpleado').addEventListener('click', function() {
+                            document.getElementById('formRegistroEmpleado').classList.remove('d-none');
+                            document.getElementById('formRegistroUsuario').classList.add('d-none');
+                            document.getElementById('tablaUsuarios').classList.add('d-none');
+                            document.getElementById('tablaCliendo').classList.add('d-none');
+                        });
+                    </script>
 
                 </main>
 
@@ -1225,10 +1713,6 @@ $conn->close();
                     <i class="fa-solid fa-user-plus"></i>
                     <span class="tooltip-text">Usuarios</span>
                 </button>
-                <button class="dock-btn" data-nombre="agencias">
-                    <i class="fa-solid fa-building"></i>
-                    <span class="tooltip-text">Agencias</span>
-                </button>
                 <button class="dock-btn" data-nombre="rutas">
                     <i class="fa-solid fa-road"></i>
                     <span class="tooltip-text">Rutas</span>
@@ -1279,10 +1763,37 @@ $conn->close();
         }, 6000); // un segundo extra para terminar la animación
     </script>
 
+    <script>
+        const tarjeta = document.getElementById("targeta");
+        let isDragging = false;
+        let offsetX, offsetY;
+
+        tarjeta.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            offsetX = e.clientX - tarjeta.getBoundingClientRect().left;
+            offsetY = e.clientY - tarjeta.getBoundingClientRect().top;
+            tarjeta.style.cursor = "grabbing";
+        });
+
+        document.addEventListener("mousemove", (e) => {
+            if (isDragging) {
+                tarjeta.style.left = `${e.clientX - offsetX}px`;
+                tarjeta.style.top = `${e.clientY - offsetY}px`;
+                tarjeta.style.transform = "none"; // Para cancelar el centrado inicial al mover
+            }
+        });
+
+        document.addEventListener("mouseup", () => {
+            isDragging = false;
+            tarjeta.style.cursor = "grab";
+        });
+    </script>
+
+
 
     <script src="../../../controllers/js/bootstrap.min.js"></script>
     <script src="../../../controllers/js/sweetalert2.js"></script>
-    <script src="../../../controllers/js/admin_controlers.js"></script>
+    <script src="../../../controllers/js/admin_controlers2.js"></script>
     <script src="../../../controllers/js/sub_controlers.js"></script>
     <script async
         src="https://maps.googleapis.com/maps/api/js?key=TU_CLAVE_API&callback=initMap">

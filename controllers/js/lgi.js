@@ -1,11 +1,30 @@
 
-const Direciones = [
-    "Malabo", "Bata", "Ebebiyin", "Evinayong", "Luba", "Mongomo",
-    "Niefang", "Mbini", "Annobón", "Kogo", "Aconibe",
-    "Bata", "Cogo", "Evinayong", "Luba", "Mongomo", "Niefang", "Oyala",
-    "Rebola", "Aconibe", "Bata", "Cogo", "Evinayong", "Luba","Malalbo II",
-    "Avenida Assan I", "Avenida Assan II", "Buena Esperanza I", "Buena Esperanza II",
-    ""
+
+const Direcciones = [
+  // Región Insular
+  "Malabo", "Luba", "Rebola", "Baney", "Riaba", "Moka", "Pico Basile",
+  "Sipu", "Balacha", "Basupu", "Basacato del Oeste", "Basacato del Este",
+  "Buena Esperanza I", "Buena Esperanza II",
+  "Avenida Assan I", "Avenida Assan II",
+  "Malabo II", "Ela Nguema", "Sampaka",
+
+  // Annobón
+  "San Antonio de Palé", "Annobón",
+
+  // Región Continental
+  "Bata", "Mbini", "Kogo", "Cogo", "Machinda",
+  "Acurenam", "Evinayong", "Nzeng-Ayong", "Bicurga", "Ncue",
+  "Mongomo", "Nsok-Nsomo", "Anisok", "Oveng", "Etembue", "Mengomeyen",
+  "Ebebiyin", "Mikomeseng", "Nsang", "Bitica", "Nsok-Esono",
+  "Niefang", "Oyala", "Ciudad de la Paz", "Ngolo", "Endem", "Akurenam",
+  "Aconibe", "Esono", "Envom", "Bicurga",
+
+  // Otros lugares reconocidos
+  "Bicurga", "Nsok-Esono", "Nsok-Mbeng", "Bikurga", "Akoga",
+  "Campo Yaunde", "Ngonamanga", "Afokang", "Ncoho", "Bitica",
+  "Nkumekie", "Ebuluji", "Ebang", "Nsomo", "Ncolombong",
+  "Nsang", "Mendumu", "Eyang", "Nkué", "Nsué",
+  "Nsangayong", "Envom", "Akonibe", "Abong", "Niefang"
 ];
 
 function setDirecciones(inputId, selecionId) {
@@ -19,7 +38,7 @@ function setDirecciones(inputId, selecionId) {
 
         if (valores.length === 0) return; // Si no hay valor, no mostrar sugerencias
 
-        const sugerencias = Direciones.filter(dir => dir.toLowerCase().includes(valores));
+        const sugerencias = Direcciones.filter(dir => dir.toLowerCase().includes(valores));
 
         sugerencias.forEach(dir => {
             const sugerencia = document.createElement('div');
