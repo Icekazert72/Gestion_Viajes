@@ -344,39 +344,7 @@ document.getElementById('btnSeguimiento').addEventListener('click', () => {
 });
 
 
-function initMap() {
-    // Crear mapa centrado en Guinea Ecuatorial
-    const centro = { lat: 1.65, lng: 10.27 }; // Coordenadas generales de Guinea Ecuatorial
 
-    const map = new google.maps.Map(document.getElementById("mapa"), {
-        zoom: 7,
-        center: centro,
-    });
-
-    // Servicio de rutas
-    const directionsService = new google.maps.DirectionsService();
-    const directionsRenderer = new google.maps.DirectionsRenderer({
-        suppressMarkers: false,
-        preserveViewport: true
-    });
-    directionsRenderer.setMap(map);
-
-    // Coordenadas o nombres de ubicación
-    const origen = "Malabo, Guinea Ecuatorial";
-    const destino = "Bata, Guinea Ecuatorial";
-
-    directionsService.route({
-        origin: origen,
-        destination: destino,
-        travelMode: google.maps.TravelMode.DRIVING
-    }, (response, status) => {
-        if (status === "OK") {
-            directionsRenderer.setDirections(response);
-        } else {
-            console.error("No se pudo mostrar la ruta: " + status);
-        }
-    });
-}
 
 document.addEventListener("DOMContentLoaded", function () {
     const ctx = document.getElementById('chartUsuarios').getContext('2d');

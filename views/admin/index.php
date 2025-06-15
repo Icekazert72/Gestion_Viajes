@@ -1191,9 +1191,7 @@
     <script src="../../controllers/js/sweetalert2.js"></script>
     <script src="../../controllers/js/admin_controlers.js"></script>
     <script src="../../controllers/js/insercionesAdmin.js"></script>
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?key=TU_CLAVE_API&callback=initMap">
-    </script>
+    
 </body>
 
 </html>
