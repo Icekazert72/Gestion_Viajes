@@ -32,9 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
               card.classList.add('rutas_card');
               card.innerHTML = `
                 <div class="container cardContainer" data-id-boton="${viaje.id}" data-origen="${origen}" data-destino="${destino}" data-viajeros="${viajeros}">
-                  <div class="card_head">
+                  <div class="card_head" >
                     <div class="img"><img src="../../img/index/images.png" alt=""></div>
                     <div class="title"><h5 class="agencia">${viaje.agencia}</h5></div>
+                    <div class="title d-none"><h5 class="id_agencia">${viaje.id_agencia}</h5></div>
                   </div> 
                   <div class="card_body">
                     <div class="icon"><i class="fa-solid fa-bus"></i></div>
@@ -85,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const horaFin = card.querySelector('#fin')?.textContent.trim() || "";
       const numBus = card.querySelector('#num_bus')?.textContent.trim() || "";
       const agencia = card.querySelector('.agencia')?.textContent.trim() || "";
+      const id_agencia = card.querySelector('.id_agencia')?.textContent.trim() || "";
 
       localStorage.setItem('viaje_id', viajeId);
       localStorage.setItem('origen', origen);
@@ -95,8 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem('hora_fin', horaFin);
       localStorage.setItem('num_bus', numBus);
       localStorage.setItem('agencia', agencia);
+      localStorage.setItem('id_agencia', id_agencia);
 
-      window.location.href = `../../views/procesode_reserva/servicio_tipo.php?origen=${origen}&destino=${destino}&viajeros=${viajeros}&viaje_id=${viajeId}`;
+      window.location.href = `../../views/procesode_reserva/servicio_tipo.php?origen=${origen}&destino=${destino}&viajeros=${viajeros}&viaje_id=${viajeId}&id_agencia=${id_agencia}`;
     }
   });
 

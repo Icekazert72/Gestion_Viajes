@@ -90,6 +90,9 @@ CREATE TABLE viajes (
 -- ADD COLUMN estado ENUM('pendiente', 'activo', 'cancelado', 'finalizado') 
 -- DEFAULT 'pendiente';
 
+-- ALTER TABLE tutores ADD COLUMN usuario INT(9);
+-- ALTER TABLE tutores ADD FOREIGN KEY (usuario) REFERENCES usuarios(id);
+
 CREATE TABLE empleados_agencias (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100),
@@ -133,7 +136,9 @@ CREATE TABLE clientes_temporales (
     telefono VARCHAR(10),
     imagen VARCHAR(100) DEFAULT NULL,
     agencia INT(9),
+    
     FOREIGN KEY (agencia) REFERENCES agencias (id),
+    FOREIGN KEY (usuario) REFERENCES usuarios (id),
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -163,12 +168,12 @@ CREATE TABLE reservas (
 
 CREATE TABLE pasajeros_reserva (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    reserva_id INT,
+    viaje INT,
     nombre VARCHAR(100),
     apellidos VARCHAR(100),
     edad INT,
     telefono VARCHAR(20),
-    FOREIGN KEY (reserva_id) REFERENCES reservas (id)
+    FOREIGN KEY (viaje) REFERENCES viajes (id)
 );
 
 CREATE TABLE reseñas (
@@ -190,4 +195,47 @@ CREATE TABLE asignaciones (
     activo BOOLEAN DEFAULT TRUE,
     FOREIGN KEY (bus_id) REFERENCES buses (id) ON DELETE CASCADE,
     FOREIGN KEY (conductor_id) REFERENCES empleados_agencias (id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE pagos_cliente (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    reserva_id INT,
+    fecha_pago DATE,
+    monto DECIMAL(10,2),
+    metodo_pago ENUM('efectivo', 'tarjeta', 'transferencia', 'otros'),
+    FOREIGN KEY (reserva_id) REFERENCES reservas(id)
+);
+
+CREATE TABLE ingresos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    agencia INT NOT NULL,
+    monto DECIMAL(12,2) NOT NULL,
+    descripcion VARCHAR(255),
+    fecha DATE NOT NULL,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (agencia) REFERENCES agencias(id)
+);
+
+CREATE TABLE gastos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    agencia INT NOT NULL,
+    monto DECIMAL(12,2) NOT NULL,
+    descripcion VARCHAR(255),
+    fecha DATE NOT NULL,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (agencia) REFERENCES agencias(id)
+);
+
+CREATE TABLE pagos_empleados (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    empleado INT NOT NULL,
+    agencia INT NOT NULL,
+    monto DECIMAL(12,2) NOT NULL,
+    mes INT NOT NULL, -- 1 a 12
+    año INT NOT NULL,
+    fecha_pago DATE NOT NULL,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (empleado) REFERENCES empleados_agencias(id),
+    FOREIGN KEY (agencia) REFERENCES agencias(id)
 );

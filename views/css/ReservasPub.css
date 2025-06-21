@@ -1,0 +1,121 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+
+  background: linear-gradient(-45deg, #004080, #1b1b2f, #3a0ca3, #1c1c54);
+  background-size: 400% 400%;
+  animation: auroraFlow 15s ease infinite;
+
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+@keyframes auroraFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Efecto de cortina con opacidad */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at 30% 30%, rgba(0, 255, 255, 0.08), transparent 50%),
+              radial-gradient(circle at 70% 60%, rgba(255, 0, 255, 0.05), transparent 60%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pago-container {
+    max-width: 700px;
+    margin: 60px auto;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0, 123, 255, 0.2);
+    padding: 35px;
+}
+
+.titulo {
+    font-size: 1.7rem;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #0d6efd;
+}
+
+.form-muni {
+    display: none;
+    animation: scaleIn 0.5s ease-in-out;
+}
+
+@keyframes scaleIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#mini-overlay {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 300px;
+    background: #111;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 9999;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.form-control.valid {
+    border-color: green;
+}
+
+.form-control.invalid {
+    border-color: red;
+}
+
+.input-group-text {
+    min-width: 40px;
+}
+
+.icon-feedback {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+}

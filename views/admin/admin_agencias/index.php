@@ -60,6 +60,8 @@ $conn->close();
     <main id="contenido" style="display: none;">
 
 
+
+
         <div class="window window_rutas" style="display: none;">
             <div class="window-header">
                 <span>Gestion Rutas</span>
@@ -294,6 +296,7 @@ $conn->close();
 
             </div>
         </div>
+
         <div class="window window_buses" style="display: none;">
 
 
@@ -1056,13 +1059,13 @@ $conn->close();
                     <h4 class="mb-4">Seguimiento de viajes</h4>
 
                     <div class="table-responsive" id="tablaSeguimiento">
-                        <div class="container my-4">
-                            <div class="card shadow-lg rounded-4 overflow-hidden" style="height: 275px; max-width: 1000px; margin: auto;">
+                        <div class="container my-4" id="contenedor-viajes">
+                            <!-- <div class="card shadow-lg rounded-4 overflow-hidden" style="height: 275px; max-width: 1000px; margin: auto;">
                                 <div class="row h-100 g-0">
 
-                                    <!-- Columna izquierda: Info del viaje -->
+                                
                                     <div class="col-md-8 bg-white p-4 d-flex flex-column justify-content-between">
-                                        <!-- Encabezado -->
+                                       
                                         <div class="mb-2">
                                             <h5 class="fw-bold mb-1 text-primary">
                                                 <strong>Forama</strong><br>
@@ -1071,7 +1074,7 @@ $conn->close();
                                             <span class="text-muted small"><i class="fas fa-road me-1"></i>Ruta Malabo - Bata</span>
                                         </div>
 
-                                        <!-- Datos principales -->
+                                       
                                         <div class="row">
                                             <div class="col-6">
                                                 <p class="mb-1"><i class="fas fa-user-tie me-2 text-muted"></i><strong>Conductor:</strong> Juan Pedro</p>
@@ -1086,9 +1089,9 @@ $conn->close();
                                         </div>
                                     </div>
 
-                                    <!-- Columna derecha: Progreso y acción -->
+                                 
                                     <div class="col-md-4 bg-light-subtle d-flex flex-column justify-content-between p-4">
-                                        <!-- Contadores -->
+                                     
                                         <div>
                                             <p class="text-muted text-uppercase small mb-1">Trámite de viaje</p>
                                             <div class="progress mb-2" style="height: 6px;">
@@ -1100,7 +1103,7 @@ $conn->close();
                                             <p class="fw-bold">Total: 158 km <i class="fas fa-location-arrow me-2 text-info"></i> 89 km</p>
                                         </div>
 
-                                        <!-- Botones -->
+                                     
                                         <div class="d-grid gap-2">
                                             <a href="#" class="btn btn-outline-primary w-100">
                                                 <i class="fas fa-map me-2"></i> Ver trayecto en mapa
@@ -1112,7 +1115,7 @@ $conn->close();
                                     </div>
 
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -1165,7 +1168,7 @@ $conn->close();
                                     <i class="fas fa-exclamation-triangle"></i> Este campo es obligatorio
                                 </small>
                             </div>
-                            
+
 
                             <!-- Cambia el id a busSelect -->
                             <div class="form-group">
@@ -1201,12 +1204,113 @@ $conn->close();
 
                     <div class="table-responsive d-none" id="ContainerBuses">
 
+                        <div class="table-responsive" id="ContainerBuses">
+                            <!-- <div class="infoBus">
+                                <div class="busConductorViaje">
+                                    <h5 class="text-primary mb-3"><i class="fas fa-bus me-2"></i>Bus Nº 25</h5>
+                                    <p class="mb-1"><i class="fas fa-user-tie me-2 text-muted"></i>Conductor: Juan Pedro</p>
+                                    <p class="mb-1"><i class="fas fa-id-badge me-2 text-muted"></i>Placa: GE-4521-B</p>
+                                    <p class="mb-0"><i class="fas fa-users me-2 text-muted"></i>Pasajeros: 20</p>
+                                </div>
+                                <div id="bus-container">
+                                    <div id="left-seats" class="seat-group">
+                                        <div class="seat" id="seat-1">
+                                            <i class="fa-solid fa-chair seat-icon free"></i>
+                                            <div class="seat-number">1</div>
+                                        </div>
+                                        <div class="seat occupied" id="seat-2">
+                                            <i class="fa-solid fa-chair seat-icon occupied"></i>
+                                            <div class="seat-number">2</div>
+                                        </div>
+                                        <div class="seat" id="seat-3">
+                                            <i class="fa-solid fa-chair seat-icon free"></i>
+                                            <div class="seat-number">3</div>
+                                        </div>
+                                        <div class="seat" id="seat-4">
+                                            <i class="fa-solid fa-chair seat-icon free"></i>
+                                            <div class="seat-number">4</div>
+                                        </div>
+                                        <div class="seat" id="seat-5">
+                                            <i class="fa-solid fa-chair seat-icon free"></i>
+                                            <div class="seat-number">5</div>
+                                        </div>
+                                        <div class="seat" id="seat-6">
+                                            <i class="fa-solid fa-chair seat-icon free"></i>
+                                            <div class="seat-number">6</div>
+                                        </div>
+                                        <div class="seat occupied" id="seat-7">
+                                            <i class="fa-solid fa-chair seat-icon occupied"></i>
+                                            <div class="seat-number">7</div>
+                                        </div>
+                                        <div class="seat" id="seat-8">
+                                            <i class="fa-solid fa-chair seat-icon free"></i>
+                                            <div class="seat-number">8</div>
+                                        </div>
+                                        <div class="seat" id="seat-9">
+                                            <i class="fa-solid fa-chair seat-icon free"></i>
+                                            <div class="seat-number">9</div>
+                                        </div>
+                                        <div class="seat" id="seat-10">
+                                            <i class="fa-solid fa-chair seat-icon free"></i>
+                                            <div class="seat-number">10</div>
+                                        </div>
+                                    </div>
+
+
+                                    <div id="aisle"></div>
+
+                                    <div id="right-seats" class="seat-group">
+                                        <div class="seat" id="seat-11">
+                                            <i class="fa-solid fa-chair seat-icon free"></i>
+                                            <div class="seat-number">11</div>
+                                        </div>
+                                        <div class="seat" id="seat-12">
+                                            <i class="fa-solid fa-chair seat-icon free"></i>
+                                            <div class="seat-number">12</div>
+                                        </div>
+                                        <div class="seat" id="seat-13">
+                                            <i class="fa-solid fa-chair seat-icon free"></i>
+                                            <div class="seat-number">13</div>
+                                        </div>
+                                        <div class="seat occupied" id="seat-14">
+                                            <i class="fa-solid fa-chair seat-icon occupied"></i>
+                                            <div class="seat-number">14</div>
+                                        </div>
+                                        <div class="seat" id="seat-15">
+                                            <i class="fa-solid fa-chair seat-icon free"></i>
+                                            <div class="seat-number">15</div>
+                                        </div>
+                                        <div class="seat" id="seat-16">
+                                            <i class="fa-solid fa-chair seat-icon free"></i>
+                                            <div class="seat-number">16</div>
+                                        </div>
+                                        <div class="seat" id="seat-17">
+                                            <i class="fa-solid fa-chair seat-icon free"></i>
+                                            <div class="seat-number">17</div>
+                                        </div>
+                                        <div class="seat occupied" id="seat-18">
+                                            <i class="fa-solid fa-chair seat-icon occupied"></i>
+                                            <div class="seat-number">18</div>
+                                        </div>
+                                        <div class="seat" id="seat-19">
+                                            <i class="fa-solid fa-chair seat-icon free"></i>
+                                            <div class="seat-number">19</div>
+                                        </div>
+                                        <div class="seat" id="seat-20">
+                                            <i class="fa-solid fa-chair seat-icon free"></i>
+                                            <div class="seat-number">20</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div> -->
+                        </div>
                     </div>
 
                 </main>
             </div>
         </div>
-        
+
         <div class="window window_mapas" style="display: none;">
             <div class="window-header">
                 <span>Mapas</span>
@@ -1409,7 +1513,7 @@ $conn->close();
                                 <label class="form-label">Nombre</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    <input type="text" name="nombre" class="form-control campo-validacion" required>
+                                    <input type="text" name="nombre" id="nombreUsuario" class="form-control campo-validacion" required>
                                     <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
                                 </div>
                             </div>
@@ -1459,7 +1563,7 @@ $conn->close();
                                 <label class="form-label">Email</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                    <input type="email" name="email" class="form-control campo-validacion" required>
+                                    <input type="email" name="email" id="email-user" class="form-control campo-validacion" required>
                                     <span class="input-group-text icono-validacion"><i class="fas fa-circle"></i></span>
                                 </div>
                             </div>
@@ -1679,6 +1783,1103 @@ $conn->close();
             </div>
         </div>
 
+        <div class="window window_ganancias" style="display: none;">
+            <div class="window-header">
+                <span>Gestion de Ganancias</span>
+                <div class="window-controls">
+                    <button class="btn-minimize"><i class="fa-solid fa-window-minimize"></i></button>
+                    <button class="btn-maximize"><i class="fa-solid fa-window-maximize"></i></button>
+                    <button class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+            <div class="window-content h-100 d-flex flex-column">
+
+                <div class="action-buttons mb-3 d-flex gap-3">
+                    <button id="btn-pagos" class="btn btn-primary">
+                        <i class="fas fa-credit-card"></i> Registrar Pago
+                    </button>
+                    <button id="btn-gastos" class="btn btn-danger">
+                        <i class="fas fa-file-invoice-dollar"></i> Registrar Gasto
+                    </button>
+                </div>
+
+                <!-- Pestañas -->
+                <div class="tabs" role="tablist" aria-label="Periodo de ganancias">
+                    <button class="tab-btn active" data-target="tab-dia" role="tab" aria-selected="true">Día</button>
+                    <button class="tab-btn" data-target="tab-semana" role="tab" aria-selected="false">Semana</button>
+                    <button class="tab-btn" data-target="tab-mes" role="tab" aria-selected="false">Mes</button>
+                    <button class="tab-btn" data-target="tab-ano" role="tab" aria-selected="false">Año</button>
+                </div>
+
+                <!-- Contenido pestañas -->
+                <div class="tab-panels" style="flex-grow:1; overflow:auto;">
+                    <!-- Día -->
+                    <section id="tab-dia" class="tab-panel" role="tabpanel" aria-hidden="false">
+                        <div class="dashboard-grid">
+                            <div class="card">
+                                <h3>Ingresos del Día</h3>
+                                <div class="value" id="ingresos-dia">$0.00</div>
+                                <small>Ganancias totales del día actual</small>
+                            </div>
+                            <div class="card">
+                                <h3>Gastos del Día</h3>
+                                <div class="value" id="gastos-dia">$0.00</div>
+                                <small>Costos operativos y gastos</small>
+                            </div>
+                            <div class="card card-pagos">
+                                <h3>Pagos a Empleados</h3>
+                                <div class="value" id="pagos-dia">$0.00</div>
+                                <small>Total pagado a empleados en el día</small>
+                            </div>
+                            <div class="card">
+                                <h3>Saldo Neto</h3>
+                                <div class="value" id="saldo-dia">$0.00</div>
+                                <small>Ingresos - Gastos - Pagos</small>
+                            </div>
+                            <div class="card">
+                                <h3>Resumen Diario</h3>
+                                <div id="resumen-dia">Sin datos</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Semana -->
+                    <section id="tab-semana" class="tab-panel" role="tabpanel" aria-hidden="true" style="display:none;">
+                        <div class="dashboard-grid">
+                            <div class="card">
+                                <h3>Ingresos de la Semana</h3>
+                                <div class="value" id="ingresos-semana">$0.00</div>
+                                <small>Ganancias totales últimos 7 días</small>
+                            </div>
+                            <div class="card">
+                                <h3>Gastos de la Semana</h3>
+                                <div class="value" id="gastos-semana">$0.00</div>
+                                <small>Costos operativos y gastos</small>
+                            </div>
+                            <div class="card card-pagos">
+                                <h3>Pagos a Empleados</h3>
+                                <div class="value" id="pagos-semana">$0.00</div>
+                                <small>Total pagado a empleados en la semana</small>
+                            </div>
+                            <div class="card">
+                                <h3>Saldo Neto</h3>
+                                <div class="value" id="saldo-semana">$0.00</div>
+                                <small>Ingresos - Gastos - Pagos</small>
+                            </div>
+                            <div class="card">
+                                <h3>Resumen Semanal</h3>
+                                <div id="resumen-semana">Sin datos</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Mes -->
+                    <section id="tab-mes" class="tab-panel" role="tabpanel" aria-hidden="true" style="display:none;">
+                        <div class="dashboard-grid">
+                            <div class="card">
+                                <h3>Ingresos del Mes</h3>
+                                <div class="value" id="ingresos-mes">$0.00</div>
+                                <small>Ganancias totales del mes actual</small>
+                            </div>
+                            <div class="card">
+                                <h3>Gastos del Mes</h3>
+                                <div class="value" id="gastos-mes">$0.00</div>
+                                <small>Costos operativos y gastos</small>
+                            </div>
+                            <div class="card card-pagos">
+                                <h3>Pagos a Empleados</h3>
+                                <div class="value" id="pagos-mes">$0.00</div>
+                                <small>Total pagado a empleados en el mes</small>
+                            </div>
+                            <div class="card">
+                                <h3>Saldo Neto</h3>
+                                <div class="value" id="saldo-mes">$0.00</div>
+                                <small>Ingresos - Gastos - Pagos</small>
+                            </div>
+                            <div class="card">
+                                <h3>Resumen Mensual</h3>
+                                <div id="resumen-mes">Sin datos</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Año -->
+                    <section id="tab-ano" class="tab-panel" role="tabpanel" aria-hidden="true" style="display:none;">
+                        <div class="dashboard-grid">
+                            <div class="card">
+                                <h3>Ingresos del Año</h3>
+                                <div class="value" id="ingresos-ano">$0.00</div>
+                                <small>Ganancias totales año actual</small>
+                            </div>
+                            <div class="card">
+                                <h3>Gastos del Año</h3>
+                                <div class="value" id="gastos-ano">$0.00</div>
+                                <small>Costos operativos y gastos</small>
+                            </div>
+                            <div class="card card-pagos">
+                                <h3>Pagos a Empleados</h3>
+                                <div class="value" id="pagos-ano">$0.00</div>
+                                <small>Total pagado a empleados en el año</small>
+                            </div>
+                            <div class="card">
+                                <h3>Saldo Neto</h3>
+                                <div class="value" id="saldo-ano">$0.00</div>
+                                <small>Ingresos - Gastos - Pagos</small>
+                            </div>
+                            <div class="card">
+                                <h3>Resumen Anual</h3>
+                                <div id="resumen-ano">Sin datos</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+            </div>
+            <!-- Formularios ocultos por defecto -->
+            <div id="form-pagos" class="form-popup" style="display:none;">
+                <form id="pago-form" class="form-corporate">
+                    <h4><i class="fas fa-credit-card"></i> Registrar Pago a Empleado</h4>
+                    <label for="empleado">Empleado</label>
+                    <select id="empleado" name="empleado" required>
+                        <option value="">Selecciona un empleado</option>
+                        <!-- Opciones serán insertadas dinámicamente -->
+                    </select>
+
+                    <label for="monto-pago">Monto</label>
+                    <input type="number" id="monto-pago" name="monto" min="0" step="0.01" placeholder="0.00 XAF" required>
+
+                    <label for="fecha-pago">Fecha de Pago</label>
+                    <input type="date" id="fecha-pago" name="fecha" required>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check"></i> Confirmar Pago
+                        </button>
+                        <button type="button" id="cancel-pago" class="btn btn-secondary">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="form-gastos" class="form-popup" style="display:none;">
+                <form id="gasto-form" class="form-corporate">
+                    <h4><i class="fas fa-file-invoice-dollar"></i> Registrar Gasto</h4>
+
+                    <label for="descripcion-gasto">Descripción</label>
+                    <input type="text" id="descripcion-gasto" name="descripcion" placeholder="Descripción del gasto" required>
+
+                    <label for="monto-gasto">Monto</label>
+                    <input type="number" id="monto-gasto" name="monto" min="0" step="0.01" placeholder="0.00 XAF" required>
+
+                    <label for="fecha-gasto">Fecha del Gasto</label>
+                    <input type="date" id="fecha-gasto" name="fecha" required>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-check"></i> Confirmar Gasto
+                        </button>
+                        <button type="button" id="cancel-gasto" class="btn btn-secondary">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="window window_ajustes" style="display: none;">
+            <div class="window-header">
+                <span>Viajes</span>
+                <div class="window-controls">
+                    <button class="btn-minimize"><i class="fa-solid fa-window-minimize"></i></button>
+                    <button class="btn-maximize"><i class="fa-solid fa-window-maximize"></i></button>
+                    <button class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+
+            <div class="window-content h-100 d-flex">
+                <!-- Sidebar -->
+                <aside class="bg-light border-end p-3" style="width: 220px;">
+                    <button class="btn btn-outline-primary mb-2 setting-btn" data-target="modificar">
+                        <i class="fa-solid fa-user-gear"></i> Modificar
+                    </button>
+                    <button class="btn btn-outline-primary mb-2 setting-btn" data-target="dispositivos">
+                        <i class="fa-solid fa-mobile-screen-button"></i> Dispositivos Móviles
+                    </button>
+                    <button class="btn btn-outline-primary mb-2 setting-btn" data-target="red">
+                        <i class="fa-solid fa-wifi"></i> Red e Internet
+                    </button>
+                    <button class="btn btn-outline-primary mb-2 setting-btn" data-target="personalizacion">
+                        <i class="fa-solid fa-paint-roller"></i> Personalización
+                    </button>
+                    <button class="btn btn-outline-primary mb-2 setting-btn" data-target="hora">
+                        <i class="fa-solid fa-clock"></i> Hora e Idioma
+                    </button>
+                    <button class="btn btn-outline-primary mb-2 setting-btn" data-target="accesibilidad">
+                        <i class="fa-solid fa-universal-access"></i> Accesibilidad
+                    </button>
+                    <button class="btn btn-outline-primary mb-2 setting-btn" data-target="buscar">
+                        <i class="fa-solid fa-magnifying-glass"></i> Buscar
+                    </button>
+                    <button class="btn btn-outline-primary mb-2 setting-btn" data-target="privacidad">
+                        <i class="fa-solid fa-shield-halved"></i> Privacidad
+                    </button>
+                    <button class="btn btn-outline-primary mb-2 setting-btn" data-target="actualizaciones">
+                        <i class="fa-solid fa-arrows-rotate"></i> Actualizaciones y Seguridad
+                    </button>
+                </aside>
+
+                <!-- Main Content Area -->
+                <main class="flex-grow-1 p-4 overflow-auto">
+                    <div class="setting-section container py-4" id="modificar">
+                        <h3 class="mb-3">Modificar Usuarios</h3>
+                        <p class="text-muted">Aquí puedes modificar la información de los usuarios registrados, cambiar contraseñas y gestionar permisos.</p>
+
+                        <!-- Buscador de usuarios -->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            <input type="text" id="buscarUsuario" class="form-control" placeholder="Buscar por nombre, email o DNI">
+                            <button class="btn btn-outline-primary" onclick="buscarUsuario()">Buscar</button>
+                        </div>
+
+                        <!-- Tabla de usuarios -->
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered align-middle">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Imagen</th>
+                                        <th>Nombre completo</th>
+                                        <th>Email</th>
+                                        <th>Teléfono</th>
+                                        <th>Permiso</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaUsuarios">
+                                    <!-- Aquí se insertarán dinámicamente los usuarios -->
+                                    <!-- Ejemplo: -->
+                                    <tr>
+                                        <td><img src="" class="rounded-circle" width="40" alt="foto"></td>
+                                        <td>Juan Pérez</td>
+                                        <td>juan@example.com</td>
+                                        <td>+240 555 123456</td>
+                                        <td><span class="badge bg-success">Usuario</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-warning me-1" onclick="abrirEditarUsuario(1)"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger me-1" onclick="eliminarUsuario(1)"><i class="fas fa-trash-alt"></i></button>
+                                            <button class="btn btn-sm btn-secondary" onclick="abrirCambiarClave(1)"><i class="fas fa-key"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Modal para editar usuario -->
+                        <div class="modal fade" id="modalEditarUsuario" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <form id="formEditarUsuario">
+                                        <div class="modal-header bg-primary text-white">
+                                            <h5 class="modal-title">Editar Usuario</h5>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" id="editUserId">
+                                            <div class="mb-3">
+                                                <label for="editNombre" class="form-label">Nombre</label>
+                                                <input type="text" class="form-control" id="editNombre" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="editEmail" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="editEmail" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="editTelefono" class="form-label">Teléfono</label>
+                                                <input type="text" class="form-control" id="editTelefono">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="editPermiso" class="form-label">Permiso</label>
+                                                <select class="form-select" id="editPermiso">
+                                                    <option value="usuario">Usuario</option>
+                                                    <option value="admin">Administrador</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal para cambiar contraseña -->
+                        <div class="modal fade" id="modalCambiarClave" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <form id="formCambiarClave">
+                                        <div class="modal-header bg-dark text-white">
+                                            <h5 class="modal-title">Cambiar Contraseña</h5>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" id="claveUserId">
+                                            <div class="mb-3">
+                                                <label for="nuevaClave" class="form-label">Nueva Contraseña</label>
+                                                <input type="password" class="form-control" id="nuevaClave" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="confirmarClave" class="form-label">Confirmar Contraseña</label>
+                                                <input type="password" class="form-control" id="confirmarClave" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-primary">Actualizar Clave</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-section container py-4 d-none" id="dispositivos">
+                        <h3 class="mb-3">Dispositivos Móviles</h3>
+                        <p class="text-muted">Administra los dispositivos vinculados a tu cuenta. Puedes ver el estado, eliminar o agregar nuevos.</p>
+
+                        <!-- Botón para agregar nuevo dispositivo -->
+                        <div class="mb-3 text-end">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarDispositivo">
+                                <i class="fas fa-plus-circle me-1"></i> Añadir nuevo dispositivo
+                            </button>
+                        </div>
+
+                        <!-- Tabla de dispositivos -->
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Nombre del Dispositivo</th>
+                                        <th>Tipo</th>
+                                        <th>Sistema Operativo</th>
+                                        <th>Último Acceso</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaDispositivos">
+                                    <!-- Dispositivos se insertan dinámicamente aquí -->
+                                    <!-- Ejemplo de fila -->
+                                    <tr>
+                                        <td>Samsung Galaxy A20</td>
+                                        <td>Móvil</td>
+                                        <td>Android 11</td>
+                                        <td>2025-06-20 09:12</td>
+                                        <td><span class="badge bg-success">Activo</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-danger" onclick="eliminarDispositivo(1)">
+                                                <i class="fas fa-trash-alt"></i> Quitar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Modal para agregar nuevo dispositivo -->
+                        <div class="modal fade" id="modalAgregarDispositivo" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form id="formAgregarDispositivo">
+                                        <div class="modal-header bg-primary text-white">
+                                            <h5 class="modal-title">Añadir Dispositivo</h5>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="nombreDispositivo" class="form-label">Nombre del Dispositivo</label>
+                                                <input type="text" class="form-control" id="nombreDispositivo" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="tipoDispositivo" class="form-label">Tipo</label>
+                                                <select class="form-select" id="tipoDispositivo" required>
+                                                    <option value="">Seleccionar...</option>
+                                                    <option value="Móvil">Móvil</option>
+                                                    <option value="Tablet">Tablet</option>
+                                                    <option value="Portátil">Portátil</option>
+                                                    <option value="Otro">Otro</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="sistemaOperativo" class="form-label">Sistema Operativo</label>
+                                                <input type="text" class="form-control" id="sistemaOperativo" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-success">Agregar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-section container py-4 d-none" id="red">
+                        <h3 class="mb-3">Red e Internet</h3>
+                        <p class="text-muted">Configura tu conexión Wi-Fi, Ethernet o VPN. Verifica el estado de la red actual.</p>
+
+                        <!-- Navegación de pestañas -->
+                        <ul class="nav nav-tabs mb-3" id="networkTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="wifi-tab" data-bs-toggle="tab" data-bs-target="#wifi" type="button" role="tab">Wi-Fi</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="ethernet-tab" data-bs-toggle="tab" data-bs-target="#ethernet" type="button" role="tab">Ethernet</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="vpn-tab" data-bs-toggle="tab" data-bs-target="#vpn" type="button" role="tab">VPN</button>
+                            </li>
+                        </ul>
+
+                        <!-- Contenido de pestañas -->
+                        <div class="tab-content" id="networkTabsContent">
+
+                            <!-- Wi-Fi -->
+                            <div class="tab-pane fade show active" id="wifi" role="tabpanel">
+                                <h5>Red Wi-Fi actual: <span class="badge bg-success">Ndong_Oficial</span></h5>
+                                <div class="table-responsive mt-3">
+                                    <table class="table table-hover table-bordered">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Señal</th>
+                                                <th>Seguridad</th>
+                                                <th>Estado</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tablaWifi">
+                                            <tr>
+                                                <td>Ndong_Oficial</td>
+                                                <td>Fuerte</td>
+                                                <td>WPA2</td>
+                                                <td><span class="badge bg-success">Conectado</span></td>
+                                                <td><button class="btn btn-sm btn-danger">Desconectar</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Invitados_Ndong</td>
+                                                <td>Media</td>
+                                                <td>Abierta</td>
+                                                <td><span class="badge bg-secondary">Disponible</span></td>
+                                                <td><button class="btn btn-sm btn-primary">Conectar</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Ethernet -->
+                            <div class="tab-pane fade" id="ethernet" role="tabpanel">
+                                <h5>Estado Ethernet: <span class="badge bg-secondary">No Conectado</span></h5>
+                                <p class="mt-3">Conecta un cable Ethernet para establecer una conexión por cable.</p>
+                            </div>
+
+                            <!-- VPN -->
+                            <div class="tab-pane fade" id="vpn" role="tabpanel">
+                                <h5>VPNs configuradas</h5>
+                                <ul class="list-group my-3" id="listaVPN">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        VPN de trabajo
+                                        <span>
+                                            <button class="btn btn-sm btn-success me-2">Conectar</button>
+                                            <button class="btn btn-sm btn-danger">Eliminar</button>
+                                        </span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarVPN">
+                                    <i class="fas fa-plus-circle me-1"></i> Añadir VPN
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Modal para agregar VPN -->
+                        <div class="modal fade" id="modalAgregarVPN" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form id="formAgregarVPN">
+                                        <div class="modal-header bg-primary text-white">
+                                            <h5 class="modal-title">Nueva conexión VPN</h5>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="vpnNombre" class="form-label">Nombre de la VPN</label>
+                                                <input type="text" class="form-control" id="vpnNombre" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="vpnServidor" class="form-label">Servidor</label>
+                                                <input type="text" class="form-control" id="vpnServidor" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="vpnUsuario" class="form-label">Usuario</label>
+                                                <input type="text" class="form-control" id="vpnUsuario" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="vpnPassword" class="form-label">Contraseña</label>
+                                                <input type="password" class="form-control" id="vpnPassword" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-success">Guardar VPN</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-section container py-4 d-none" id="personalizacion">
+                        <h3 class="mb-3">Personalización</h3>
+                        <p class="text-muted">Cambia el tema, colores, fondo de pantalla y diseño del sistema para personalizar tu experiencia.</p>
+
+                        <!-- Selector de tema -->
+                        <div class="mb-4">
+                            <h5><i class="fas fa-adjust me-2"></i>Tema del sistema</h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tema" id="temaClaro" value="claro" checked>
+                                <label class="form-check-label" for="temaClaro">Claro</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tema" id="temaOscuro" value="oscuro">
+                                <label class="form-check-label" for="temaOscuro">Oscuro</label>
+                            </div>
+                        </div>
+
+                        <!-- Selector de color -->
+                        <div class="mb-4">
+                            <h5><i class="fas fa-palette me-2"></i>Color principal</h5>
+                            <div class="d-flex flex-wrap gap-3">
+                                <div class="color-option bg-primary" data-color="#0d6efd" title="Azul"></div>
+                                <div class="color-option bg-success" data-color="#198754" title="Verde"></div>
+                                <div class="color-option bg-danger" data-color="#dc3545" title="Rojo"></div>
+                                <div class="color-option bg-warning" data-color="#ffc107" title="Amarillo"></div>
+                                <div class="color-option bg-dark" data-color="#212529" title="Negro"></div>
+                            </div>
+                        </div>
+
+                        <!-- Fondo de pantalla -->
+                        <div class="mb-4">
+                            <h5><i class="fas fa-image me-2"></i>Fondo de pantalla</h5>
+                            <input type="file" class="form-control" id="fondoPantalla" accept="image/*">
+                            <div class="mt-3">
+                                <label class="form-label">Vista previa:</label>
+                                <div class="border rounded" style="height: 150px; background-size: cover; background-position: center;" id="previewFondo"></div>
+                            </div>
+                        </div>
+
+                        <!-- Guardar cambios -->
+                        <div class="text-end mt-4">
+                            <button class="btn btn-success" onclick="guardarPersonalizacion()">
+                                <i class="fas fa-save me-1"></i> Guardar Cambios
+                            </button>
+                        </div>
+                        <style>
+                            .color-option {
+                                width: 40px;
+                                height: 40px;
+                                border-radius: 50%;
+                                cursor: pointer;
+                                border: 2px solid transparent;
+                            }
+
+                            .color-option:hover {
+                                border-color: #000;
+                            }
+
+                            .color-option.selected {
+                                border: 3px solid #000;
+                            }
+                        </style>
+
+                    </div>
+
+
+                    <div class="setting-section container py-4 d-none" id="hora">
+                        <h3 class="mb-3">Hora e Idioma de Guinea Ecuatorial</h3>
+                        <p class="text-muted">Ajusta la zona horaria y el idioma del sistema específicamente para usuarios de Guinea Ecuatorial.</p>
+
+                        <!-- Zona Horaria de Guinea Ecuatorial -->
+                        <div class="mb-4">
+                            <h5><i class="fas fa-globe-africa me-2"></i>Zona Horaria</h5>
+                            <select class="form-select" id="zonaHoraria">
+                                <option value="Africa/Malabo" selected>🇬🇶 África/Malabo (UTC+1)</option>
+                            </select>
+                            <div class="form-text">Hora oficial de Guinea Ecuatorial (misma que Europa Central).</div>
+                        </div>
+
+                        <!-- Formato de hora -->
+                        <div class="mb-4">
+                            <h5><i class="fas fa-clock me-2"></i>Formato de Hora</h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="formatoHora" id="formato12h" value="12" checked>
+                                <label class="form-check-label" for="formato12h">12 Horas (AM/PM)</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="formatoHora" id="formato24h" value="24">
+                                <label class="form-check-label" for="formato24h">24 Horas</label>
+                            </div>
+                        </div>
+
+                        <!-- Idioma -->
+                        <div class="mb-4">
+                            <h5><i class="fas fa-language me-2"></i>Idioma Preferido</h5>
+                            <select class="form-select" id="idiomaSistema">
+                                <option value="es" selected>🇬🇶 Español (Guinea Ecuatorial)</option>
+                                <option value="fr">🇫🇷 Francés</option>
+                                <option value="pt">🇵🇹 Portugués</option>
+                            </select>
+                            <div class="form-text">Idiomas oficiales reconocidos en Guinea Ecuatorial.</div>
+                        </div>
+
+                        <!-- Guardar -->
+                        <div class="text-end mt-4">
+                            <button class="btn btn-primary" onclick="guardarHoraIdioma()">
+                                <i class="fas fa-save me-1"></i> Guardar Cambios
+                            </button>
+                        </div>
+                        <script>
+                            function guardarHoraIdioma() {
+                                const zona = document.getElementById('zonaHoraria').value;
+                                const idioma = document.getElementById('idiomaSistema').value;
+                                const formato = document.querySelector('input[name="formatoHora"]:checked').value;
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Configuración guardada',
+                                    html: `
+                                    <b>Zona horaria:</b> ${zona}<br>
+                                    <b>Formato:</b> ${formato} horas<br>
+                                    <b>Idioma:</b> ${idioma.toUpperCase()}
+                                `,
+                                    confirmButtonText: 'Aceptar'
+                                });
+                            }
+                        </script>
+
+                    </div>
+
+
+                    <div class="setting-section container py-4 d-none" id="accesibilidad">
+                        <h3 class="mb-3">Accesibilidad</h3>
+                        <p class="text-muted">Activa opciones para mejorar la experiencia de usuarios con necesidades especiales.</p>
+
+                        <!-- Texto grande -->
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="textoGrande">
+                            <label class="form-check-label" for="textoGrande">
+                                Texto grande
+                            </label>
+                        </div>
+
+                        <!-- Alto contraste -->
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="altoContraste">
+                            <label class="form-check-label" for="altoContraste">
+                                Alto contraste (modo oscuro fuerte)
+                            </label>
+                        </div>
+
+                        <!-- Narrador (simulado) -->
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="narrador">
+                            <label class="form-check-label" for="narrador">
+                                Narrador (lectura de texto)
+                            </label>
+                        </div>
+
+                        <!-- Botón de guardar -->
+                        <div class="text-end mt-4">
+                            <button class="btn btn-primary" onclick="guardarAccesibilidad()">
+                                <i class="fas fa-universal-access me-1"></i> Guardar Cambios
+                            </button>
+                        </div>
+                        <style>
+                            body.texto-grande {
+                                font-size: 1.25rem;
+                            }
+
+                            body.alto-contraste {
+                                background-color: #000 !important;
+                                color: #fff !important;
+                            }
+
+                            body.alto-contraste a {
+                                color: #00ffff !important;
+                            }
+                        </style>
+                        <script>
+                            function guardarAccesibilidad() {
+                                const textoGrande = document.getElementById('textoGrande').checked;
+                                const altoContraste = document.getElementById('altoContraste').checked;
+                                const narrador = document.getElementById('narrador').checked;
+
+                                // Aplicar clases al <body>
+                                document.body.classList.toggle('texto-grande', textoGrande);
+                                document.body.classList.toggle('alto-contraste', altoContraste);
+
+                                // Narrador simulado
+                                if (narrador) {
+                                    const mensaje = "La accesibilidad ha sido activada. Texto grande, alto contraste y narrador están activos.";
+                                    const speech = new SpeechSynthesisUtterance(mensaje);
+                                    speech.lang = "es-ES";
+                                    window.speechSynthesis.speak(speech);
+                                }
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Accesibilidad actualizada',
+                                    text: 'Tus preferencias han sido aplicadas correctamente.'
+                                });
+                            }
+                        </script>
+                    </div>
+
+                    <div class="setting-section container py-4 d-none" id="buscar">
+                        <h3 class="mb-3">Buscar</h3>
+                        <p class="text-muted">Gestiona cómo y dónde se realizan las búsquedas dentro del sistema.</p>
+
+                        <!-- Activar búsqueda en tiempo real -->
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="busquedaTiempoReal">
+                            <label class="form-check-label" for="busquedaTiempoReal">
+                                Activar búsqueda en tiempo real
+                            </label>
+                        </div>
+
+                        <!-- Activar historial de búsqueda -->
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="historialBusqueda">
+                            <label class="form-check-label" for="historialBusqueda">
+                                Guardar historial de búsqueda
+                            </label>
+                        </div>
+
+                        <!-- Filtros de búsqueda -->
+                        <div class="mb-3">
+                            <label for="filtroBusqueda" class="form-label">Áreas donde buscar:</label>
+                            <select class="form-select" id="filtroBusqueda" multiple>
+                                <option value="usuarios">Usuarios</option>
+                                <option value="rutas">Rutas</option>
+                                <option value="buses">Buses</option>
+                                <option value="agencias">Agencias</option>
+                                <option value="reservas">Reservas</option>
+                            </select>
+                            <small class="form-text text-muted">Mantén pulsado Ctrl (o Cmd en Mac) para seleccionar múltiples áreas.</small>
+                        </div>
+
+                        <!-- Botón Guardar -->
+                        <div class="text-end mt-4">
+                            <button class="btn btn-primary" onclick="guardarConfiguracionBusqueda()">
+                                <i class="fas fa-search me-1"></i> Guardar Configuración
+                            </button>
+                        </div>
+                        <script>
+                            function guardarConfiguracionBusqueda() {
+                                const tiempoReal = document.getElementById('busquedaTiempoReal').checked;
+                                const historial = document.getElementById('historialBusqueda').checked;
+                                const filtro = Array.from(document.getElementById('filtroBusqueda').selectedOptions).map(opt => opt.value);
+
+                                // Simular guardado (localStorage, backend, etc.)
+                                console.log("Configuración de búsqueda guardada:", {
+                                    tiempoReal,
+                                    historial,
+                                    filtro
+                                });
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Configuración guardada',
+                                    text: 'Tus preferencias de búsqueda han sido actualizadas.'
+                                });
+
+                                // Opcional: guardar en localStorage
+                                localStorage.setItem('configBusqueda', JSON.stringify({
+                                    tiempoReal,
+                                    historial,
+                                    filtro
+                                }));
+                            }
+                        </script>
+
+                    </div>
+
+                    <div class="setting-section container py-4 d-none" id="privacidad">
+                        <h3 class="mb-3">Privacidad</h3>
+                        <p class="text-muted">Controla qué información compartes con el sistema y las aplicaciones. Gestiona permisos.</p>
+
+                        <!-- Compartir ubicación -->
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="compartirUbicacion" checked>
+                            <label class="form-check-label" for="compartirUbicacion">Compartir mi ubicación</label>
+                        </div>
+
+                        <!-- Permitir acceso a cámara -->
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="accesoCamara" checked>
+                            <label class="form-check-label" for="accesoCamara">Permitir acceso a la cámara</label>
+                        </div>
+
+                        <!-- Permitir acceso a micrófono -->
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="accesoMicrofono" checked>
+                            <label class="form-check-label" for="accesoMicrofono">Permitir acceso al micrófono</label>
+                        </div>
+
+                        <!-- Compartir datos con terceros -->
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="compartirDatosTerceros">
+                            <label class="form-check-label" for="compartirDatosTerceros">Compartir datos con terceros</label>
+                        </div>
+
+                        <!-- Botón para guardar -->
+                        <div class="text-end mt-4">
+                            <button class="btn btn-primary" onclick="guardarPrivacidad()">
+                                <i class="fas fa-save me-1"></i> Guardar Preferencias
+                            </button>
+                        </div>
+                    </div>
+
+                    <script>
+                        function guardarPrivacidad() {
+                            const privacidad = {
+                                compartirUbicacion: document.getElementById('compartirUbicacion').checked,
+                                accesoCamara: document.getElementById('accesoCamara').checked,
+                                accesoMicrofono: document.getElementById('accesoMicrofono').checked,
+                                compartirDatosTerceros: document.getElementById('compartirDatosTerceros').checked
+                            };
+
+                            console.log('Configuración de privacidad guardada:', privacidad);
+
+                            // Aquí puedes añadir guardado en backend o localStorage
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Configuración guardada',
+                                text: 'Tus preferencias de privacidad han sido actualizadas.'
+                            });
+                        }
+                    </script>
+
+                    <div class="setting-section container py-4 d-none" id="actualizaciones">
+                        <h3 class="mb-3">Actualizaciones y Seguridad</h3>
+                        <p class="text-muted">Comprueba actualizaciones del sistema, crea copias de seguridad y ajusta opciones de seguridad.</p>
+
+                        <!-- Estado de actualizaciones -->
+                        <div class="mb-3">
+                            <h5>Estado de Actualizaciones</h5>
+                            <p id="estadoActualizaciones" class="text-success">Tu sistema está actualizado.</p>
+                            <button class="btn btn-outline-primary" onclick="verificarActualizaciones()">
+                                <i class="fas fa-sync-alt me-1"></i> Buscar actualizaciones
+                            </button>
+                        </div>
+
+                        <!-- Copias de seguridad -->
+                        <div class="mb-3">
+                            <h5>Copias de Seguridad</h5>
+                            <p>Realiza una copia de seguridad de tus datos para evitar pérdidas.</p>
+                            <button class="btn btn-outline-success" onclick="crearCopiaSeguridad()">
+                                <i class="fas fa-cloud-upload-alt me-1"></i> Crear copia de seguridad
+                            </button>
+                        </div>
+
+                        <!-- Opciones de seguridad -->
+                        <div class="mb-3">
+                            <h5>Opciones de Seguridad</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="activarFirewall" checked>
+                                <label class="form-check-label" for="activarFirewall">
+                                    Activar firewall del sistema
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="notificacionesSeguridad" checked>
+                                <label class="form-check-label" for="notificacionesSeguridad">
+                                    Recibir notificaciones de seguridad
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="text-end mt-4">
+                            <button class="btn btn-primary" onclick="guardarConfiguracionSeguridad()">
+                                <i class="fas fa-save me-1"></i> Guardar configuración
+                            </button>
+                        </div>
+                    </div>
+
+                    <script>
+                        function verificarActualizaciones() {
+                            // Simulación de búsqueda de actualizaciones
+                            document.getElementById('estadoActualizaciones').textContent = 'Buscando actualizaciones...';
+
+                            setTimeout(() => {
+                                // Resultado simulado
+                                document.getElementById('estadoActualizaciones').textContent = 'Tu sistema está actualizado.';
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Actualizaciones',
+                                    text: 'No hay nuevas actualizaciones disponibles.'
+                                });
+                            }, 2000);
+                        }
+
+                        function crearCopiaSeguridad() {
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Copia de Seguridad',
+                                text: 'Creando copia de seguridad, por favor espera...',
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                },
+                                allowOutsideClick: false
+                            });
+
+                            setTimeout(() => {
+                                Swal.close();
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Copia creada',
+                                    text: 'La copia de seguridad se ha creado correctamente.'
+                                });
+                            }, 3000);
+                        }
+
+                        function guardarConfiguracionSeguridad() {
+                            const configuracion = {
+                                firewall: document.getElementById('activarFirewall').checked,
+                                notificaciones: document.getElementById('notificacionesSeguridad').checked,
+                            };
+
+                            console.log('Configuración de seguridad guardada:', configuracion);
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Configuración guardada',
+                                text: 'Tus preferencias de seguridad han sido actualizadas.'
+                            });
+                        }
+                    </script>
+
+                </main>
+            </div>
+        </div>
+
+        <!-- JavaScript para alternar visibilidad -->
+        <script>
+            document.querySelectorAll('.setting-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-target');
+                    document.querySelectorAll('.setting-section').forEach(section => {
+                        section.classList.add('d-none');
+                    });
+                    document.getElementById(targetId).classList.remove('d-none');
+                });
+            });
+        </script>
+
+
+        <div class="window window_manual" style="display: none;">
+            <div class="window-header">
+                <span>Manual de ayuda <i class="fas fa-question-circle"></i></span>
+                <div class="window-controls">
+                    <button class="btn-minimize"><i class="fa-solid fa-window-minimize"></i></button>
+                    <button class="btn-maximize"><i class="fa-solid fa-window-maximize"></i></button>
+                    <button class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+            <div class="window-content h-100 d-flex">
+                <div class="manual-content" style="padding: 25px; color: #222; font-size: 15px; line-height: 1.7;">
+                    <h2 style="margin-bottom: 15px;">
+                        <i class="fas fa-question-circle" style="color: #005eff;"></i> Manual de Ayuda del Sistema
+                    </h2>
+                    <p><strong>Bienvenido al sistema de gestión.</strong> A continuación, encontrarás una descripción completa de cada botón del panel principal, para que puedas navegar y operar eficientemente la plataforma.</p>
+
+                    <ul style="list-style: none; padding-left: 0; margin-top: 25px;">
+                        <li style="margin-bottom: 15px;">
+                            <i class="fa-solid fa-house-chimney" style="color:#005eff;"></i>
+                            <strong>Inicio:</strong><br>
+                            Accede a la <strong>pantalla principal</strong> o <em>dashboard</em>, donde podrás obtener una visión general del sistema: estadísticas rápidas, accesos directos y notificaciones importantes.
+                        </li>
+
+                        <li style="margin-bottom: 15px;">
+                            <i class="fa-solid fa-user-plus" style="color:#005eff;"></i>
+                            <strong>Usuarios:</strong><br>
+                            Gestiona los <strong>usuarios del sistema</strong>. Puedes <strong>registrar nuevos usuarios</strong>, editar sus datos o eliminar perfiles. Este módulo es esencial para el control de acceso y permisos.
+                        </li>
+
+                        <li style="margin-bottom: 15px;">
+                            <i class="fa-solid fa-road" style="color:#005eff;"></i>
+                            <strong>Rutas:</strong><br>
+                            Administra las diferentes <strong>rutas de transporte</strong>. Aquí puedes <strong>crear recorridos nuevos</strong>, editar paradas y asignar trayectos a agencias o buses específicos.
+                        </li>
+
+                        <li style="margin-bottom: 15px;">
+                            <i class="fa-solid fa-bus" style="color:#005eff;"></i>
+                            <strong>Buses:</strong><br>
+                            Control total sobre la <strong>flota de autobuses</strong>. Podrás registrar buses nuevos, ver su estado, disponibilidad y asignarlos a rutas según programación.
+                        </li>
+
+                        <li style="margin-bottom: 15px;">
+                            <i class="fa-solid fa-ticket" style="color:#005eff;"></i>
+                            <strong>Reservas:</strong><br>
+                            Visualiza y gestiona las <strong>reservas activas o pendientes</strong> de los usuarios. Puedes <strong>confirmar, editar o cancelar</strong> reservas, y verificar detalles como tipo de servicio, horario y ruta asociada.
+                        </li>
+
+                        <li style="margin-bottom: 15px;">
+                            <i class="fa-solid fa-map-location-dot" style="color:#005eff;"></i>
+                            <strong>Viajes:</strong><br>
+                            Módulo para el <strong>seguimiento y control de los viajes</strong> en curso. Aquí podrás <strong>iniciar, pausar o finalizar</strong> un viaje, así como monitorear su estado en tiempo real.
+                        </li>
+
+                        <li style="margin-bottom: 15px;">
+                            <i class="fa-solid fa-map" style="color:#005eff;"></i>
+                            <strong>Mapa:</strong><br>
+                            Accede a un <strong>mapa interactivo</strong> donde se representan rutas, estaciones, agencias y la posición actual de los buses, en caso de contar con geolocalización habilitada.
+                        </li>
+
+                        <li style="margin-bottom: 15px;">
+                            <i class="fa-solid fa-sack-dollar" style="color:#005eff;"></i>
+                            <strong>Ganancias:</strong><br>
+                            Consulta las <strong>ganancias económicas</strong> obtenidas por el sistema. Podrás ver reportes diarios, semanales o mensuales, así como estadísticas de ingreso por servicio.
+                        </li>
+
+                        <li style="margin-bottom: 15px;">
+                            <i class="fa-solid fa-ranking-star" style="color:#005eff;"></i>
+                            <strong>Estadísticas:</strong><br>
+                            Muestra gráficas y reportes analíticos del <strong>uso y rendimiento del sistema</strong>: número de reservas, usuarios activos, rutas más usadas, y comparativas mensuales.
+                        </li>
+
+                        <li style="margin-bottom: 15px;">
+                            <i class="fa-solid fa-circle-user" style="color:#005eff;"></i>
+                            <strong>Perfil:</strong><br>
+                            Aquí podrás <strong>ver y editar tus datos personales</strong>, cambiar tu contraseña, actualizar tu imagen de perfil o cerrar sesión de forma segura.
+                        </li>
+
+                        <li style="margin-bottom: 15px;">
+                            <i class="fas fa-question-circle" style="color:#005eff;"></i>
+                            <strong>Manual:</strong><br>
+                            Este botón abre la <strong>ventana de ayuda</strong> que estás viendo, donde se explica cada función y módulo del sistema para facilitar tu experiencia.
+                        </li>
+                    </ul>
+
+                    <p style="margin-top: 30px;"><strong>¿Tienes dudas?</strong> No dudes en consultar esta sección cuando necesites una guía rápida.</p>
+                </div>
+
+            </div>
+        </div>
+
 
         <div id="ventanas-minimizadas"></div>
 
@@ -1705,7 +2906,7 @@ $conn->close();
 
             <!-- Botones de acciones -->
             <div class="dock-buttons">
-                <button class="dock-btn">
+                <button class="dock-btn" id="refresAll">
                     <i class="fa-solid fa-house-chimney"></i>
                     <span class="tooltip-text">Inicio</span>
                 </button>
@@ -1733,23 +2934,26 @@ $conn->close();
                     <i class="fa-solid fa-map"></i>
                     <span class="tooltip-text">Mapa</span>
                 </button>
+                <button class="dock-btn" data-nombre="ganancias">
+                    <i class="fa-solid fa-sack-dollar"></i>
+                    <span class="tooltip-text">Ganancias</span>
+                </button>
                 <button class="dock-btn" data-nombre="estadisticas">
                     <i class="fa-solid fa-ranking-star"></i>
                     <span class="tooltip-text">Estadísticas</span>
                 </button>
-                <button class="dock-btn" data-nombre="perfil">
-                    <i class="fa-solid fa-circle-user"></i>
-                    <span class="tooltip-text">Perfil</span>
-                </button>
                 <button class="dock-btn" data-nombre="ajustes">
-                    <i class="fa-solid fa-gear"></i>
+                    <i class="fas fa-gear"></i>
                     <span class="tooltip-text">Ajustes</span>
+                </button>
+                <button class="dock-btn" data-nombre="manual">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="tooltip-text">Manual</span>
                 </button>
             </div>
         </nav>
-        <button class="dock-btn off" title="Cerrar Sesion">
+        <button class="dock-btn off" id="Sesion-close" title="Cerrar Sesion">
             <i style="color: red;" class="fa-solid fa-power-off"></i>
-
         </button>
     </footer>
 

@@ -1,15 +1,15 @@
 <?php
-
 session_start();
 
-if (!isset($_SESSION['usuario'])) {
-    header('Location:views/login/index.php');
-    exit;
+if (isset($_SESSION['usuario']) && isset($_SESSION['tipo'])) {
+    if ($_SESSION['tipo'] === 'admin') {
+        header('Location:views/admin/index.php');
+        exit;
+    }
+    $username = $_SESSION['usuario']; // Usuario normal
 }
-
-$username = $_SESSION['usuario'];
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,40 +27,99 @@ $username = $_SESSION['usuario'];
 </head>
 <header id="header">
     <div class="logo">
-        <div title="Logo" class="img_logo"><img src="img/index/Logo_viages.png" alt=""></div>
+        <div title="Logo" class="img_logo">
+            <img src="img/index/Logo_viages.png" alt="">
+        </div>
         <div class="logo_text">
             <h5 title="Texto del logo">Ndong Viajes</h5>
             <div class="hidenMenu" id="hidenmenu">
                 <div class="list">
                     <div>
-                        <h5>Gestion</h5>
+                        <h5>Gestión</h5>
                     </div>
-                    <div title="inicio del sitio"><a href="#">Inicio</a></div>
-                    <div title="viaja en todas partes"><a href="#">Turismo</a></div>
-                    <div><a href="views/nosotros.eg/index.php" title="Acerca de nosotros">Nosotros</a></div>
-                    <div><a href="views/agencias.eg/index.php" title="Sobre otras agencias">Agencias</a></div>                  
+                    <div><a href="#">Inicio</a></div>
+                    <div><a href="#">Turismo</a></div>
+                    <div><a href="views/nosotros.eg/index.php">Nosotros</a></div>
+                    <div><a href="views/agencias.eg/index.php">Agencias</a></div>
+                    <?php if (isset($_SESSION['usuario']) && $_SESSION['tipo'] === 'usuario'): ?>
+                        <!-- Botón de panel de usuario -->
+                        <div title="Mis reservas" class="btnPanel">
+                            <a href="views/usuario/panel.php" style="color: orange;"><i class="fa-solid fa-calendar-check"></i></a>
+                        </div>
+                        <!-- Botón de cerrar sesión -->
+                        <div title="Cerrar sesión" class="btnSesion">
+                            <a href="views/login/logout.php" style="color: red;"><i class="fa-solid fa-right-from-bracket"></i></a>
+                        </div>
+                    <?php else: ?>
+                        <!-- Botón de iniciar sesión -->
+                        <div title="Iniciar sesión" class="btn">
+                            <a href="views/login/index.php"><i class="fa-solid fa-user"></i></a>
+                        </div>
+                    <?php endif; ?>
+                    <style>
+                        .btnSesion:hover {
+                            background-color: red;
+                            color: white;
+
+                            a {
+                                background-color: red;
+                                color: white;
+                            }
+                        }
+
+                        .btnPanel:hover {
+                            background-color: orange;
+                            color: white;
+
+                            a {
+                                background-color: orange;
+                                color: white;
+                            }
+                        }
+                    </style>
                 </div>
             </div>
         </div>
-
     </div>
+
     <div class="nav">
         <div class="nav_navegar">
             <div><a href="#" class="active">Inicio</a></div>
-            <div title="viaja en todas partes"><a href="views/turismo.eg/index.php">Turismo</a></div>
-            <div> <a href="views/nosotros.eg/index.php">Nosotros</a></div>
-            <div> <a href="views/agencias.eg/index.php">Agencias</a></div>
+            <div><a href="views/turismo.eg/index.php">Turismo</a></div>
+            <div><a href="views/nosotros.eg/index.php">Nosotros</a></div>
+            <div><a href="views/agencias.eg/index.php">Agencias</a></div>
+            <?php if (isset($_SESSION['usuario']) && $_SESSION['tipo'] === 'usuario'): ?>
+                <!-- Botón de panel de usuario -->
+                <div title="Mis reservas" class="btnPanel">
+                    <a href="views/usuario/panel.php" style="color: orange;"><i class="fa-solid fa-calendar-check"></i></a>
+                </div>
+                <!-- Botón de cerrar sesión -->
+                <div title="Cerrar sesión" class="btnSesion">
+                    <a href="views/login/logout.php" style="color: red;"><i class="fa-solid fa-right-from-bracket"></i></a>
+                </div>
+            <?php else: ?>
+                <!-- Botón de iniciar sesión -->
+                    <a href="views/login/index.php" class="btn"><i class="fa-solid fa-user" style="color: blue;"></i></a>
+               
+            <?php endif; ?>
         </div>
-        <div class="burgerButton" id="btn_mn"><i class="fa-solid fa-bars"></i></div>
-        <div title="Registrate aqui" class="btn"><a href="views/login/index.php"><i class="fa-solid fa-user"></i></a></div>
-        <div title="Cambiar el idioma aqui" class="idioma"><img src="img/index/bandera.png" alt=""></div>
+
+        <div class="burgerButton" id="btn_mn">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <div title="Cambiar el idioma aquí" class="idioma">
+            <img src="img/index/bandera.png" alt="">
+        </div>
     </div>
 </header>
 
 <body>
 
+
+    <!-- Pantalla bienvenida (oculta por defecto con display:none) -->
     <div id="welcomeSpinner" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: #002f75; display: flex; flex-direction: column; justify-content: center;
+    background-color: #002f75; display: none; flex-direction: column; justify-content: center;
     align-items: center; z-index: 9999; color: white;">
 
         <!-- Logo animado -->
@@ -73,6 +132,51 @@ $username = $_SESSION['usuario'];
             Bienvenido a Ndong Viajes, <span id="nombreUsuario" style="color: #00f;"></span>
         </h2>
     </div>
+
+    <script>
+        // Función para leer cookies por nombre
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+
+        // Función para crear cookie con expiración
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const welcomeDiv = document.getElementById('welcomeSpinner');
+            const nombreUsuarioSpan = document.getElementById('nombreUsuario');
+
+            // Insertar nombre usuario con PHP
+            nombreUsuarioSpan.textContent = <?php echo json_encode($username); ?>;
+
+            // Comprobar si la cookie existe
+            const bienvenidaMostrada = getCookie('bienvenida_mostrada');
+
+            if (!bienvenidaMostrada) {
+                // Mostrar el div de bienvenida
+                welcomeDiv.style.display = 'flex';
+
+                // Crear cookie para que no se vuelva a mostrar (duración 1 día)
+                setCookie('bienvenida_mostrada', '1', 1);
+
+                // Después de unos segundos, ocultar la bienvenida
+                setTimeout(() => {
+                    welcomeDiv.style.display = 'none';
+                }, 3500); // 3.5 segundos, ajusta tiempo a tu gusto
+            }
+        });
+    </script>
 
     <!-- Script de bienvenida -->
     <script>

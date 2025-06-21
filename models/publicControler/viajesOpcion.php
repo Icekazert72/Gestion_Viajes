@@ -37,7 +37,7 @@ $viajes = array();
 if ($fecha_valida === $fecha_actual) {
     // Si la fecha es hoy, buscar solo los viajes posteriores a la hora seleccionada
     $sql = "
-        SELECT v.id, v.hora_salida, v.hora_llegada, r.origen, r.destino, r.precio, b.numero_bus, b.modelo, v.estado, a.nombre AS agencia
+        SELECT v.id, v.hora_salida, v.hora_llegada, r.origen, r.destino, r.precio, b.numero_bus, b.modelo, v.estado, a.id AS id_agencia, a.nombre AS agencia
         FROM viajes v
         JOIN rutas r ON v.ruta = r.id
         JOIN buses b ON v.bus = b.id
@@ -54,7 +54,7 @@ if ($fecha_valida === $fecha_actual) {
 } else {
     // Si la fecha no es hoy, buscar viajes desde esa fecha hasta un mes después
     $sql = "
-        SELECT v.id, v.hora_salida, v.hora_llegada, r.origen, r.destino, r.precio, b.numero_bus, b.modelo, v.estado, a.nombre AS agencia
+        SELECT v.id, v.hora_salida, v.hora_llegada, r.origen, r.destino, r.precio, b.numero_bus, b.modelo, v.estado,a.id AS id_agencia, a.nombre AS agencia
         FROM viajes v
         JOIN rutas r ON v.ruta = r.id
         JOIN buses b ON v.bus = b.id

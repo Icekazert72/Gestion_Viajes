@@ -1097,7 +1097,6 @@ button[type="submit"]:hover {
     }
 
     .form-control {
-        background-color: #121212;
         border: 1px solid #00f0ff;
         color: #00f0ff;
         transition: 0.3s ease;

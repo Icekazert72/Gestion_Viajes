@@ -5,13 +5,33 @@
 }
 
 body {
+    min-height: 100vh;
+    margin: 0;
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-direction: column;
-    width: 100%;
-    height: 100vh;
+    justify-content: center;
+    background: linear-gradient(120deg, #0a0f3d, #1e3c72, #2a5298, #ffffff);
+    background-size: 400% 400%;
+    animation: auroraBoreal 15s ease infinite;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
 }
+
+
+@keyframes auroraBoreal {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 
 #spinnerOverlay {
     position: fixed;
@@ -105,7 +125,7 @@ body {
 
     .input-icon {
         background-color: #f0f0f0;
-        padding: 16.5px;
+        padding: 16px;
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;
         color: #888;
@@ -130,19 +150,11 @@ body {
 
     .pin-input-container {
         display: flex;
-        gap:17px;
+        gap: 17px;
         margin-left: 10px;
     }
 
-    .pin-input {
-        width:86%;
-        padding: 10px;
-        font-size: 15px;
-        text-align: center;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        transition: 0.2s;
-    }
+ 
 
     .pin-input:focus {
         border-color: #4a90e2;
@@ -224,10 +236,26 @@ body {
     to {
         transform: scale(1);
         opacity: 1;
-    } 
+    }
 }
 
 .text-danger {
     color: #dc3545;
     font-weight: bold;
+}
+
+@media screen and (max-width: 740px) {
+  .formLogin .btn {
+    font-size: 15px;
+    padding: 10px;
+  }
+  .formLogin .input-icon {
+    border-radius: 8px 8px 0 0;
+    justify-content: center;
+  }
+
+  .formLogin .form-control {
+    border-radius: 0 0 8px 8px;
+    border-left: 1px solid #ccc;
+  }
 }

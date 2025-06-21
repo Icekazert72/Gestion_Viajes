@@ -1,15 +1,15 @@
 <?php
-
 session_start();
 
-if (isset($_SESSION['usuario'])) {
-    header('Location: ReservarViaje.php');
-    exit;
+if (isset($_SESSION['usuario']) && isset($_SESSION['tipo'])) {
+    if ($_SESSION['tipo'] === 'admin') {
+        header('Location:views/admin/index.php');
+        exit;
+    }
+    $username = $_SESSION['usuario']; // Usuario normal
 }
-
-$username = $_SESSION['usuario'];
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const formulario = document.getElementById('formRegistroUsuario');
     const campos = formulario.querySelectorAll('.campo-validacion');
@@ -35,38 +33,99 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!valido) return;
 
         const formData = new FormData(formulario);
-
-        // Generar contraseña automática (5 dígitos numéricos aleatorios)
+        const email = document.getElementById('email-user').value;
         const pass = String(Math.floor(Math.random() * 100000)).padStart(5, '0');
-        formData.append('password_generada', pass);
 
         // Mostrar animación
         animacion.style.display = 'flex';
 
-        // Simular envío con animación (3 segundos)
-        setTimeout(() => {
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', '../../../models/usuarios_submin.php', true);
+        // Primero intenta enviar el correo
+        mailUsuario(email, pass)
+            .then(response => {
+                console.log("Correo enviado:", response);
 
-            xhr.onload = () => {
-                animacion.style.display = 'none'; // Ocultar animación
+                // Si el correo se envió, añadimos la contraseña al formData
+                formData.append('password_generada', pass);
 
-                if (xhr.status === 200) {
-                    alert(xhr.responseText);
-                    formulario.reset();
-                    document.querySelectorAll('.icono-validacion i').forEach(icono => {
-                        icono.className = 'fas fa-circle';
-                    });
-                    GetRutas();
-                } else {
-                    alert("Error al enviar formulario.");
-                }
-            };
+                // Ahora registramos al usuario
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '../../../models/usuarios_submin.php', true);
 
-            xhr.send(formData);
-        }, 3000);
+                xhr.onload = () => {
+                    animacion.style.display = 'none';
+
+                    if (xhr.status === 200) {
+                        mostrarToast("Usuario registrado correctamente.");
+                        formulario.reset();
+                        document.querySelectorAll('.icono-validacion i').forEach(icono => {
+                            icono.className = 'fas fa-circle';
+                        });
+                        GetRutas();
+                    } else {
+                        mostrarToast("Error al registrar el usuario.");
+                    }
+                };
+
+                xhr.onerror = () => {
+                    animacion.style.display = 'none';
+                    mostrarToast("Error en la conexión.");
+                };
+
+                xhr.send(formData);
+            })
+            .catch(error => {
+                animacion.style.display = 'none';
+                console.error("❌ Error al enviar correo:", error);
+                mostrarToast("No se pudo enviar el correo. Intenta de nuevo.");
+            });
     });
 });
+
+
+function mailUsuario(email, password) {
+    return new Promise((resolve, reject) => {
+        const cancelarBtn = document.getElementById('cancelar-usuario');
+        const contenidoOriginal = cancelarBtn ? cancelarBtn.innerHTML : '';
+
+        if (cancelarBtn) {
+            cancelarBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Enviando...`;
+            cancelarBtn.disabled = true;
+        }
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "../../../models/sub_min/SendmailUsuario.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.onload = () => {
+            if (cancelarBtn) {
+                cancelarBtn.innerHTML = contenidoOriginal;
+                cancelarBtn.disabled = false;
+            }
+
+            if (xhr.status === 200) {
+                resolve(xhr.responseText);
+            } else {
+                reject(`Error ${xhr.status}: ${xhr.responseText}`);
+            }
+        };
+
+        xhr.onerror = () => {
+            if (cancelarBtn) {
+                cancelarBtn.innerHTML = contenidoOriginal;
+                cancelarBtn.disabled = false;
+            }
+            reject("Error en la conexión.");
+        };
+
+        const params = `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+        xhr.send(params);
+    });
+}
+
+
+
+
+
 
 const form = document.getElementById('rutaForm');
 const campos = ['origen', 'destino', 'horario', 'precio', 'region'];
@@ -174,6 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     xhr.send();
 });
+
 
 // Cargar buses al iniciar la página
 document.addEventListener('DOMContentLoaded', function () {
@@ -373,6 +433,81 @@ function mostrarFormularioTutor(clienteId) {
     `;
 }
 
+
+function SeguimientoViajes() {
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '../../../models/sub_min/SeguimientoBusAsientos.php', true);
+    xhr.onload = function () {
+
+        if (xhr.status === 200) {
+            let viajes = [];
+            try {
+                viajes = JSON.parse(xhr.responseText);
+            } catch (e) {
+                document.getElementById('ContainerBuses').innerHTML = '<div class="alert alert-danger">Respuesta inválida del servidor.</div>';
+                return;
+            }
+            const contenedor = document.getElementById('ContainerBuses');
+            contenedor.innerHTML = ''; // Limpiar antes
+
+            if (!Array.isArray(viajes) || viajes.length === 0) {
+                contenedor.innerHTML = '<div class="alert alert-warning">No hay viajes activos.</div>';
+                return;
+            }
+
+            viajes.forEach(viaje => {
+                // Convertimos todos los asientos ocupados a números
+                const ocupados = new Set((viaje.asientos_ocupados || []).map(Number));
+                const total = viaje.capacidad;
+
+                let html = `
+                    <div class="infoBus mb-4">
+                        <div class="busConductorViaje">
+                            <h5 class="text-primary mb-1"><i class="fas fa-bus me-2"></i>Bus Nº ${viaje.numero_bus}</h5>
+                            <p class="mb-0"><i class="fas fa-id-badge me-2 text-muted"></i>Placa: ${viaje.placa}</p>
+                            <p class="mb-0"><i class="fas fa-users me-2 text-muted"></i>Pasajeros: ${ocupados.size} / ${total}</p>
+                        </div>
+                        <div id="bus-container" style="display:flex; justify-content:space-between; margin-top:10px;">
+                            <div class="seat-group d-flex gap-2">`;
+
+                for (let i = 1; i <= total / 2; i++) {
+                    html += renderAsiento(i, ocupados);
+                }
+
+                html += `</div><div style="width:30px;"></div><div class="seat-group d-flex gap-2">`;
+
+                for (let i = total / 2 + 1; i <= total; i++) {
+                    html += renderAsiento(i, ocupados);
+                }
+
+                html += `</div></div></div>`;
+                contenedor.innerHTML += html;
+            });
+        } else {
+            document.getElementById('ContainerBuses').innerHTML = '<div class="alert alert-danger">Error al cargar los datos.</div>';
+        }
+    };
+    xhr.onerror = function () {
+        document.getElementById('ContainerBuses').innerHTML = '<div class="alert alert-danger">Error de red.</div>';
+    };
+    xhr.send();
+}
+
+function renderAsiento(n, ocupados) {
+    const ocupado = ocupados.has(n);
+    const clase = ocupado ? 'occupied' : 'free';
+    const titulo = ocupado ? 'Asiento ocupado' : 'Asiento disponible';
+
+    return `
+        <div class="seat ${clase}" id="seat-${n}" title="${titulo}">
+            <i class="fa-solid fa-chair seat-icon ${clase}"></i>
+            <div class="seat-number">${n}</div>
+        </div>
+    `;
+}
+
+
 function mostrarFormularioReserva(clienteId, datosCliente) {
     const container = document.getElementById('formContainerTemp');
     container.classList.remove('d-none');
@@ -443,6 +578,100 @@ function mostrarFormularioReserva(clienteId, datosCliente) {
     });
 }
 
+document.querySelectorAll('.tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Desactivar todos los botones
+        document.querySelectorAll('.tabs button').forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+        });
+        // Ocultar todos los panels
+        document.querySelectorAll('.tab-panel').forEach(p => {
+            p.style.display = 'none';
+            p.setAttribute('aria-hidden', 'true');
+        });
+        // Activar el seleccionado
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        const target = btn.getAttribute('data-target');
+        const panel = document.getElementById(target);
+        if (panel) {
+            panel.style.display = 'block';
+            panel.setAttribute('aria-hidden', 'false');
+        }
+    });
+});
+
+
+// Control simple de tabs
+document.querySelectorAll('.tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Desactivar todos los botones
+        document.querySelectorAll('.tabs button').forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+        });
+        // Ocultar todos los panels
+        document.querySelectorAll('.tab-panel').forEach(p => {
+            p.style.display = 'none';
+            p.setAttribute('aria-hidden', 'true');
+        });
+        // Activar el seleccionado
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        const target = btn.getAttribute('data-target');
+        const panel = document.getElementById(target);
+        if (panel) {
+            panel.style.display = 'block';
+            panel.setAttribute('aria-hidden', 'false');
+        }
+    });
+});
+
+// Funciones para actualizar datos (ejemplo con datos simulados)
+function GestionIngresosActualizarDatosDinamicos() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '../../../models/sub_min/datos_financieros.php', true);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                try {
+                    const data = JSON.parse(xhr.responseText);
+
+                    function actualizarPeriodo(periodo, textoResumen) {
+                        const ingresos = data[periodo].ingresos;
+                        const gastos = data[periodo].gastos;
+                        const pagos = data[periodo].pagos;
+                        const saldo = ingresos - gastos - pagos;
+
+                        document.getElementById(`ingresos-${periodo}`).textContent = `${ingresos.toFixed(2)} XAF`;
+                        document.getElementById(`gastos-${periodo}`).textContent = `${gastos.toFixed(2)} XAF`;
+                        document.getElementById(`pagos-${periodo}`).textContent = `${pagos.toFixed(2)} XAF`;
+                        document.getElementById(`saldo-${periodo}`).textContent = `${saldo.toFixed(2)} XAF`;
+                        document.getElementById(`resumen-${periodo}`).textContent = textoResumen(saldo);
+                    }
+
+                    actualizarPeriodo('dia', saldo => `Hoy la agencia tiene un saldo neto de ${saldo.toFixed(2)} XAF después de gastos operativos.`);
+                    actualizarPeriodo('semana', saldo => `En la última semana, la agencia obtuvo un saldo neto de ${saldo.toFixed(2)} XAF`);
+                    actualizarPeriodo('mes', saldo => `El saldo neto del mes actual es ${saldo.toFixed(2)} XAF después de pagar gastos y salarios.`);
+                    actualizarPeriodo('ano', saldo => `Saldo neto acumulado del año: ${saldo.toFixed(2)} XAF después de gastos y pagos a empleados.`);
+
+                } catch (e) {
+                    console.error('Error parsing JSON:', e);
+                }
+            } else {
+                console.error('Error en la petición:', xhr.status);
+            }
+        }
+    };
+
+    xhr.send();
+}
+
+// Ejecuta para cargar datos al iniciar
+GestionIngresosActualizarDatosDinamicos();
+
 
 
 function SelecCargarViajes() {
@@ -455,7 +684,7 @@ function SelecCargarViajes() {
         if (xhr.status === 200) {
             const res = JSON.parse(xhr.responseText);
             console.log(xhr.responseText); // Para depuración
-            
+
             // Verifica qué contiene la respuesta
             console.log(res);
 
@@ -506,8 +735,6 @@ setTimeout(() => contenedor.classList.add('visible'), 10);
 
 
 function SetUsuarios() {
-    console.log('funciona');
-
     document.addEventListener("DOMContentLoaded", function () {
         const xhr = new XMLHttpRequest();
         xhr.open("GET", "../../../models/sub_min/SetUsuarios.php", true);
@@ -548,19 +775,21 @@ function SetUsuarios() {
 }
 
 function GetRutas() {
-    document.addEventListener("DOMContentLoaded", function () {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "../../../models/sub_min/getRutas.php", true);
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "../../../models/sub_min/getRutas.php", true);
 
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                const rutas = JSON.parse(xhr.responseText);
-                const contenedor = document.getElementById("contenedorTarjetas");
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            const rutas = JSON.parse(xhr.responseText);
+            const contenedor = document.getElementById("contenedorTarjetas");
 
-                rutas.forEach(ruta => {
-                    const tarjeta = document.createElement("div");
-                    tarjeta.className = "card route-card p-3 mb-3";
-                    tarjeta.innerHTML = `
+            // LIMPIAR CONTENIDO ANTES DE RENDERIZAR
+            contenedor.innerHTML = '';
+
+            rutas.forEach(ruta => {
+                const tarjeta = document.createElement("div");
+                tarjeta.className = "card route-card p-3 mb-3";
+                tarjeta.innerHTML = `
                     <div class="row align-items-center">
                         <div class="col-md-2 text-center mb-2 mb-md-0">
                             <i class="fas fa-map-marker-alt fa-lg text-primary me-2"></i>
@@ -590,17 +819,16 @@ function GetRutas() {
                         </div>
                     </div>
                 `;
-                    contenedor.appendChild(tarjeta);
-                });
-            } else {
-                console.error("Error al obtener rutas: " + xhr.statusText);
-            }
-        };
+                contenedor.appendChild(tarjeta);
+            });
+        } else {
+            console.error("Error al obtener rutas: " + xhr.statusText);
+        }
+    };
 
-        xhr.send();
-    });
-
+    xhr.send();
 }
+
 
 function observarCambios() {
     const objetivo = document.body; // Puedes observar todo el body o un contenedor específico
@@ -719,6 +947,7 @@ function SetBuses() {
 
 
 }
+
 function GetBuses() {
     const contenedor = document.getElementById('bus-list');
     const xhr = new XMLHttpRequest();
@@ -977,7 +1206,7 @@ function mostrarFormularioReservaUsuario(usuarioId, datos) {
             <label class="form-label">Seleccionar Viaje</label>
             <select name="viaje_id" class="form-control" required>
                 <option value="">Seleccione un viaje</option>
-                <!-- Aquí se agregan las opciones de viajes (bus, ruta, fecha de salida y hora) -->
+                <!-- Opciones de viajes aquí -->
             </select>
         </div>
 
@@ -990,9 +1219,52 @@ function mostrarFormularioReservaUsuario(usuarioId, datos) {
             </select>
         </div>
 
+        <div class="mb-3">
+            <label class="form-label">Número de acompañantes</label>
+            <input type="number" min="0" id="numAcompanantes" class="form-control" placeholder="0" />
+        </div>
+
+        <div id="formAcompanantes"></div>
+
         <button type="submit" class="btn btn-info w-100">Confirmar Reserva</button>
     </form>
 `;
+
+    // Lógica para mostrar los campos de acompañantes
+    const numAcompanantesInput = document.getElementById('numAcompanantes');
+    const formAcompanantesDiv = document.getElementById('formAcompanantes');
+
+    numAcompanantesInput.addEventListener('input', () => {
+        const cantidad = parseInt(numAcompanantesInput.value);
+        formAcompanantesDiv.innerHTML = ''; // Limpiar antes de añadir nuevos
+
+        if (!isNaN(cantidad) && cantidad > 0) {
+            for (let i = 1; i <= cantidad; i++) {
+                formAcompanantesDiv.innerHTML += `
+                <fieldset class="bg-dark p-3 rounded mb-3 border border-info">
+                    <legend class="text-light">Acompañante ${i}</legend>
+                    <div class="mb-2">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" name="acompanantes[${i}][nombre]" class="form-control" required>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Apellidos</label>
+                        <input type="text" name="acompanantes[${i}][apellidos]" class="form-control" required>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Edad</label>
+                        <input type="number" name="acompanantes[${i}][edad]" class="form-control" min="0" required>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Teléfono</label>
+                        <input type="tel" name="acompanantes[${i}][telefono]" class="form-control">
+                    </div>
+                </fieldset>
+            `;
+            }
+        }
+    });
+
 
 
     SelecCargarViajes(); // Llamar a la función para llenar los viajes
@@ -1039,7 +1311,6 @@ function mostrarReservasPendientes() {
         if (xhr.status === 200) {
             const reservas = JSON.parse(xhr.responseText);
             contenedor.innerHTML = ""; // Limpiar antes de agregar
-            console.log(xhr.responseText); // Para depuración
             reservas.forEach(r => {
                 const nombre = r.u_nombre ? `${r.u_nombre} ${r.u_apellidos}` : `${r.ct_nombre} ${r.ct_apellidos}`;
                 const telefono = r.u_telefono || r.ct_telefono;
@@ -1199,6 +1470,160 @@ function confirmarPago(reservaId) {
     }, 'success');
 }
 
+function Pagos_Gastos() {
+    // Función para hacer POST AJAX con JSON
+    function ajaxPost(url, data, callback) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    try {
+                        callback(null, JSON.parse(xhr.responseText));
+                    } catch {
+                        callback('Respuesta no válida');
+                    }
+                } else {
+                    callback('Error en la petición: ' + xhr.status);
+                }
+            }
+        };
+        xhr.send(JSON.stringify(data));
+    }
+
+    // Cargar empleados desde backend (PHP usa sesión para agencia)
+    function cargarEmpleados() {
+        const select = document.getElementById('empleado');
+        if (!select) return;
+        select.innerHTML = '<option value="">Selecciona un empleado</option>';
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', '../../../models/sub_min/get_empleados.php', true); // Ajusta ruta real
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    try {
+                        const empleados = JSON.parse(xhr.responseText);
+                        empleados.forEach(emp => {
+                            const opt = document.createElement('option');
+                            opt.value = emp.id;
+                            opt.textContent = emp.nombre_completo;
+                            select.appendChild(opt);
+                        });
+                    } catch {
+                        mostrarToast('Error al procesar empleados');
+                    }
+                } else {
+                    mostrarToast('Error cargando empleados: ' + xhr.status);
+                }
+            }
+        };
+        xhr.send();
+    }
+
+    // Elementos DOM
+    const btnPagos = document.getElementById('btn-pagos');
+    const btnGastos = document.getElementById('btn-gastos');
+    const formPagos = document.getElementById('form-pagos');
+    const formGastos = document.getElementById('form-gastos');
+
+    if (!btnPagos || !btnGastos || !formPagos || !formGastos) {
+        console.error('No se encontraron elementos necesarios en el DOM.');
+        return;
+    }
+
+    // Mostrar formulario pagos y cargar empleados
+    btnPagos.onclick = () => {
+        formPagos.style.display = 'block';
+        formGastos.style.display = 'none';
+        cargarEmpleados();
+    };
+
+    // Mostrar formulario gastos
+    btnGastos.onclick = () => {
+        formGastos.style.display = 'block';
+        formPagos.style.display = 'none';
+    };
+
+    // Envío formulario pagos
+    const pagoForm = document.getElementById('pago-form');
+    if (pagoForm) {
+        pagoForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const empleado = document.getElementById('empleado').value;
+            const monto = parseFloat(document.getElementById('monto-pago').value);
+            const fecha = document.getElementById('fecha-pago').value;
+
+            if (!empleado) return mostrarToast('Selecciona un empleado');
+            if (!monto || monto <= 0) return alert('Ingresa un monto válido');
+            if (!fecha) return mostrarToast('Selecciona una fecha');
+
+            ajaxPost('../../../models/sub_min/guardar_pago_gasto.php', {
+                tipo: 'pago',
+                empleado,
+                monto,
+                fecha
+            }, (err, res) => {
+                if (err) return alert(err);
+                if (res.success) {
+                    mostrarToast(res.message);
+                    formPagos.style.display = 'none';
+                    GestionIngresosActualizarDatosDinamicos();
+                } else {
+                    mostrarToast(res.error || 'Error desconocido');
+                }
+            });
+        });
+    }
+
+    // Envío formulario gastos
+    const gastoForm = document.getElementById('gasto-form');
+    if (gastoForm) {
+        gastoForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const descripcion = document.getElementById('descripcion-gasto').value.trim();
+            const monto = parseFloat(document.getElementById('monto-gasto').value);
+            const fecha = document.getElementById('fecha-gasto').value;
+
+            if (!descripcion) return mostrarToast('Ingresa descripción');
+            if (!monto || monto <= 0) return mostrarToast('Ingresa un monto válido');
+            if (!fecha) return mostrarToast('Selecciona una fecha');
+
+            ajaxPost('../../../models/sub_min/guardar_pago_gasto.php', {
+                tipo: 'gasto',
+                descripcion,
+                monto,
+                fecha
+            }, (err, res) => {
+                if (err) return mostrarToast(err);
+                if (res.success) {
+                    mostrarToast(res.message);
+                    formGastos.style.display = 'none';
+                    // Aquí actualizar UI o recargar datos si quieres
+                    GestionIngresosActualizarDatosDinamicos();
+                } else {
+                    mostrarToast(res.error || 'Error desconocido');
+                }
+            });
+        });
+    }
+
+    document.getElementById('cancel-pago').addEventListener('click', function () {
+        document.getElementById('form-pagos').style.display = 'none';
+    });
+
+    document.getElementById('cancel-gasto').addEventListener('click', function () {
+        document.getElementById('form-gastos').style.display = 'none';
+    });
+
+}
+// Ejecutar la función para activar funcionalidad
+Pagos_Gastos();
+
+
 // Función para cancelar reserva
 function cancelarReserva(reservaId) {
     mostrarToastAccion("¿Estás seguro de que deseas cancelar esta reserva?", () => {
@@ -1235,6 +1660,8 @@ function GetReservasConfirmadasAgencia() {
 
             // Get the target container for the reservation cards
             const container = document.getElementById("comprados");
+
+            container.innerHTML = '';
 
             if (data.error) {
                 container.innerHTML = "<p class='text-danger'>" + data.error + "</p>";
@@ -1399,7 +1826,7 @@ function CargarRutasYBuses() {
         if (xhr.status === 200) {
             try {
                 const res = JSON.parse(xhr.responseText);
-                console.log('Respuesta recibida:', res);
+
 
                 if (res.success) {
                     rutaSelect.innerHTML = '<option value="">Seleccione una ruta</option>';
@@ -1421,7 +1848,7 @@ function CargarRutasYBuses() {
                             opcion.textContent = `#${bus.numero_bus} - ${bus.modelo} (${bus.placa})`;
                             busSelect.appendChild(opcion);
                         });
-                        console.log('Opciones en busSelect:', busSelect.innerHTML);
+
                     } else {
                         console.warn('No se encontraron buses en la respuesta.');
                     }
@@ -1448,6 +1875,163 @@ document.addEventListener('DOMContentLoaded', CargarRutasYBuses);
 
 
 
+
+function seguimientoRealPorHora(horaSalida, horaLlegada) {
+    const ahora = new Date();
+    const [sh, sm] = horaSalida.split(':').map(Number);
+    const [lh, lm] = horaLlegada.split(':').map(Number);
+
+    const salida = new Date(ahora);
+    salida.setHours(sh, sm, 0, 0);
+
+    const llegada = new Date(ahora);
+    llegada.setHours(lh, lm, 0, 0);
+
+    const total = llegada - salida;
+    const transcurrido = ahora - salida;
+
+    if (transcurrido < 0) return 0;
+    if (transcurrido > total) return 100;
+
+    return Math.round((transcurrido / total) * 100);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const contenedor = document.getElementById("contenedor-viajes");
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "../../../models/sub_min/get_viajes_activos.php", true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            const datos = JSON.parse(xhr.responseText);
+
+            contenedor.innerHTML = '';
+
+            if (datos.length === 0) {
+                contenedor.innerHTML = `
+                    <div class="alert alert-info text-center" role="alert">
+                        No hay viajes activos en este momento.
+                    </div>`;
+                return;
+            }
+
+            // Estado local para evitar múltiples updates por viaje
+            const viajesActualizados = {};
+
+            datos.forEach(viaje => {
+                const porcentajeProgreso = seguimientoRealPorHora(viaje.hora_salida, viaje.hora_llegada);
+                const distanciaTotalKm = 158;
+                const distanciaRestante = Math.round(distanciaTotalKm * ((100 - porcentajeProgreso) / 100));
+
+                const cardId = `progreso-viaje-${viaje.id}`;
+                const labelId = `progreso-label-${viaje.id}`;
+                const distanciaId = `distancia-restante-${viaje.id}`;
+                const estadoId = `estado-viaje-${viaje.id}`;
+
+                const html = `
+                <div class="card shadow-lg rounded-4 overflow-hidden my-3" style="height: 275px; max-width: 1000px; margin: auto;">
+                    <div class="row h-100 g-0">
+                        <div class="col-md-8 bg-white p-4 d-flex flex-column justify-content-between">
+                            <div class="mb-2">
+                                <h5 class="fw-bold mb-1 text-primary">
+                                    <strong>${viaje.agencia_nombre}</strong><br>
+                                    <i class="fas fa-bus me-2"></i> Viaje en Bus Nº ${viaje.numero_bus}
+                                </h5>
+                                <span class="text-muted small"><i class="fas fa-road me-1"></i>Ruta ${viaje.origen} - ${viaje.destino}</span>
+                                <p id="${estadoId}" class="fw-semibold mt-2" style="color: ${porcentajeProgreso === 100 ? 'red' : 'green'};">
+                                  Estado: ${porcentajeProgreso === 100 ? 'Finalizado' : 'En curso'}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="mb-1"><i class="fas fa-user-tie me-2 text-muted"></i><strong>Conductor:</strong> ${viaje.conductor_nombre || 'No asignado'}</p>
+                                    <p class="mb-1"><i class="fas fa-id-badge me-2 text-muted"></i><strong>Placa:</strong> ${viaje.placa}</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="mb-1"><i class="fas fa-clock me-2 text-muted"></i><strong>Salida:</strong> ${viaje.hora_salida}</p>
+                                    <p class="mb-1"><i class="fas fa-flag-checkered me-2 text-muted"></i><strong>Llegada:</strong> ${viaje.hora_llegada}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 bg-light-subtle d-flex flex-column justify-content-between p-4">
+                            <div>
+                                <p class="text-muted text-uppercase small mb-1">Trámite de viaje</p>
+                                <div class="progress mb-2" style="height: 6px;">
+                                    <div id="${cardId}" class="progress-bar bg-success" style="width: ${porcentajeProgreso}%; transition: width 1s;"></div>
+                                </div>
+                                <p id="${labelId}" class="small text-success fw-semibold mb-3">${porcentajeProgreso}% Completado</p>
+                                <p class="text-muted text-uppercase small mb-1">Distancia restante</p>
+                                <p class="fw-bold">Total: ${distanciaTotalKm} km <i class="fas fa-location-arrow me-2 text-info"></i> <span id="${distanciaId}">${distanciaRestante}</span> km</p>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <a href="#" class="btn btn-outline-primary w-100">
+                                    <i class="fas fa-map me-2"></i> Ver trayecto en mapa
+                                </a>
+                                <a href="#" class="btn btn-outline-secondary w-100">
+                                    <i class="fas fa-users me-2"></i> Lista de pasajeros
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+
+                contenedor.innerHTML += html;
+
+                // Actualización periódica de la barra y estado
+                setInterval(() => {
+                    const nuevoPorcentaje = seguimientoRealPorHora(viaje.hora_salida, viaje.hora_llegada);
+                    const nuevaDistancia = Math.round(distanciaTotalKm * ((100 - nuevoPorcentaje) / 100));
+
+                    const barra = document.getElementById(cardId);
+                    const label = document.getElementById(labelId);
+                    const distancia = document.getElementById(distanciaId);
+                    const estado = document.getElementById(estadoId);
+
+                    if (barra) barra.style.width = `${nuevoPorcentaje}%`;
+                    if (label) label.textContent = `${nuevoPorcentaje}% Completado`;
+                    if (distancia) distancia.textContent = nuevaDistancia;
+
+                    if (estado) {
+                        if (nuevoPorcentaje >= 100) {
+                            estado.textContent = "Estado: Finalizado";
+                            estado.style.color = "red";
+
+                            // Si no hemos actualizado ya en BD, lo hacemos
+                            if (!viajesActualizados[viaje.id]) {
+                                viajesActualizados[viaje.id] = true;
+                                // Llamada AJAX para actualizar estado en BD
+                                const xhrUpdate = new XMLHttpRequest();
+                                xhrUpdate.open("POST", "../../../models/sub_min/update_estado_viaje.php", true);
+                                xhrUpdate.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                xhrUpdate.onload = function () {
+                                    if (xhrUpdate.status === 200) {
+                                        console.log(`Estado viaje ${viaje.id} actualizado a finalizado en BD.`);
+                                    } else {
+                                        console.error(`Error actualizando estado viaje ${viaje.id}`);
+                                    }
+                                };
+                                xhrUpdate.send(`id=${encodeURIComponent(viaje.id)}&estado=finalizado`);
+                            }
+                        } else {
+                            estado.textContent = "Estado: En curso";
+                            estado.style.color = "green";
+                            // Si antes estaba marcado como actualizado, podrías quitarlo si deseas
+                            // viajesActualizados[viaje.id] = false;
+                        }
+                    }
+                }, 3000); // Actualiza cada 3 segundos
+            });
+        } else {
+            contenedor.innerHTML = '<p class="text-danger">Error al cargar los viajes.</p>';
+        }
+    };
+    xhr.send();
+});
+
+
+
+
+
 document.getElementById('viajeForm').addEventListener('submit', e => {
     e.preventDefault();
     enviarFormularioViaje();
@@ -1460,19 +2044,19 @@ function cargarTodosLosViajes() {
     xhr.onload = function () {
         if (xhr.status === 200) {
             const viajes = JSON.parse(xhr.responseText);
-            console.log(xhr.responseText); // Para depuración
-
             let contenido = '';
 
             viajes.forEach((viaje) => {
                 let estadoClass = 'secondary';
                 let estadoTexto = viaje.estado;
 
-                // Asignar clases según el estado
                 if (viaje.estado === 'activo') estadoClass = 'success';
                 else if (viaje.estado === 'pendiente') estadoClass = 'warning';
                 else if (viaje.estado === 'cancelado') estadoClass = 'danger';
                 else if (viaje.estado === 'finalizado') estadoClass = 'secondary';
+
+                // Verifica si debe parpadear
+                const parpadeo = viaje.capacidad_llena && viaje.estado === 'pendiente';
 
                 contenido += `
                     <div class="card shadow-sm rounded-3 border-0 p-3 mb-3" style="max-width: 80%; margin: auto;">
@@ -1504,10 +2088,14 @@ function cargarTodosLosViajes() {
                                     <i class="fas fa-flag-checkered me-2"></i>Llegada: ${viaje.hora_llegada}
                                 </h6>
                                 ${viaje.estado === "pendiente"
-                        ? `<button class="btn btn-sm btn-outline-success mt-2" onclick="iniciarViaje(${viaje.id})">
-                                                <i class="fas fa-play me-1"></i>Iniciar viaje
-                                           </button>`
-                        : ""
+                        ? `<button 
+                                            class="btn btn-sm btn-outline-success mt-2 ${parpadeo ? 'parpadeo' : ''}" 
+                                            id="btnIniciar_${viaje.id}" 
+                                            onclick="iniciarViaje(${viaje.id})"
+                                       >
+                                        <i class="fas fa-play me-1"></i>Iniciar viaje
+                                       </button>`
+                        : ''
                     }
                             </div>
                         </div>
@@ -1515,15 +2103,51 @@ function cargarTodosLosViajes() {
                 `;
             });
 
-            // Inyectar contenido en el contenedor
             document.getElementById("contenedor_viajes").innerHTML = contenido;
         }
     };
     xhr.send();
 }
 
+function iniciarViaje(id) {
+    const boton = document.getElementById(`btnIniciar_${id}`);
+    if (boton) {
+        boton.disabled = true; // evita doble clic
+    }
 
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "../../../models/sub_min/iniciar_viaje_activo.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                // Quitar clase parpadeo
+                if (boton) {
+                    boton.classList.remove("parpadeo");
+                    boton.innerHTML = '<i class="fas fa-check me-1"></i>Activo';
+                    boton.classList.remove("btn-outline-success");
+                    boton.classList.add("btn-success");
+                }
+                cargarTodosLosViajes(); // Recarga la lista
+                detenerPolling();
+                // Opcional: recargar lista de viajes
+                // cargarTodosLosViajes();
+
+                mostrarToast("Viaje iniciado correctamente.");
+            } else {
+                mostrarToast(response.message);
+                if (boton) boton.disabled = false;
+            }
+        } else {
+            mostrarToast("Error de conexión con el servidor.");
+            if (boton) boton.disabled = false;
+        }
+    };
+
+    xhr.send("id=" + encodeURIComponent(id));
+}
 
 let pollingInterval;
 
@@ -1558,25 +2182,49 @@ function detenerPolling() {
     }
 }
 
-function iniciarViaje(idViaje) {
-    if (!confirm("¿Estás seguro de que deseas iniciar este viaje?")) return;
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "iniciar_viaje.php", true);
+document.getElementById("Sesion-close").addEventListener("click", function () {
+    var boton = this;
+
+    // Guardar contenido original
+    var contenidoOriginal = boton.innerHTML;
+
+    // Mostrar spinner y deshabilitar botón
+    boton.innerHTML = '<i class="fa fa-spinner fa-spin" style="color:red;"></i>';
+    boton.disabled = true;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "../../../models/sub_min/Logout.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
     xhr.onload = function () {
-        if (xhr.status === 200 && xhr.responseText === "ok") {
-            alert("Viaje iniciado correctamente.");
-            cargarTodosLosViajes(); // Recarga la lista
-            detenerPolling();       // Detiene las notificaciones
-        } else {
-            alert("Error al iniciar el viaje.");
-        }
+        // Esperar 3 segundos antes de redirigir
+        setTimeout(function () {
+            if (xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText);
+                if (data.success) {
+                    window.location.href = "../../login/index.php";
+                } else {
+                    mostrarToast("Error al cerrar sesión.");
+                    boton.innerHTML = contenidoOriginal;
+                    boton.disabled = false;
+                }
+            } else {
+                console.error("Error en la solicitud:", xhr.status);
+                boton.innerHTML = contenidoOriginal;
+                boton.disabled = false;
+            }
+        }, 3000);
     };
-    xhr.send("id=" + idViaje);
-}
 
+    xhr.onerror = function () {
+        console.error("Error de red al cerrar sesión.");
+        boton.innerHTML = contenidoOriginal;
+        boton.disabled = false;
+    };
 
+    xhr.send();
+});
 
 
 
@@ -1605,13 +2253,14 @@ function mostrarToast(mensaje, tipo = 'info') {
     toast.innerText = mensaje;
     document.body.appendChild(toast);
 
-    setTimeout(() => toast.remove(), 3000);
+    setTimeout(() => toast.remove(), 15000);
 }
 
 // Ejecutar al cargar la página
 document.addEventListener("DOMContentLoaded", mostrarReservasPendientes);
 document.addEventListener("DOMContentLoaded", cargarTodosLosViajes);
 document.addEventListener("DOMContentLoaded", iniciarPolling);
+document.addEventListener("DOMContentLoaded", SeguimientoViajes);
 document.addEventListener("DOMContentLoaded", function () {
     GetReservasConfirmadasAgencia();
 });
@@ -1671,9 +2320,39 @@ window.onload = function () {
     SetUsuarios();
     observarCambios();
     SetBuses();
-
 };
 document.addEventListener('DOMContentLoaded', GetBuses);
 document.addEventListener('DOMContentLoaded', GetEmpleados);
 GetRutas();
+
+const btnActulizar = document.getElementById('refresAll');
+const iconoOriginal = btnActulizar.innerHTML; // Guarda el contenido original del botón
+
+btnActulizar.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    // Ejecutar tus funciones de actualización
+    SeguimientoViajes();
+    GestionIngresosActualizarDatosDinamicos();
+    GetRutas();
+    GetBuses();
+    SetConductores();
+    mostrarReservasPendientes();
+    GetReservasConfirmadasAgencia();
+    CargarRutasYBuses();
+    cargarTodosLosViajes();
+
+    // Reemplazar el contenido del botón con spinner
+    btnActulizar.innerHTML = `
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    `;
+    btnActulizar.setAttribute('disabled', 'disabled');
+
+    // Restaurar contenido original después de 2 segundos
+    setTimeout(() => {
+        btnActulizar.innerHTML = iconoOriginal;
+        btnActulizar.removeAttribute('disabled');
+    }, 1000);
+});
+
 

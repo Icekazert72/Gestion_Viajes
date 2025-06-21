@@ -12,7 +12,7 @@
     <link rel="shortcut icon" href="../../img/index/Logo_viages.png" type="image/x-icon">
 </head>
 
-<body>
+<body class="body-login">
 
 
     <div class="container general">
@@ -36,7 +36,7 @@
                     <input
                         type="password"
                         name="password"
-                        class="pin-input"
+                        class="form-control"
                         maxlength="5"
                         inputmode="text"
                         placeholder="PIN de 5 dígitos"
@@ -93,7 +93,7 @@
                 <!-- Email -->
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                    <input type="email" name="email" class="form-control" placeholder="Correo electrónico">
+                    <input type="email" name="email" id="email-userpublic" class="form-control" placeholder="Correo electrónico">
                     <span class="input-group-text"><i class="valid-icon fas"></i></span>
                 </div>
 
@@ -105,25 +105,65 @@
                 </div>
 
                 <!-- Imagen -->
-                <div class="mb-1">
-
-                    <div class="image-preview-container">
-                        <div id="imagePreview" class="image-preview">
-                            <p>Vista previa de la imagen</p>
-                        </div>
-                        <div class="input-group mt-2">
-                            <span class="input-group-text"><i class="fas fa-image"></i></span>
-                            <input type="file" name="imagen" id="imagen" class="form-control" accept="image/*">
-                            <span class="input-group-text"><i class="valid-icon fas"></i></span>
-                        </div>
-                    </div>
+                <div class="image-preview-container-carnet">
+                    <input type="file" name="imagen" id="imagen" accept="image/*" class="image-input-carnet">
+                    <img id="imagePreview" alt="Vista previa" class="image-preview-carnet">
+                    <span id="imagePlaceholder" class="image-placeholder-carnet">Selecciona una imagen<br>(tamaño carnet)</span>
                 </div>
 
+                <style>
+                    .image-preview-container-carnet {
+                        position: relative;
+                        width: 150px;
+                        height: 200px;
+                        border: 2px solid #ccc;
+                        border-radius: 10px;
+                        cursor: pointer;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        padding: 5px;
+                        overflow: hidden;
+                        background-color: #f8f8f8;
+                        box-shadow: inset 0 0 5px #ddd;
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                        left: 60px;
+                    }
+
+                    .image-input-carnet {
+                        opacity: 0;
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        cursor: pointer;
+                        top: 0;
+                        left: 0;
+                    }
+
+                    .image-preview-carnet {
+                        max-height: 100%;
+                        max-width: 100%;
+                        object-fit: contain;
+                        display: none;
+                        border-radius: 10px;
+                    }
+
+                    .image-placeholder-carnet {
+                        color: #888;
+                        text-align: center;
+                        font-size: 14px;
+                    }
+                </style>
 
                 <!-- Botón de envío y salir -->
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-primary mb-2">Registrar</button>
-                    <button type="button" class="btn btn-warning mb-4" id="btnSalir">Cancelar</button>
+                    <button type="submit" class="btn btn-primary mb-2" id="regis">
+                        Registrar
+                    </button>
+                    <button type="button" class="btn btn-warning mb-4" id="btnSalir">
+                        Cancelar
+                    </button>
                 </div>
 
             </form>
@@ -136,7 +176,68 @@
                 <p>Espera un momento...</p>
             </div>
         </div>
+        <div id="toast-container"></div>
+        <style>
+            /* Contenedor para toasts */
+            #toast-container {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 1050;
+            }
 
+            /* Estilo básico del toast */
+            .toast {
+                min-width: 250px;
+                margin-top: 10px;
+                padding: 12px 20px;
+                background-color: #333;
+                color: #fff;
+                border-radius: 5px;
+                opacity: 0.95;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                font-family: Arial, sans-serif;
+                cursor: default;
+                animation: fadein 0.5s, fadeout 0.5s 3.5s;
+                user-select: none;
+            }
+
+            /* Animaciones */
+            @keyframes fadein {
+                from {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+
+                to {
+                    opacity: 0.95;
+                    transform: translateX(0);
+                }
+            }
+
+            @keyframes fadeout {
+                from {
+                    opacity: 0.95;
+                }
+
+                to {
+                    opacity: 0;
+                }
+            }
+
+            /* Variantes de colores */
+            .toast.success {
+                background-color: #28a745;
+            }
+
+            .toast.error {
+                background-color: #dc3545;
+            }
+
+            .toast.info {
+                background-color: #007bff;
+            }
+        </style>
         <!-- Spinner Fullscreen + Modal Bootstrap -->
         <div id="overlay-spinner" class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-flex justify-content-center align-items-center d-none" z-index: 1050;">
             <div class="text-center text-white">

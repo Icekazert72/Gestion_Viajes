@@ -1,21 +1,21 @@
 <?php
+session_start();
 
-// session_start();
-
-// if (!isset($_SESSION['usuario'])) {
-//     header('Location:views/login/index.php');
-//     exit;
-// }
-
-// $username = $_SESSION['usuario'];
-
+if (isset($_SESSION['usuario']) && isset($_SESSION['tipo'])) {
+    if ($_SESSION['tipo'] === 'admin') {
+        header('Location:views/admin/index.php');
+        exit;
+    }
+    $username = $_SESSION['usuario']; // Usuario normal
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Turismo</title>
     <link rel="stylesheet" href="../css/all.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/fontawesome.min.css">
@@ -25,38 +25,90 @@
 </head>
 <header id="header">
     <div class="logo">
-        <div title="Logo" class="img_logo"><img src="../../img/index/Logo_viages.png" alt=""></div>
+        <div title="Logo" class="img_logo">
+            <img src="img/index/Logo_viages.png" alt="">
+        </div>
         <div class="logo_text">
             <h5 title="Texto del logo">Ndong Viajes</h5>
             <div class="hidenMenu" id="hidenmenu">
                 <div class="list">
                     <div>
-                        <h5>Gestion</h5>
+                        <h5>Gestión</h5>
                     </div>
-                    <div title="inicio del sitio"><a href="../../index.php">Inicio</a></div>
-                    <div title="viaja en todas partes"><a href="#" class="active">Turismo</a></div>
-                    <div><a href="../nosotros.eg/index.php" title="Acerca de nosotros">Nosotros</a></div>
-                    <div><a href="../agencias.eg/index.php" title="Sobre otras agencias">Agencias</a></div>
-                    <div>
-                        <h5>Tipo de Servicio</h5>
-                    </div>
-                    <div><a href="#">Viajes</a></div>
-                    <div title="Servicio de transporte de larga distancia"><a href="#">STLD</a></div>
+                    <div><a href="#">Inicio</a></div>
+                    <div><a href="#">Turismo</a></div>
+                    <div><a href="../nosotros.eg/index.php">Nosotros</a></div>
+                    <div><a href="../agencias.eg/index.php">Agencias</a></div>
+                    <?php if (isset($_SESSION['usuario']) && $_SESSION['tipo'] === 'usuario'): ?>
+                        <!-- Botón de panel de usuario -->
+                        <div title="Mis reservas" class="btnPanel">
+                            <a href="views/usuario/panel.php" style="color: orange;"><i class="fa-solid fa-calendar-check"></i></a>
+                        </div>
+                        <!-- Botón de cerrar sesión -->
+                        <div title="Cerrar sesión" class="btnSesion">
+                            <a href="../login/logout.php" style="color: red;"><i class="fa-solid fa-right-from-bracket"></i></a>
+                        </div>
+                    <?php else: ?>
+                        <!-- Botón de iniciar sesión -->
+                        <div title="Iniciar sesión" class="btn">
+                            <a href="../login/index.php"><i class="fa-solid fa-user"></i></a>
+                        </div>
+                    <?php endif; ?>
+                    <style>
+                        .btnSesion:hover {
+                            background-color: red;
+                            color: white;
+
+                            a {
+                                background-color: red;
+                                color: white;
+                            }
+                        }
+
+                        .btnPanel:hover {
+                            background-color: orange;
+                            color: white;
+                            a {
+                                background-color: orange;
+                                color: white;
+                            }
+                        }
+                    </style>
                 </div>
             </div>
         </div>
-
     </div>
+
     <div class="nav">
         <div class="nav_navegar">
-            <div><a href="../../index.php">Inicio</a></div>
-            <div title="viaja en todas partes"><a href="#" class="active">Turismo</a></div>
-            <div> <a href="../nosotros.eg/index.php">Nosotros</a></div>
-            <div> <a href="../agencias.eg/index.php">Agencias</a></div>
+            <div><a href="#" class="active">Inicio</a></div>
+            <div><a href="views/turismo.eg/index.php">Turismo</a></div>
+            <div><a href="views/nosotros.eg/index.php">Nosotros</a></div>
+            <div><a href="views/agencias.eg/index.php">Agencias</a></div>
+            <?php if (isset($_SESSION['usuario']) && $_SESSION['tipo'] === 'usuario'): ?>
+                <!-- Botón de panel de usuario -->
+                <div title="Mis reservas" class="btnPanel">
+                    <a href="../usuario/panel.php" style="color: orange;"><i class="fa-solid fa-calendar-check"></i></a>
+                </div>
+                <!-- Botón de cerrar sesión -->
+                <div title="Cerrar sesión" class="btnSesion">
+                    <a href="../login/logout.php" style="color: red;"><i class="fa-solid fa-right-from-bracket"></i></a>
+                </div>
+            <?php else: ?>
+                <!-- Botón de iniciar sesión -->
+                <div title="Iniciar sesión" class="btn">
+                    <a href=../login/index.php"><i class="fa-solid fa-user"></i></a>
+                </div>
+            <?php endif; ?>
         </div>
-        <div class="burgerButton" id="btn_mn"><i class="fa-solid fa-bars"></i></div>
-        <div title="Registrate aqui" class="btn"><a href="views/login/index.php"><i class="fa-solid fa-user"></i></a></div>
-        <div title="Cambiar el idioma aqui" class="idioma"><img src="../../img/index/bandera.png" alt=""></div>
+
+        <div class="burgerButton" id="btn_mn">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <div title="Cambiar el idioma aquí" class="idioma">
+            <img src="img/index/bandera.png" alt="">
+        </div>
     </div>
 </header>
 <body>

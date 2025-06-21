@@ -1,14 +1,13 @@
 <?php
-
 session_start();
 
-if (!isset($_SESSION['usuario'])) {
-    header('Location:views/login/index.php');
-    exit;
+if (isset($_SESSION['usuario']) && isset($_SESSION['tipo'])) {
+    if ($_SESSION['tipo'] === 'admin') {
+        header('Location:views/admin/index.php');
+        exit;
+    }
+    $username = $_SESSION['usuario']; // Usuario normal
 }
-
-$username = $_SESSION['usuario'];
-
 ?>
 
 <!DOCTYPE html>
@@ -60,15 +59,6 @@ $username = $_SESSION['usuario'];
         <div class="text">
             <div class="title">
                 <h1>Terminal de rutas</h1>
-            </div>
-            <div class="text">
-                <p><small>
-                        <i class="fa-solid fa-location-dot"></i> Terminal de Rutas
-                        <br>
-                        <i class="fa-solid fa-bus"></i> Terminal de Autobuses
-                        <br>
-                        <i class="fa-solid fa-car"></i> Terminal de Transporte Terrestre
-                    </small></p>
             </div>
         </div>
         <div class="img">

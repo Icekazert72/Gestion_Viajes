@@ -58,18 +58,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (!isValid) {
-            alert('Por favor corrige los campos antes de continuar.');
+            showToast('Por favor corrige los campos antes de continuar.');
             return;
         }
 
-        overlay.classList.remove('d-none'); // Mostrar spinner
+        const btnEnviar = document.getElementById('regis');
+        const btnSalir = document.getElementById('btnSalir');
+
+        // Guardamos el contenido original del botón Registrar para restaurarlo luego
+        const originalBtnContent = btnEnviar.innerHTML;
+
+        // Mostrar spinner + texto "Registrando..." en el botón Registrar y deshabilitarlo
+        btnEnviar.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Registrando...`;
+        btnEnviar.setAttribute('disabled', 'disabled');
+
+        // Deshabilitar botón Cancelar mientras dura la operación
+        btnSalir.setAttribute('disabled', 'disabled');
+
         const formData = new FormData(form);
 
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '../../models/login.php', true);
 
         xhr.onload = function () {
-            overlay.classList.add('d-none');
+            btnEnviar.innerHTML = originalBtnContent;
+            btnEnviar.removeAttribute('disabled');
+            btnSalir.removeAttribute('disabled');
+
+            console.log('Status:', xhr.status);
+            console.log('Response:', xhr.responseText);
 
             if (xhr.status === 200) {
                 const passwordGenerada = xhr.responseText.trim();
@@ -79,41 +96,52 @@ document.addEventListener('DOMContentLoaded', () => {
                 clave.textContent = passwordGenerada;
 
                 resultado.classList.remove('d-none');
-                mostrarVentanaEmergente(passwordGenerada); // Mostrar ventana moderna
+                mostrarVentanaEmergente(passwordGenerada);
             } else {
-                alert('Error en el registro: ' + xhr.responseText);
+                showToast('Error en el registro: ' + xhr.responseText);
             }
         };
 
+
         xhr.onerror = function () {
-            overlay.classList.add('d-none');
-            alert("No se pudo enviar la solicitud AJAX.");
+            // Restaurar botón Registrar y habilitarlo
+            btnEnviar.innerHTML = originalBtnContent;
+            btnEnviar.removeAttribute('disabled');
+
+            // Habilitar botón Cancelar
+            btnSalir.removeAttribute('disabled');
+
+            showToast("No se pudo enviar la solicitud AJAX.");
         };
 
         xhr.send(formData);
     });
 
+
+
     // Vista previa de imagen
-    document.getElementById('imagen').addEventListener('change', function (e) {
+    const inputImagen = document.getElementById('imagen');
+    const previewImg = document.getElementById('imagePreview');
+    const placeholder = document.getElementById('imagePlaceholder');
+
+    inputImagen.addEventListener('change', function (e) {
         const file = e.target.files[0];
-        const preview = document.getElementById('imagePreview');
-        preview.innerHTML = '';
 
         if (file && file.type.startsWith('image/')) {
             const reader = new FileReader();
             reader.onload = function (e) {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.alt = 'Vista previa';
-                img.style.maxWidth = '100%';
-                img.style.borderRadius = '8px';
-                preview.appendChild(img);
+                previewImg.src = e.target.result;
+                previewImg.style.display = 'block';
+                placeholder.style.display = 'none';
             };
             reader.readAsDataURL(file);
         } else {
-            preview.innerHTML = '<p>Vista previa de la imagen</p>';
+            previewImg.src = '';
+            previewImg.style.display = 'none';
+            placeholder.style.display = 'inline';
         }
     });
+
 });
 
 // Ventana emergente moderna
@@ -262,3 +290,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+function showToast(message, type = 'info', duration = 4000) {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.classList.add('toast', type);
+    toast.textContent = message;
+
+    container.appendChild(toast);
+
+    // Remover toast después de duración + animación
+    setTimeout(() => {
+        toast.style.animation = 'fadeout 0.5s forwards';
+        toast.addEventListener('animationend', () => toast.remove());
+    }, duration);
+}
